@@ -18,6 +18,8 @@ const ReferralSource = () => {
 
   const [isError, setError] = useState(false);
 
+  const thePageTitle = "Referral Source";
+
   return (
     <>
       <Header />
@@ -26,7 +28,7 @@ const ReferralSource = () => {
           <Navigation menu="settings" submenu="users" />
         </aside>
         <main className="px-4 lg:pr-10 overflow-hidden  ">
-          <Breadcrumbs />
+          <Breadcrumbs thePageTitle={thePageTitle} />
           <div className="flex justify-between items-center my-5">
             <h1>Referral Source</h1>
             <button className="btn btn--acent btn--sm" onClick={handleAddRoles}>

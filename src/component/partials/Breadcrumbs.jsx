@@ -1,6 +1,6 @@
 import React from "react";
 
-function Breadcrumbs() {
+function Breadcrumbs({ thePageTitle }) {
   return (
     <div className="breadcrumbs">
       <ul className="flex items-center gap-6">
@@ -11,7 +11,7 @@ function Breadcrumbs() {
           <a href="#">Settings</a>
         </li>
         <li className="breadcrumbs__link">
-          <a href="#">Lost Reasons</a>
+          <a href="#">{thePageTitle}</a>
         </li>
       </ul>
     </div>

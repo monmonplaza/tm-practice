@@ -98,9 +98,9 @@ const LostReasonTable = ({ setIsShow, setItemEdit }) => {
                     <td>{item.description}</td>
                     <td>
                       {item.status === 1 ? (
-                        <Pills label="Active" bgc="bg-green-800" />
+                        <Pills label="ACTIVE" bgc="bg-green-800" />
                       ) : (
-                        <Pills label="Inactive" bgc="bg-gray-500" />
+                        <Pills label="INACTIVE" bgc="bg-gray-500" />
                       )}
                     </td>
                     <td className="table__action">
