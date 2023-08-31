@@ -44,19 +44,12 @@ const Navigation = ({ menu, submenu }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    to="/"
-                    className={
-                      submenu === "users"
-                        ? "dropdown__link active"
-                        : "dropdown__link"
-                    }
-                  >
+                  <Link to="/" className="dropdown__link">
                     Users
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className={"dropdown__link"}>
+                  <Link to="/" className="dropdown__link">
                     Activities
                   </Link>
                 </li>
@@ -77,12 +70,44 @@ const Navigation = ({ menu, submenu }) => {
                 </li>
                 <li>
                   <Link to="/" className="dropdown__link">
-                    Departments
+                    Department
                   </Link>
                 </li>
                 <li>
                   <Link to="/" className="dropdown__link">
                     Entities
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" className="dropdown__link">
+                    Referral Type
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" className="dropdown__link">
+                    Referral Source
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" className="dropdown__link">
+                    Lost Reason
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" className="dropdown__link">
+                    Lost To
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/"
+                    className={
+                      submenu === "users"
+                        ? "dropdown__link active"
+                        : "dropdown__link"
+                    }
+                  >
+                    Won Reason
                   </Link>
                 </li>
               </ul>
