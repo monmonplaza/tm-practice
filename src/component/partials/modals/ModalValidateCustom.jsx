@@ -1,10 +1,8 @@
 import React from "react";
-import { FaTimes } from "react-icons/fa";
 import { RiErrorWarningFill } from "react-icons/ri";
-import SpinnerButton from "../spinners/SpinnerButton";
 
-const ModalValidate = ({ setIsValid }) => {
-  const handleClose = () => setIsValid(false);
+const ModalValidateCustom = ({ setIsShow, title, text }) => {
+  const handleClose = () => setIsShow(false);
 
   return (
     <div className="modal fixed top-0 left-0 w-full z-20">
@@ -15,8 +13,8 @@ const ModalValidate = ({ setIsValid }) => {
         </div>
 
         <div className="modal__body">
-          <h3 className="mb-3">Something went wrong!</h3>
-          <p>Invalid account. Please use a valid account</p>
+          <h3 className="mb-3">{title}</h3>
+          <p>{text}</p>
         </div>
 
         <div className="modal__action flex justify-center mt-6 gap-2">
@@ -29,4 +27,4 @@ const ModalValidate = ({ setIsValid }) => {
   );
 };
 
-export default ModalValidate;
+export default ModalValidateCustom;
