@@ -20,6 +20,7 @@ if (array_key_exists("departmentId", $_GET)) {
     checkPayload($data);
     $department->department_aid = $_GET['departmentId'];
     $department->department_is_active = trim($data["isActive"]);
+    // $department->department_datetime = date("Y-m-d H:i:s");
     checkId($department->department_aid);
     $query = checkActive($department);
     http_response_code(200);

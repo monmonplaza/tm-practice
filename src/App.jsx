@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { devNavUrl } from "./component/helpers/functions-general";
 import Department from "./component/pages/developer/settings/department/Department";
 import { StoreProvider } from "./store/StoreContext";
+import ReferralType from "./component/pages/developer/settings/referral-type/ReferralType";
 
 function App() {
   // Create a client
@@ -16,6 +17,10 @@ function App() {
             <Route
               path={`/${devNavUrl}/settings/department`}
               element={<Department />}
+            />
+            <Route
+              path={`/${devNavUrl}/settings/referral-type`}
+              element={<ReferralType />}
             />
           </Routes>
         </Router>

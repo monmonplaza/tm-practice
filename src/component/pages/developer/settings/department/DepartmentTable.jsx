@@ -34,7 +34,7 @@ const DepartmentTable = ({ setItemEdit }) => {
     error,
     data: department,
   } = useQueryData(
-    "/v1/controllers/developer/settings/department/department.php", // endpoint
+    `/v1/controllers/developer/settings/department/department.php`, // endpoint
     "get", // method
     "settings-department" // key
   );

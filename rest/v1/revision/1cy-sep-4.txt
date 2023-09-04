@@ -1,24 +1,24 @@
 UPLOAD
 
 *controllers  
-    - 
+    - developer/settings/department/active.php
     -
     -
     
     
 *models    
+    - developer/settings/department/Department.php
     - 
     - 
     -  
     -  
-
 
 *htaccess 
     - 
 
 
 *db tables  
-    - 
+    - trainingtm_department.sql
     - 
     -  
 

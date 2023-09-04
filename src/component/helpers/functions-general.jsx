@@ -2,15 +2,6 @@ import React from "react";
 import { setIsAdd } from "../../store/StoreAction";
 import { StoreContext } from "../../store/StoreContext";
 
-// // // // Mac
-// const urlPathTm = "http://localhost/react-vite/viter-tm-v1";
-// export const imgUrlPathTm =
-//   "http://localhost/react-vite/viter-tm-v1/public/img";
-
-// // //Mon
-// export const imgUrlPathTm = "http://localhost/viter-tm-v1/public/img";
-// const urlPathTm = "http://localhost/viter-tm-v1";
-
 // CYCY url // cyrenemlumabas@gmail.com
 export const urlPathTm = "http://localhost/training/tm-practice";
 export const imgUrlPathTm = "http://localhost/training/tm-practice/public/img";
@@ -26,19 +17,6 @@ export const devBaseImgUrl = `${imgUrlPathTm}`;
 export const devNavUrl = "";
 
 // ONLINE PRODUCTION START HERE //
-
-// CLIENT REFERRED TYPE ID
-
-export const referredStaffTypeId = 1;
-export const referredClientTypeId = 2;
-export const referredRefSourceTypeId = 3;
-export const referredContactTypeId = 4;
-
-// // Online URL prod hris
-// export const devApiUrl = "https://crm.frontlinebusiness.com.ph/rest";
-// export const devBaseUrl = "https://crm.frontlinebusiness.com.ph";
-// export const devBaseImgUrl = "https://crm.frontlinebusiness.com.ph/img";
-// export const devNavUrl = "";
 
 export const devKey =
   "$2a$12$47wDvbLInZif/PVS8B6P3.7WxyJvUpBzZAWCsnWJUKq3nrn4qgmeO";

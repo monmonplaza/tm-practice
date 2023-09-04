@@ -4,8 +4,11 @@ class Department
     public $department_aid;
     public $department_is_active;
     public $department_name;
+    public $department_description;
     public $department_created;
     public $department_datetime;
+
+    public $employee_aid;
 
     public $connection;
     public $lastInsertedId;
@@ -43,6 +46,7 @@ class Department
         }
         return $query;
     }
+
     // read all
     public function readAll()
     {
@@ -77,6 +81,25 @@ class Department
         return $query;
     }
 
+    // read by id
+    public function readByIdAndEmployeeId()
+    {
+        try {
+            $sql = "select * from {$this->tblDepartment} ";
+            $sql .= "where department_aid = :department_aid ";
+            $sql .= "and employee_aid = :employee_aid ";
+            $sql .= "order by department_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "department_aid" => $this->department_aid,
+                "employee_aid" => $this->employee_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
     // update
     public function update()
     {
@@ -84,7 +107,7 @@ class Department
             $sql = "update {$this->tblDepartment} set ";
             $sql .= "department_name = :department_name, ";
             $sql .= "department_datetime = :department_datetime ";
-            $sql .= "where department_aid  = :department_aid ";
+            $sql .= "where department_aid = :department_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "department_name" => $this->department_name,

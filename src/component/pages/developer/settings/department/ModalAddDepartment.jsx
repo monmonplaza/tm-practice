@@ -23,8 +23,8 @@ const ModalAddDepartment = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v1/controllers/developer/settings/department/department.php?departmentId=${itemEdit.department_aid}`
-          : "/v1/controllers/developer/settings/department/department.php",
+          ? `/v1/controllers/developer/settings/department/department.php?departmentId=${itemEdit.department_aid}` //update
+          : "/v1/controllers/developer/settings/department/department.php", //add
         itemEdit ? "put" : "post",
         values
       ),
@@ -45,7 +45,6 @@ const ModalAddDepartment = ({ itemEdit }) => {
   });
 
   const initVal = {
-    department_aid: itemEdit ? itemEdit.department_aid : "",
     department_name: itemEdit ? itemEdit.department_name : "",
     department_name_old: itemEdit ? itemEdit.department_name : "",
   };
@@ -78,7 +77,8 @@ const ModalAddDepartment = ({ itemEdit }) => {
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
-                mutation.mutate(values);
+                console.log("values", values);
+                // mutation.mutate(values);
               }}
             >
               {(props) => {
