@@ -7,9 +7,37 @@ import { StoreContext } from "../../../../../store/StoreContext";
 import { InputText } from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { queryData } from "../../../../helpers/queryData";
 
 const ModalAddReferralType = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (values) =>
+      queryData(
+        itemEdit
+          ? `/v1/controllers/developer/settings/referral-type/referralType.php?referralTypeId=${itemEdit.referral_type_aid}` //update
+          : "/v1/controllers/developer/settings/referral-type/referralType.php", //add
+        itemEdit ? "put" : "post",
+        values
+      ),
+    onSuccess: (data) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["settings-referral-type"] });
+      if (data.success) {
+        dispatch(setIsAdd(false));
+        dispatch(setSuccess(true));
+        dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
+      }
+      // show error box
+      if (!data.success) {
+        dispatch(setValidate(true));
+        dispatch(setMessage(data.error));
+      }
+    },
+  });
 
   const initVal = {
     referral_type_aid: itemEdit ? itemEdit.referral_type_aid : "",
@@ -45,6 +73,8 @@ const ModalAddReferralType = ({ itemEdit }) => {
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
+                console.log(values);
+                mutation.mutate(values);
               }}
             >
               {(props) => {
@@ -60,13 +90,13 @@ const ModalAddReferralType = ({ itemEdit }) => {
 
                     <div className="modal__action flex justify-end mt-6 gap-2">
                       <button className="btn btn--primary" type="submit">
-                        {/* {mutation.isLoading ? (
+                        {mutation.isLoading ? (
                           <ButtonSpinner />
                         ) : itemEdit ? (
                           "Save"
                         ) : (
                           "Add"
-                        )} */}
+                        )}
                         <ButtonSpinner />
                         Add
                       </button>
