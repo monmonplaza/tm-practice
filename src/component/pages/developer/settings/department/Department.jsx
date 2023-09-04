@@ -1,9 +1,12 @@
 import React from "react";
-import { StoreContext } from "../../../../../store/StoreContext";
 import { setIsAdd, setIsSettingsOpen } from "../../../../../store/StoreAction";
+import { StoreContext } from "../../../../../store/StoreContext";
+import Header from "../../../../partials/Header";
+import ModalValidate from "../../../../partials/modals/ModalValidate";
 import DepartmentTable from "./DepartmentTable";
 import ModalAddDepartment from "./ModalAddDepartment";
-import ModalValidate from "../../../../partials/modals/ModalValidate";
+import Navigation from "../../../../partials/Navigation";
+import Toast from "../../../../partials/Toast";
 
 const Department = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -26,7 +29,7 @@ const Department = () => {
           <Navigation menu="settings" submenu="settingsDepartment" />
         </aside>
         <main className="px-2 lg:pr-10">
-          <BreadCrumbs param={location.search} />
+          {/* <BreadCrumbs param={location.search} /> */}
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Department</h1>
             <button className="btn btn--accent btn--sm" onClick={handleAdd}>

@@ -1,11 +1,15 @@
 import React from "react";
 import { AiFillCheckCircle } from "react-icons/ai";
+import { setSuccess } from "../../store/StoreAction";
+import { StoreContext } from "../../store/StoreContext";
 
-const Toast = ({ setSuccess }) => {
+const Toast = () => {
+  const { dispatch, store } = React.useContext(StoreContext);
+
   React.useEffect(() => {
     setTimeout(() => {
-      setSuccess(false);
-    }, 1000);
+      dispatch(setSuccess(false));
+    }, 2000);
   });
   return (
     <>

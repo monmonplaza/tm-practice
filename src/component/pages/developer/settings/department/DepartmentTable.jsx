@@ -34,7 +34,7 @@ const DepartmentTable = ({ setItemEdit }) => {
     error,
     data: department,
   } = useQueryData(
-    "/v1/department", // endpoint
+    "/v1/controllers/developer/settings/department/department.php", // endpoint
     "get", // method
     "settings-department" // key
   );
@@ -108,9 +108,9 @@ const DepartmentTable = ({ setItemEdit }) => {
                   <td>{counter++}.</td>
                   <td>
                     {item.department_is_active === 1 ? (
-                      <Pills label="Active" textColor="text-success" />
+                      <Pills label="Active" bgc="bg-success" />
                     ) : (
-                      <Pills label="Inactive" textColor="text-archive" />
+                      <Pills label="Inactive" bgc="bg-archive" />
                     )}
                   </td>
                   <td>{item.department_name}</td>
@@ -173,7 +173,7 @@ const DepartmentTable = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v1/department/active/${id}`}
+          mysqlApiArchive={`/v1/controllers/developer/settings/department/active.php?departmentId=${id}`}
           msg={"Are you sure you want to archive this department?"}
           item={dataItem.department_name}
           queryKey={"settings-department"}
@@ -184,8 +184,8 @@ const DepartmentTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v1/department/${id}`}
-          mysqlApiRestore={`/v1/department/active/${id}`}
+          mysqlApiDelete={`/v1/controllers/developer/settings/department/department.php?departmentId=${id}`}
+          mysqlApiRestore={`/v1/controllers/developer/settings/department/active.php?departmentId=${id}`}
           msg={
             isDel
               ? "Are you sure you want to delete this department?"

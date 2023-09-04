@@ -1,0 +1,32 @@
+UPLOAD
+
+*controllers  
+    - 
+    -
+    -
+    
+    
+*models    
+    - 
+    - 
+    -  
+    -  
+
+
+*htaccess 
+    - 
+
+
+*db tables  
+    - 
+    - 
+    -  
+
+
+*core functions 
+    - 
+    -  
+
+*extra
+    - 
+    - 
