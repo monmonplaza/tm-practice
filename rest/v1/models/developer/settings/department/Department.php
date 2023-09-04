@@ -81,25 +81,6 @@ class Department
         return $query;
     }
 
-    // read by id
-    public function readByIdAndEmployeeId()
-    {
-        try {
-            $sql = "select * from {$this->tblDepartment} ";
-            $sql .= "where department_aid = :department_aid ";
-            $sql .= "and employee_aid = :employee_aid ";
-            $sql .= "order by department_name asc ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "department_aid" => $this->department_aid,
-                "employee_aid" => $this->employee_aid,
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
-
     // update
     public function update()
     {
