@@ -1,11 +1,26 @@
-import { BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Department from "./component/pages/developer/settings/department/Department";
+import { devNavUrl } from "./component/helpers/functions-general";
+import { QueryClient } from "@tanstack/query-core";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { StoreProvider } from "./store/StoreContext";
 
 function App() {
   // Create a client
+  const queryClient = new QueryClient();
   return (
-    <Router>
-      <Routes>{/* <Route path={`*`} element={<PageNotFound />} /> */}</Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <StoreProvider>
+        <Router>
+          <Routes>
+            <Route
+              path={`/${devNavUrl}/settings/department`}
+              element={<Department />}
+            />
+          </Routes>
+        </Router>
+      </StoreProvider>
+    </QueryClientProvider>
   );
 }
 
