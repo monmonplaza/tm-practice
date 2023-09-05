@@ -54,6 +54,36 @@ class ReferralType
         return $query;
     }
 
+    // public function readAll()
+    // {
+    //     try {
+    //         $sql = "select tempalte.engagement_template_invoice_description, ";
+    //         $sql .= "tempalte.engagement_template_description, ";
+    //         $sql .= "tempalte.engagement_template_name, ";
+    //         $sql .= "tempalte.engagement_template_rates, ";
+    //         $sql .= "tempalte.engagement_template_is_active, ";
+    //         $sql .= "tempalte.engagement_template_office_id, ";
+    //         $sql .= "tempalte.engagement_template_category_id, ";
+    //         $sql .= "tempalte.engagement_template_biller_id, ";
+    //         $sql .= "tempalte.engagement_template_review_id, ";
+    //         $sql .= "tempalte.engagement_template_manager_id, ";
+    //         $sql .= "tempalte.engagement_template_aid, ";
+    //         $sql .= "office.office_name, ";
+    //         $sql .= "category.engagement_category_name ";
+    //         $sql .= "from {$this->tblEngagement} as tempalte, ";
+    //         $sql .= "{$this->tblCategory} as category, ";
+    //         $sql .= "{$this->tblOffice} as office ";
+    //         $sql .= "where tempalte.engagement_template_category_id = category.engagement_category_aid ";
+    //         $sql .= "and tempalte.engagement_template_office_id = office.office_aid ";
+    //         $sql .= "order by tempalte.engagement_template_is_active desc, ";
+    //         $sql .= "tempalte.engagement_template_description asc ";
+    //         $query = $this->connection->query($sql);
+    //     } catch (PDOException $ex) {
+    //         $query = false;
+    //     }
+    //     return $query;
+    // }
+
     // read all
     public function readAll()
     {
