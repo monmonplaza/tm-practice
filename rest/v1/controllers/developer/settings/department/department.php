@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $result = require 'update.php';
     sendResponse($result);
     exit;
-}
+} 
 // DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $result = require 'delete.php';

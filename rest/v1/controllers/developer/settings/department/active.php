@@ -10,7 +10,7 @@ $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
 $department = new Department($conn);
-// get payload
+// // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
 // get $_GET data

@@ -25,11 +25,11 @@ class Department
     {
         try {
             $sql = "insert into {$this->tblDepartment} ";
-            $sql .= "( department_name, ";
+            $sql .= "( department_name, "; 
             $sql .= "department_is_active, ";
             $sql .= "department_created, ";
             $sql .= "department_datetime ) values ( ";
-            $sql .= ":department_name, ";
+            $sql .= ":department_name, "; 
             $sql .= ":department_is_active, ";
             $sql .= ":department_created, ";
             $sql .= ":department_datetime ) ";
@@ -63,6 +63,7 @@ class Department
         }
         return $query;
     }
+ 
 
     // read by id
     public function readById()
@@ -137,26 +138,7 @@ class Department
         }
         return $query;
     }
-
-    // // validator 
-    // public function checkAssociation()
-    // {
-    //     try {
-    //         $sql = "select employee_last_name, ";
-    //         $sql .= "employee_first_name, ";
-    //         $sql .= "employee_aid ";
-    //         $sql .= "from {$this->tblEmployee} ";
-    //         $sql .= "where employee_department_id = :department_aid ";
-    //         $query = $this->connection->prepare($sql);
-    //         $query->execute([
-    //             "department_aid" => $this->department_aid,
-    //         ]);
-    //     } catch (PDOException $ex) {
-    //         $query = false;
-    //     }
-    //     return $query;
-    // }
-
+ 
     // name
     public function checkName()
     {
