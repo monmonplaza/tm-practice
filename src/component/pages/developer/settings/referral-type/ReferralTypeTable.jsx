@@ -114,7 +114,7 @@ const ReferralTypeTable = ({ setItemEdit }) => {
                   </td>
                   <td>{item.referral_type_name}</td>
                   <td>{item.referral_type_description}</td>
-                  <td>{item.referral_type_department_id}</td>
+                  <td>{item.department_name}</td>
 
                   <td
                     className="table__action top-0 right-5 "

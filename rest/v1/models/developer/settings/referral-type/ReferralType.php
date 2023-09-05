@@ -89,11 +89,21 @@ class ReferralType
     {
         try {
             $sql = "select ";
-            $sql .= "* ";
+            $sql .= "referral.referral_type_aid, ";
+            $sql .= "referral.referral_type_name, ";
+            $sql .= "referral.referral_type_description, ";
+            $sql .= "referral.referral_type_department_id, ";
+            // $sql .= "referral.referral_type_is_active ";
+            // $sql .= "referral.referral_type_update_at ";
+            $sql .= "department.department_name ";
+            // $sql .= "department.department_created ";
+            // $sql .= "department.department_datetime ";
             $sql .= "from ";
-            $sql .= " {$this->tblReferralType} ";
-            $sql .= "order by referral_type_is_active desc, ";
-            $sql .= "referral_type_name asc ";
+            $sql .= "{$this->tblReferralType} as referral, ";
+            $sql .= "{$this->tblDepartment} as department ";
+            $sql .= "where referral.referral_type_department_id = department.department_aid ";
+            $sql .= "order by referral.referral_type_is_active desc, ";
+            $sql .= "referral.referral_type_name asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
