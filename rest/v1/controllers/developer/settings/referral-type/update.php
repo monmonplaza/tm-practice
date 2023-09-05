@@ -13,6 +13,8 @@ if (array_key_exists("referralTypeId", $_GET)) {
     // get data
     $referralType->referral_type_aid = $_GET['referralTypeId'];
     $referralType->referral_type_name = checkIndex($data, "referral_type_name");
+    $referralType->referral_type_description = checkIndex($data, "referral_type_description");
+    $referralType->referral_type_department_id = checkIndex($data, "referral_type_department_id");
     $referralType->referral_type_update_at = date("Y-m-d H:i:s");
     checkId($referralType->referral_type_aid);
     // update

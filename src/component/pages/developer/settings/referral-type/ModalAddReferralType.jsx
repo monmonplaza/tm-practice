@@ -63,11 +63,19 @@ const ModalAddReferralType = ({ itemEdit }) => {
   const initVal = {
     referral_type_aid: itemEdit ? itemEdit.referral_type_aid : "",
     referral_type_name: itemEdit ? itemEdit.referral_type_name : "",
+    referral_type_description: itemEdit
+      ? itemEdit.referral_type_description
+      : "",
+    referral_type_department_id: itemEdit
+      ? itemEdit.referral_type_department_id
+      : "",
     referral_type_name_old: itemEdit ? itemEdit.referral_type_name : "",
   };
 
   const yupSchema = Yup.object({
     referral_type_name: Yup.string().required("Required"),
+    referral_type_description: Yup.string().required("Required"),
+    referral_type_department_id: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -110,15 +118,15 @@ const ModalAddReferralType = ({ itemEdit }) => {
                     </div>
                     <div className="relative form__wrap">
                       <InputTextArea
-                        label="Referral Type"
+                        label="Referral Description"
                         type="text"
-                        name="referral_type_name"
+                        name="referral_type_description"
                       />
                     </div>
                     <div className="form__wrap">
                       <InputSelect
-                        label="Category"
-                        name="engagement_template_category_id"
+                        label="Department"
+                        name="referral_type_department_id"
                         disabled={mutation.isLoading || isLoading}
                         onChange={(e) => e}
                       >

@@ -41,6 +41,7 @@ const ReferralTypeTable = ({ setItemEdit }) => {
   const handleEdit = (item) => {
     dispatch(setIsAdd(true));
     setItemEdit(item);
+    console.log(item);
   };
 
   const handleArchive = (item) => {
@@ -74,6 +75,8 @@ const ReferralTypeTable = ({ setItemEdit }) => {
               <th>#</th>
               <th>Status</th>
               <th>Name</th>
+              <th>Description</th>
+              <th>Department</th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
@@ -109,7 +112,9 @@ const ReferralTypeTable = ({ setItemEdit }) => {
                       <Pills label="Inactive" bgc="bg-archive" />
                     )}
                   </td>
-                  <td>{item?.referral_type_name}</td>
+                  <td>{item.referral_type_name}</td>
+                  <td>{item.referral_type_description}</td>
+                  <td>{item.referral_type_department_id}</td>
 
                   <td
                     className="table__action top-0 right-5 "

@@ -3,6 +3,8 @@ class ReferralType
 {
     public $referral_type_aid;
     public $referral_type_name;
+    public $referral_type_description;
+    public $referral_type_department_id;
     public $referral_type_is_active;
     public $referral_type_created_at;
     public $referral_type_update_at;
@@ -10,11 +12,13 @@ class ReferralType
     public $connection;
     public $lastInsertedId;
     public $tblReferralType;
+    public $tblDepartment;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblReferralType = "trainingtm_referral_type";
+        $this->tblDepartment = "trainingtm_department";
     }
 
     // create
@@ -23,16 +27,22 @@ class ReferralType
         try {
             $sql = "insert into {$this->tblReferralType} ";
             $sql .= "( referral_type_name, ";
+            $sql .= "referral_type_description, ";
+            $sql .= "referral_type_department_id, ";
             $sql .= "referral_type_is_active, ";
             $sql .= "referral_type_created_at, ";
             $sql .= "referral_type_update_at ) values ( ";
             $sql .= ":referral_type_name, ";
+            $sql .= ":referral_type_description, ";
+            $sql .= ":referral_type_department_id, ";
             $sql .= ":referral_type_is_active, ";
             $sql .= ":referral_type_created_at, ";
             $sql .= ":referral_type_update_at ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "referral_type_name" => $this->referral_type_name,
+                "referral_type_description" => $this->referral_type_description,
+                "referral_type_department_id" => $this->referral_type_department_id,
                 "referral_type_is_active" => $this->referral_type_is_active,
                 "referral_type_created_at" => $this->referral_type_created_at,
                 "referral_type_update_at" => $this->referral_type_update_at,
@@ -54,6 +64,21 @@ class ReferralType
             $sql .= " {$this->tblReferralType} ";
             $sql .= "order by referral_type_is_active desc, ";
             $sql .= "referral_type_name asc ";
+            $query = $this->connection->query($sql);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    public function readAllDepartment()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "* ";
+            $sql .= "from ";
+            $sql .= " {$this->tblDepartment} ";
+            $sql .= "order by department_is_active desc, ";
+            $sql .= "department_name desc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -84,11 +109,15 @@ class ReferralType
         try {
             $sql = "update {$this->tblReferralType} set ";
             $sql .= "referral_type_name = :referral_type_name, ";
+            $sql .= "referral_type_description = :referral_type_description, ";
+            $sql .= "referral_type_department_id = :referral_type_department_id, ";
             $sql .= "referral_type_update_at = :referral_type_update_at ";
             $sql .= "where referral_type_aid = :referral_type_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "referral_type_name" => $this->referral_type_name,
+                "referral_type_description" => $this->referral_type_description,
+                "referral_type_department_id" => $this->referral_type_department_id,
                 "referral_type_update_at" => $this->referral_type_update_at,
                 "referral_type_aid" => $this->referral_type_aid,
             ]);
@@ -104,12 +133,12 @@ class ReferralType
         try {
             $sql = "update {$this->tblReferralType} set ";
             $sql .= "referral_type_is_active = :referral_type_is_active, ";
-            $sql .= "referral_type_update_at = :referral_type_datetime ";
+            $sql .= "referral_type_update_at = :referral_type_update_at ";
             $sql .= "where referral_type_aid = :referral_type_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "referral_type_is_active" => $this->referral_type_is_active,
-                "referral_type_datetime" => $this->referral_type_update_at,
+                "referral_type_update_at" => $this->referral_type_update_at,
                 "referral_type_aid" => $this->referral_type_aid,
             ]);
         } catch (PDOException $ex) {
@@ -157,11 +186,11 @@ class ReferralType
     public function checkName()
     {
         try {
-            $sql = "select department_name from {$this->tblReferralType} ";
-            $sql .= "where department_name = :department_name ";
+            $sql = "select referal_type_name from {$this->tblReferralType} ";
+            $sql .= "where referal_type_name = :referal_type_name ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "department_name" => "{$this->referral_type_name}",
+                "referal_type_name" => "{$this->referral_type_name}",
             ]);
         } catch (PDOException $ex) {
             $query = false;
