@@ -127,6 +127,31 @@ const ReferralTypeTable = ({ setItemEdit }) => {
           </tbody>
         </table>
       </div>
+
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={``}
+          msg={"Are you sure you want to archive this department?"}
+          item={dataItem.department_name}
+          queryKey={"settings-department"}
+        />
+      )}
+
+      {store.isRestore && (
+        <ModalDeleteAndRestore
+          id={id}
+          isDel={isDel}
+          mysqlApiDelete={``}
+          mysqlApiRestore={``}
+          msg={
+            isDel
+              ? "Are you sure you want to delete this department?"
+              : "Are you sure you want to restore this department?"
+          }
+          item={dataItem.department_name}
+          queryKey={"settings-department"}
+        />
+      )}
     </>
   );
 };

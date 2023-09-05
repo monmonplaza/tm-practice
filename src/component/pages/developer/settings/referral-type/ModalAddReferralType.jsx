@@ -2,7 +2,12 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
-import { setIsAdd } from "../../../../../store/StoreAction";
+import {
+  setIsAdd,
+  setMessage,
+  setSuccess,
+  setValidate,
+} from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { InputText } from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
