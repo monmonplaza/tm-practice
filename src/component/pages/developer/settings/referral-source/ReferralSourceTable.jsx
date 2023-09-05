@@ -24,6 +24,8 @@ const ReferralSourceTable = ({ setItemEdit }) => {
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
   let counter = 1;
+  let active = 0;
+  let inactive = 0;
 
   const {
     isLoading,
@@ -31,7 +33,7 @@ const ReferralSourceTable = ({ setItemEdit }) => {
     error,
     data: referralSource,
   } = useQueryData(
-    "/v1/dev-referral-source", // endpoint
+    "/v1/controllers/developer/settings/referral-source/referralSource.php", // endpoint
     "get", // method
     "settings-referral-source" // key
   );
@@ -105,9 +107,9 @@ const ReferralSourceTable = ({ setItemEdit }) => {
                   <td>{counter++}.</td>
                   <td>
                     {item.referral_source_is_active === 1 ? (
-                      <Pills label="Active" textColor="text-success" />
+                      <Pills label="Active" bgc="bg-success" />
                     ) : (
-                      <Pills label="Inactive" textColor="text-archive" />
+                      <Pills label="Inactive" bgc="bg-archive" />
                     )}
                   </td>
                   <td>{item.referral_source_name}</td>
@@ -169,7 +171,7 @@ const ReferralSourceTable = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v1/dev-referral-source/status/${id}`}
+          mysqlApiArchive={`/v1/controllers/developer/settings/referral-source/active.php?referralSourceId=${id}`}
           msg={"Are you sure you want to archive this referral source?"}
           item={dataItem.referral_source_name}
           queryKey={"settings-referral-source"}
@@ -180,8 +182,8 @@ const ReferralSourceTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v1/dev-referral-source/${id}`}
-          mysqlApiRestore={`/v1/dev-referral-source/status/${id}`}
+          mysqlApiDelete={`/v1/controllers/developer/settings/referral-source/referralSource.php?referralSourceId=${id}`}
+          mysqlApiRestore={`/v1/controllers/developer/settings/referral-source/active.php?referralSourceId=${id}`}
           msg={
             isDel
               ? "Are you sure you want to delete this referral source?"

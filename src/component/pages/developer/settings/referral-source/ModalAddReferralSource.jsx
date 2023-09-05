@@ -18,13 +18,12 @@ import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 const ModalAddReferralSource = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v1/dev-referral-source/${itemEdit.referral_source_aid}`
-          : "/v1/dev-referral-source",
+          ? `/v1/controllers/developer/settings/referral-source/referralSource.php?referralSourceId=${itemEdit.referral_source_aid}`
+          : "/v1/controllers/developer/settings/referral-source/referralSource.php",
         itemEdit ? "put" : "post",
         values
       ),
