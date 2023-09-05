@@ -10,6 +10,13 @@ import {
 } from "../../../../../store/StoreAction.jsx";
 import { StoreContext } from "../../../../../store/StoreContext.jsx";
 import Pills from "../../../../partials/Pills.jsx";
+import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
+import Nodata from "../../../../partials/NoData.jsx";
+import TableLoading from "../../../../partials/TableLoading.jsx";
+import ServerError from "../../../../partials/ServerError.jsx";
+import TableSpinner from "../../../../partials/spinners/TableSpinner.jsx";
+import ModalConfirm from "../../../../partials/modals/ModalConfirm.jsx";
+import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore.jsx";
 
 const ReferralTypeTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -17,6 +24,19 @@ const ReferralTypeTable = ({ setItemEdit }) => {
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
   let counter = 1;
+  let active = 0;
+  let inactive = 0;
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: referralType,
+  } = useQueryData(
+    `/v1/controllers/developer/settings/referral-type/referralType.php`, // endpoint
+    "get", // method
+    "settings-referral-type" // key
+  );
 
   const handleEdit = (item) => {
     dispatch(setIsAdd(true));
@@ -47,8 +67,7 @@ const ReferralTypeTable = ({ setItemEdit }) => {
   return (
     <>
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
-        {/* <TableSpinner />  */}
-
+        {isFetching && !isLoading && <TableSpinner />}
         <table>
           <thead>
             <tr>
@@ -59,81 +78,100 @@ const ReferralTypeTable = ({ setItemEdit }) => {
             </tr>
           </thead>
           <tbody>
-            {/* <tr className="text-center ">
-              <td colSpan="100%" className="p-10">
-                <TableLoading count={20} cols={3} />
+            {(isLoading || referralType?.data.length === 0) && (
+              <tr className="text-center ">
+                <td colSpan="100%" className="p-10">
+                  {isLoading ? (
+                    <TableLoading count={20} cols={3} />
+                  ) : (
+                    <Nodata />
+                  )}
+                </td>
+              </tr>
+            )}
+            {error && (
+              <tr className="text-center ">
+                <td colSpan="100%" className="p-10">
+                  <ServerError />
+                </td>
+              </tr>
+            )}
+            {referralType?.data.map((item, key) => {
+              active += item.referral_type_is_active === 1;
+              inactive += item.referral_type_is_active === 0;
+              return (
+                <tr key={key}>
+                  <td>{counter++}.</td>
+                  <td>
+                    {item.referral_type_is_active === 1 ? (
+                      <Pills label="Active" bgc="bg-success" />
+                    ) : (
+                      <Pills label="Inactive" bgc="bg-archive" />
+                    )}
+                  </td>
+                  <td>{item?.referral_type_name}</td>
 
-                <NoData />
-              </td>
-            </tr> */}
-            {/* <tr className="text-center ">
-              <td colSpan="100%" className="p-10">
-                <ServerError />
-              </td>
-            </tr> */}
-            <tr>
-              <td>{counter}.</td>
-              <td>
-                <Pills label="Active" textColor="text-success" />
-              </td>
-              <td>referral type name</td>
-
-              <td
-                className="table__action top-0 right-5 "
-                data-ellipsis=". . ."
-              >
-                <ul className=" flex items-center  gap-4 bg-">
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Edit"
-                      onClick={() => handleEdit(item)}
-                    >
-                      <FiEdit3 />
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Archive"
-                      onClick={() => handleArchive(item)}
-                    >
-                      <FiArchive />
-                    </button>
-                  </li>
-                </ul>
-                <ul className="flex items-center gap-4">
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Delete"
-                      onClick={() => handleDelete(item)}
-                    >
-                      <RiDeleteBinLine />
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="tooltip"
-                      data-tooltip="Restore"
-                      onClick={() => handleRestore(item)}
-                    >
-                      <MdRestore />
-                    </button>
-                  </li>
-                </ul>
-              </td>
-            </tr>
+                  <td
+                    className="table__action top-0 right-5 "
+                    data-ellipsis=". . ."
+                  >
+                    {item.referral_type_is_active === 1 ? (
+                      <ul className=" flex items-center  gap-4 bg-">
+                        <li>
+                          <button
+                            className="tooltip"
+                            data-tooltip="Edit"
+                            onClick={() => handleEdit(item)}
+                          >
+                            <FiEdit3 />
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            className="tooltip"
+                            data-tooltip="Archive"
+                            onClick={() => handleArchive(item)}
+                          >
+                            <FiArchive />
+                          </button>
+                        </li>
+                      </ul>
+                    ) : (
+                      <ul className="flex items-center gap-4">
+                        <li>
+                          <button
+                            className="tooltip"
+                            data-tooltip="Delete"
+                            onClick={() => handleDelete(item)}
+                          >
+                            <RiDeleteBinLine />
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            className="tooltip"
+                            data-tooltip="Restore"
+                            onClick={() => handleRestore(item)}
+                          >
+                            <MdRestore />
+                          </button>
+                        </li>
+                      </ul>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={``}
-          msg={"Are you sure you want to archive this department?"}
-          item={dataItem.department_name}
-          queryKey={"settings-department"}
+          mysqlApiArchive={`/v1/controllers/developer/settings/referral-type/active.php?referralTypeId=${id}`}
+          msg={"Are you sure you want to archive this referral type?"}
+          item={dataItem.referral_type_name}
+          queryKey={"settings-referral-type"}
         />
       )}
 
@@ -141,15 +179,15 @@ const ReferralTypeTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={``}
-          mysqlApiRestore={``}
+          mysqlApiDelete={`/v1/controllers/developer/settings/referral-type/referralType.php?referralTypeId=${id}`}
+          mysqlApiRestore={`/v1/controllers/developer/settings/referral-type/active.php?referralTypeId=${id}`}
           msg={
             isDel
-              ? "Are you sure you want to delete this department?"
-              : "Are you sure you want to restore this department?"
+              ? "Are you sure you want to delete this referral type?"
+              : "Are you sure you want to restore this referral type?"
           }
-          item={dataItem.department_name}
-          queryKey={"settings-department"}
+          item={dataItem.referral_type_name}
+          queryKey={"settings-referral-type"}
         />
       )}
     </>

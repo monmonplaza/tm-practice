@@ -89,7 +89,7 @@ class ReferralType
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "referral_type_name" => $this->referral_type_name,
-                "referral_type_datetime" => $this->referral_type_update_at,
+                "referral_type_update_at" => $this->referral_type_update_at,
                 "referral_type_aid" => $this->referral_type_aid,
             ]);
         } catch (PDOException $ex) {

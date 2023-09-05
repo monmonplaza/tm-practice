@@ -8,8 +8,8 @@ $referralType = new ReferralType($conn);
 $error = [];
 $returnData = [];
 
-if (array_key_exists("departmentId", $_GET)) {
-    $referralType->referral_type_aid = $_GET['departmentId'];
+if (array_key_exists("referralTypeId", $_GET)) {
+    $referralType->referral_type_aid = $_GET['referralTypeId'];
     checkId($referralType->referral_type_aid);
     $query = checkReadById($referralType);
     http_response_code(200);

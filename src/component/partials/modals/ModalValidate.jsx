@@ -16,7 +16,7 @@ const ModalValidate = () => {
     <>
       <div className="bg-dark/50 fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center z-50">
         <div
-          className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 ${width} w-full shadow-xl`}
+          className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header flex flex-col items-center">
             <BsFillExclamationCircleFill className="text-5xl fill-warning mb-5" />

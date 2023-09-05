@@ -102,8 +102,6 @@ const ModalAddReferralType = ({ itemEdit }) => {
                         ) : (
                           "Add"
                         )}
-                        <ButtonSpinner />
-                        Add
                       </button>
                       <button
                         type="button"
