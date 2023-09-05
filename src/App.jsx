@@ -5,6 +5,7 @@ import { devNavUrl } from "./component/helpers/functions-general";
 import Department from "./component/pages/developer/settings/department/Department";
 import { StoreProvider } from "./store/StoreContext";
 import ReferralType from "./component/pages/developer/settings/referral-type/ReferralType";
+import ReferralSource from "./component/pages/developer/settings/referral-source/ReferralSource";
 
 function App() {
   // Create a client
@@ -21,6 +22,10 @@ function App() {
             <Route
               path={`/${devNavUrl}/settings/referral-type`}
               element={<ReferralType />}
+            />
+            <Route
+              path={`/${devNavUrl}/settings/referral-source`}
+              element={<ReferralSource />}
             />
           </Routes>
         </Router>

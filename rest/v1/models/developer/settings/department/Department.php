@@ -101,6 +101,7 @@ class Department
         return $query;
     }
 
+
     // active
     public function active()
     {

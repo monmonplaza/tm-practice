@@ -87,6 +87,22 @@ const Navigation = ({
                 Referral Type
               </Link>
             </li>
+            <li
+              className={` ${
+                submenu === "settingsReferralSource"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/referral-source`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsReferralSource" ? "active__submenu" : ""
+                }`}
+              >
+                Referral Source
+              </Link>
+            </li>
           </ul>
         </div>
       </ul>
