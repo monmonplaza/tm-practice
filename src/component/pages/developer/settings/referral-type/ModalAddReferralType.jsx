@@ -9,11 +9,16 @@ import {
   setValidate,
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
-import { InputText } from "../../../../helpers/FormInputs";
+import {
+  InputSelect,
+  InputText,
+  InputTextArea,
+} from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { queryData } from "../../../../helpers/queryData";
+import useQueryData from "../../../../custom-hooks/useQueryData";
 
 const ModalAddReferralType = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -43,6 +48,17 @@ const ModalAddReferralType = ({ itemEdit }) => {
       }
     },
   });
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: department,
+  } = useQueryData(
+    `/v1/controllers/developer/settings/department/department.php`, // endpoint
+    "get", // method
+    "settings-department" // key
+  );
 
   const initVal = {
     referral_type_aid: itemEdit ? itemEdit.referral_type_aid : "",
@@ -91,6 +107,41 @@ const ModalAddReferralType = ({ itemEdit }) => {
                         type="text"
                         name="referral_type_name"
                       />
+                    </div>
+                    <div className="relative form__wrap">
+                      <InputTextArea
+                        label="Referral Type"
+                        type="text"
+                        name="referral_type_name"
+                      />
+                    </div>
+                    <div className="form__wrap">
+                      <InputSelect
+                        label="Category"
+                        name="engagement_template_category_id"
+                        disabled={mutation.isLoading || isLoading}
+                        onChange={(e) => e}
+                      >
+                        <optgroup label="Select Category">
+                          <option value="" hidden>
+                            {isLoading && "Loading..."}
+                          </option>
+
+                          {department?.data.length > 0 ? (
+                            department?.data.map((item, key) => {
+                              return (
+                                <option value={item.department_aid} key={key}>
+                                  {item.department_name}
+                                </option>
+                              );
+                            })
+                          ) : (
+                            <option value="" disabled>
+                              No data
+                            </option>
+                          )}
+                        </optgroup>
+                      </InputSelect>
                     </div>
 
                     <div className="modal__action flex justify-end mt-6 gap-2">
