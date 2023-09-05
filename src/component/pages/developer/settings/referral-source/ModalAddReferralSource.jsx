@@ -10,14 +10,20 @@ import {
   setValidate,
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
-import { InputText } from "../../../../helpers/FormInputs";
+import {
+  InputSelect,
+  InputText,
+  InputTextArea,
+} from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import useQueryData from "../../../../custom-hooks/useQueryData";
 
 const ModalAddReferralSource = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
@@ -43,14 +49,33 @@ const ModalAddReferralSource = ({ itemEdit }) => {
     },
   });
 
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: department,
+  } = useQueryData(
+    `/v1/controllers/developer/settings/department/department.php`, // endpoint
+    "get", // method
+    "settings-department" // key
+  );
+
   const initVal = {
     referral_source_aid: itemEdit ? itemEdit.referral_source_aid : "",
     referral_source_name: itemEdit ? itemEdit.referral_source_name : "",
+    referral_source_description: itemEdit
+      ? itemEdit.referral_source_description
+      : "",
+    referral_source_department_id: itemEdit
+      ? itemEdit.referral_source_department_id
+      : "",
     referral_source_name_old: itemEdit ? itemEdit.referral_source_name : "",
   };
 
   const yupSchema = Yup.object({
     referral_source_name: Yup.string().required("Required"),
+    referral_source_description: Yup.string().required("Required"),
+    referral_source_department_id: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -91,6 +116,42 @@ const ModalAddReferralSource = ({ itemEdit }) => {
                           name="referral_source_name"
                           disabled={mutation.isLoading}
                         />
+                      </div>
+                      <div className="form__wrap">
+                        <InputTextArea
+                          label="Referral Description"
+                          type="text"
+                          name="referral_source_description"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputSelect
+                          label="Department"
+                          name="referral_type_department_id"
+                          disabled={mutation.isLoading || isLoading}
+                          onChange={(e) => e}
+                        >
+                          <optgroup label="Select Category">
+                            <option value="" hidden>
+                              {isLoading && "Loading..."}
+                            </option>
+
+                            {department?.data.length > 0 ? (
+                              department?.data.map((item, key) => {
+                                return (
+                                  <option value={item.department_aid} key={key}>
+                                    {item.department_name}
+                                  </option>
+                                );
+                              })
+                            ) : (
+                              <option value="" disabled>
+                                No data
+                              </option>
+                            )}
+                          </optgroup>
+                        </InputSelect>
                       </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">

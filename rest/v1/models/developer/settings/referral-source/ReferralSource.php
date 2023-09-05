@@ -3,6 +3,8 @@ class ReferralSource
 {
     public $referral_source_aid;
     public $referral_source_name;
+    public $referral_source_description;
+    public $referral_source_department_id;
     public $referral_source_is_active;
     public $referral_source_created_at;
     public $referral_source_update_at;
@@ -24,16 +26,22 @@ class ReferralSource
         try {
             $sql = "insert into {$this->tblReferralSource} ";
             $sql .= "( referral_source_name, ";
+            $sql .= "referral_source_description, ";
+            $sql .= "referral_source_department_id, ";
             $sql .= "referral_source_is_active, ";
             $sql .= "referral_source_created_at, ";
             $sql .= "referral_source_update_at ) values ( ";
             $sql .= ":referral_source_name, ";
+            $sql .= ":referral_source_description, ";
+            $sql .= ":referral_source_department_id, ";
             $sql .= ":referral_source_is_active, ";
             $sql .= ":referral_source_created_at, ";
             $sql .= ":referral_source_update_at ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "referral_source_name" => $this->referral_source_name,
+                "referral_source_description" => $this->referral_source_description,
+                "referral_source_department_id" => $this->referral_source_department_id,
                 "referral_source_is_active" => $this->referral_source_is_active,
                 "referral_source_created_at" => $this->referral_source_created_at,
                 "referral_source_update_at" => $this->referral_source_update_at,
@@ -51,6 +59,7 @@ class ReferralSource
             $sql = "select ";
             $sql .= "referral_source_aid, ";
             $sql .= "referral_source_name, ";
+            $sql .= "referral_source_description, ";
             $sql .= "referral_source_is_active, ";
             $sql .= "referral_source_created_at, ";
             $sql .= "referral_source_update_at ";
@@ -89,11 +98,13 @@ class ReferralSource
         try {
             $sql = "update {$this->tblReferralSource} set ";
             $sql .= "referral_source_name = :referral_source_name, ";
+            $sql .= "referral_source_description = :referral_source_description, ";
             $sql .= "referral_source_update_at = :referral_source_update_at ";
             $sql .= "where referral_source_aid = :referral_source_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "referral_source_name" => $this->referral_source_name,
+                "referral_source_description" => $this->referral_source_description,
                 "referral_source_update_at" => $this->referral_source_update_at,
                 "referral_source_aid" => $this->referral_source_aid,
             ]);

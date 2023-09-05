@@ -13,6 +13,7 @@ if (array_key_exists("referralSourceId", $_GET)) {
     // get data
     $referralSource->referral_source_aid = $_GET['referralSourceId'];
     $referralSource->referral_source_name = checkIndex($data, "referral_source_name");
+    $referralSource->referral_source_description = checkIndex($data, "referral_source_description");
     $referralSource->referral_source_update_at = date("Y-m-d H:i:s");
     checkId($referralSource->referral_source_aid);
     // update

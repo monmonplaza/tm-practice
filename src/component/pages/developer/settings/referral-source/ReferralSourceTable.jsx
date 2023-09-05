@@ -75,6 +75,9 @@ const ReferralSourceTable = ({ setItemEdit }) => {
               <th>#</th>
               <th>Status</th>
               <th>Name</th>
+              <th>Description</th>
+              <th>Referral Type</th>
+              <th>Department</th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
@@ -113,6 +116,9 @@ const ReferralSourceTable = ({ setItemEdit }) => {
                     )}
                   </td>
                   <td>{item.referral_source_name}</td>
+                  <td>{item.referral_source_description}</td>
+                  <td>{item.referral_source_referral_type_id}</td>
+                  <td>{item.referral_source_department_id}</td>
 
                   <td
                     className="table__action top-0 right-5 "
