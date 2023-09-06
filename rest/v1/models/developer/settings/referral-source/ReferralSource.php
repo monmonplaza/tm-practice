@@ -4,7 +4,7 @@ class ReferralSource
     public $referral_source_aid;
     public $referral_source_name;
     public $referral_source_description;
-    public $referral_source_department_id;
+    public $referral_source_referral_type_id;
     public $referral_source_is_active;
     public $referral_source_created_at;
     public $referral_source_update_at;
@@ -12,12 +12,16 @@ class ReferralSource
     public $connection;
     public $lastInsertedId;
     public $tblReferralSource;
+    public $tblReferralType;
+    public $tblDepartment;
 
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblReferralSource = "trainingtm_referral_source";
+        $this->tblReferralType = "trainingtm_referral_type";
+        $this->tblDepartment = "trainingtm_department";
     }
 
     // create
@@ -27,13 +31,13 @@ class ReferralSource
             $sql = "insert into {$this->tblReferralSource} ";
             $sql .= "( referral_source_name, ";
             $sql .= "referral_source_description, ";
-            $sql .= "referral_source_department_id, ";
+            $sql .= "referral_source_referral_type_id, ";
             $sql .= "referral_source_is_active, ";
             $sql .= "referral_source_created_at, ";
             $sql .= "referral_source_update_at ) values ( ";
             $sql .= ":referral_source_name, ";
             $sql .= ":referral_source_description, ";
-            $sql .= ":referral_source_department_id, ";
+            $sql .= ":referral_source_referral_type_id, ";
             $sql .= ":referral_source_is_active, ";
             $sql .= ":referral_source_created_at, ";
             $sql .= ":referral_source_update_at ) ";
@@ -41,7 +45,7 @@ class ReferralSource
             $query->execute([
                 "referral_source_name" => $this->referral_source_name,
                 "referral_source_description" => $this->referral_source_description,
-                "referral_source_department_id" => $this->referral_source_department_id,
+                "referral_source_referral_type_id" => $this->referral_source_referral_type_id,
                 "referral_source_is_active" => $this->referral_source_is_active,
                 "referral_source_created_at" => $this->referral_source_created_at,
                 "referral_source_update_at" => $this->referral_source_update_at,
@@ -57,16 +61,25 @@ class ReferralSource
     {
         try {
             $sql = "select ";
-            $sql .= "referral_source_aid, ";
-            $sql .= "referral_source_name, ";
-            $sql .= "referral_source_description, ";
-            $sql .= "referral_source_is_active, ";
-            $sql .= "referral_source_created_at, ";
-            $sql .= "referral_source_update_at ";
+            $sql .= "referralSource.referral_source_aid, ";
+            $sql .= "referralSource.referral_source_name, ";
+            $sql .= "referralSource.referral_source_description, ";
+            $sql .= "referralSource.referral_source_referral_type_id, ";
+            $sql .= "referralSource.referral_source_is_active, ";
+            $sql .= "referralSource.referral_source_created_at, ";
+            $sql .= "referralSource.referral_source_update_at, ";
+            $sql .= "referralType.referral_type_name, ";
+            $sql .= "department.department_name ";
             $sql .= "from ";
-            $sql .= "{$this->tblReferralSource} ";
-            $sql .= "order by referral_source_is_active desc, ";
-            $sql .= "referral_source_name asc ";
+            $sql .= "{$this->tblReferralSource} as referralSource, ";
+            $sql .= "{$this->tblReferralType} as referralType, ";
+            $sql .= "{$this->tblDepartment} as department ";
+            $sql .= "where referralType.referral_type_aid = ";
+            $sql .= "referralSource.referral_source_referral_type_id ";
+            $sql .= "and department.department_aid = ";
+            $sql .= "referralType.referral_type_department_id ";
+            $sql .= "order by referralSource.referral_source_is_active desc, ";
+            $sql .= "referralSource.referral_source_name asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -99,12 +112,14 @@ class ReferralSource
             $sql = "update {$this->tblReferralSource} set ";
             $sql .= "referral_source_name = :referral_source_name, ";
             $sql .= "referral_source_description = :referral_source_description, ";
+            $sql .= "referral_source_referral_type_id = :referral_source_referral_type_id, ";
             $sql .= "referral_source_update_at = :referral_source_update_at ";
             $sql .= "where referral_source_aid = :referral_source_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "referral_source_name" => $this->referral_source_name,
                 "referral_source_description" => $this->referral_source_description,
+                "referral_source_referral_type_id" => $this->referral_source_referral_type_id,
                 "referral_source_update_at" => $this->referral_source_update_at,
                 "referral_source_aid" => $this->referral_source_aid,
             ]);
