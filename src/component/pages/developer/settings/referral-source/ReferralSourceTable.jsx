@@ -73,9 +73,6 @@ const ReferralSourceTable = ({ setItemEdit }) => {
               <th>#</th>
               <th>Status</th>
               <th>Name</th>
-              <th>Description</th>
-              <th>Referral Type</th>
-              <th>Department</th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
