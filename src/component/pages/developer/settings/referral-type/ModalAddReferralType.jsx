@@ -1,6 +1,7 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import * as Yup from "yup";
 import {
   setIsAdd,
   setMessage,
@@ -9,13 +10,12 @@ import {
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 import { queryData } from "../../../../helpers/queryData";
 
 const ModalAddReferralType = ({ itemEdit }) => {
-  const { store, dispatch } = React.useContext(StoreContext);
+  const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
   const handleCloseModal = () => dispatch(setIsAdd(false));
@@ -34,9 +34,10 @@ const ModalAddReferralType = ({ itemEdit }) => {
       queryClient.invalidateQueries({ queryKey: ["settings-referral-type"] });
       console.log(data);
       if (data.success) {
+        console.log(`run`);
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
-        dispatch(setMessage(`Successfully ${itemEdit ? "updated" : "added"}`));
+        dispatch(setMessage(`Successfully ${itemEdit ? "updated" : "added"}.`));
       }
       if (!data.success) {
         dispatch(setValidate(true));
@@ -46,11 +47,12 @@ const ModalAddReferralType = ({ itemEdit }) => {
   });
 
   const initVal = {
-    referral_type_aid: itemEdit ? referral_type_aid : "",
-    referral_type_name: itemEdit ? referral_type_name : "",
-    referral_type_description: itemEdit ? referral_type_description : "",
-    // referral_type_is_active: itemEdit ? referral_type_is_active : "",
-    referral_type_name_old: itemEdit ? referral_type_name : "",
+    referral_type_aid: itemEdit ? itemEdit.referral_type_aid : "",
+    referral_type_name: itemEdit ? itemEdit.referral_type_name : "",
+    referral_type_description: itemEdit
+      ? itemEdit.referral_type_description
+      : "",
+    referral_type_name_old: itemEdit ? itemEdit.referral_type_name : "",
   };
 
   const yupSchema = Yup.object({

@@ -4,7 +4,10 @@ import BreadCrumbs from "../../../../partials/BreadCrumbs.jsx";
 import Header from "../../../../partials/Header.jsx";
 import Navigation from "../../../../partials/Navigation.jsx";
 import ReferralTypeTable from "./ReferralTypeTable.jsx";
-import { setIsAdd } from "../../../../../store/StoreAction.jsx";
+import {
+  setIsAdd,
+  setIsSettingsOpen,
+} from "../../../../../store/StoreAction.jsx";
 import ModalAddReferralType from "./ModalAddReferralType.jsx";
 
 const ReferralType = () => {
@@ -15,6 +18,9 @@ const ReferralType = () => {
     dispatch(setIsAdd(true));
     setItemEdit(null);
   };
+  React.useEffect(() => {
+    dispatch(setIsSettingsOpen(true));
+  }, []);
 
   return (
     <>
@@ -35,7 +41,7 @@ const ReferralType = () => {
             </button>
           </div>
 
-          <ReferralTypeTable />
+          <ReferralTypeTable setItemEdit={setItemEdit} />
         </main>
       </section>
 
