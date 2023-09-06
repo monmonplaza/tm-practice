@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
@@ -14,6 +13,7 @@ import { InputText } from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import { Form, Formik } from "formik";
 
 const ModalAddDepartment = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -90,6 +90,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
                           label="Name"
                           type="text"
                           name="department_name"
+                          number="number"
                           disabled={mutation.isLoading}
                         />
                       </div>
