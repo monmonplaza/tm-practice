@@ -53,11 +53,11 @@ const ModalAddReferralSource = ({ itemEdit }) => {
     isLoading,
     isFetching,
     error,
-    data: department,
+    data: referralType,
   } = useQueryData(
-    `/v1/controllers/developer/settings/department/department.php`, // endpoint
+    `/v1/controllers/developer/settings/referral-type/referralType.php`, // endpoint
     "get", // method
-    "settings-department" // key
+    "settings-referral-type" // key
   );
 
   const initVal = {
@@ -66,8 +66,8 @@ const ModalAddReferralSource = ({ itemEdit }) => {
     referral_source_description: itemEdit
       ? itemEdit.referral_source_description
       : "",
-    referral_source_department_id: itemEdit
-      ? itemEdit.referral_source_department_id
+    referral_source_referral_type_id: itemEdit
+      ? itemEdit.referral_source_referral_type_id
       : "",
     referral_source_name_old: itemEdit ? itemEdit.referral_source_name : "",
   };
@@ -75,7 +75,7 @@ const ModalAddReferralSource = ({ itemEdit }) => {
   const yupSchema = Yup.object({
     referral_source_name: Yup.string().required("Required"),
     referral_source_description: Yup.string().required("Required"),
-    referral_source_department_id: Yup.string().required("Required"),
+    referral_source_referral_type_id: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -102,6 +102,7 @@ const ModalAddReferralSource = ({ itemEdit }) => {
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
+                console.log(values);
                 mutation.mutate(values);
               }}
             >
@@ -127,8 +128,8 @@ const ModalAddReferralSource = ({ itemEdit }) => {
                       </div>
                       <div className="form__wrap">
                         <InputSelect
-                          label="Department"
-                          name="referral_type_department_id"
+                          label="Referral Type"
+                          name="referral_source_referral_type_id"
                           disabled={mutation.isLoading || isLoading}
                           onChange={(e) => e}
                         >
@@ -137,11 +138,14 @@ const ModalAddReferralSource = ({ itemEdit }) => {
                               {isLoading && "Loading..."}
                             </option>
 
-                            {department?.data.length > 0 ? (
-                              department?.data.map((item, key) => {
+                            {referralType?.data.length > 0 ? (
+                              referralType?.data.map((item, key) => {
                                 return (
-                                  <option value={item.department_aid} key={key}>
-                                    {item.department_name}
+                                  <option
+                                    value={item.referral_type_aid}
+                                    key={key}
+                                  >
+                                    {item.referral_type_name}
                                   </option>
                                 );
                               })

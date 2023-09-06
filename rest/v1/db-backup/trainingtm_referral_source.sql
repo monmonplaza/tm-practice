@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2023 at 01:59 AM
+-- Generation Time: Sep 06, 2023 at 02:56 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -34,19 +34,19 @@ CREATE TABLE `trainingtm_referral_source` (
   `referral_source_created_at` datetime NOT NULL,
   `referral_source_update_at` datetime NOT NULL,
   `referral_source_description` varchar(200) NOT NULL,
-  `referral_source_referral_type_id` varchar(20) NOT NULL,
-  `referral_source_department_id` varchar(20) NOT NULL
+  `referral_source_referral_type_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `trainingtm_referral_source`
 --
 
-INSERT INTO `trainingtm_referral_source` (`referral_source_aid`, `referral_source_name`, `referral_source_is_active`, `referral_source_created_at`, `referral_source_update_at`, `referral_source_description`, `referral_source_referral_type_id`, `referral_source_department_id`) VALUES
-(1, 'test', 1, '2023-09-05 14:19:44', '2023-09-05 15:14:13', 'test', '', ''),
-(3, 'test 321', 1, '2023-09-05 14:22:14', '2023-09-05 15:14:10', 'test 321', '', ''),
-(4, 'gasdas', 1, '2023-09-05 15:07:11', '2023-09-05 15:14:17', 'gasdas', '', ''),
-(5, 'test0', 1, '2023-09-05 15:10:39', '2023-09-05 15:10:39', 'test0', '', '');
+INSERT INTO `trainingtm_referral_source` (`referral_source_aid`, `referral_source_name`, `referral_source_is_active`, `referral_source_created_at`, `referral_source_update_at`, `referral_source_description`, `referral_source_referral_type_id`) VALUES
+(1, 'test890', 1, '2023-09-05 14:19:44', '2023-09-06 08:56:22', 'test890test890test890', '11'),
+(3, 'test 321', 1, '2023-09-05 14:22:14', '2023-09-06 08:44:16', 'test 321', '15'),
+(4, 'gasdas', 1, '2023-09-05 15:07:11', '0000-00-00 00:00:00', 'gasdas', '13'),
+(6, 'tesss', 1, '2023-09-06 08:37:44', '2023-09-06 08:37:44', 'tesss', '2'),
+(7, 'testt0000', 1, '2023-09-06 08:38:01', '2023-09-06 08:38:01', 'testt0000', '12');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +66,7 @@ ALTER TABLE `trainingtm_referral_source`
 -- AUTO_INCREMENT for table `trainingtm_referral_source`
 --
 ALTER TABLE `trainingtm_referral_source`
-  MODIFY `referral_source_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `referral_source_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
