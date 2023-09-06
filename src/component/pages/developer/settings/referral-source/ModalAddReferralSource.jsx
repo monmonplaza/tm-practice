@@ -22,6 +22,7 @@ import useQueryData from "../../../../custom-hooks/useQueryData";
 
 const ModalAddReferralSource = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -57,7 +58,7 @@ const ModalAddReferralSource = ({ itemEdit }) => {
   } = useQueryData(
     `/v1/controllers/developer/settings/referral-type/referralType.php`, // endpoint
     "get", // method
-    "settings-referral-type" // key
+    "settings-referral-type"
   );
 
   const initVal = {
@@ -143,6 +144,7 @@ const ModalAddReferralSource = ({ itemEdit }) => {
                                 return (
                                   <option
                                     value={item.referral_type_aid}
+                                    id={item.referral_type_name}
                                     key={key}
                                   >
                                     {item.referral_type_name}
