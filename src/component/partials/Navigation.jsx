@@ -103,6 +103,20 @@ const Navigation = ({
                 Referral Source
               </Link>
             </li>
+            <li
+              className={` ${
+                submenu === "settingsLostTo" ? "bg-[#436c8a]/80 rounded-md" : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/lost-to`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsReferralSource" ? "active__submenu" : ""
+                }`}
+              >
+                Lost To
+              </Link>
+            </li>
           </ul>
         </div>
       </ul>
