@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2023 at 04:28 AM
+-- Generation Time: Sep 06, 2023 at 06:57 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -30,6 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `trainingtm_lost_to` (
   `lost_to_aid` int(11) NOT NULL,
   `lost_to_is_active` tinyint(1) NOT NULL,
+  `lost_to_first_name` varchar(100) NOT NULL,
+  `lost_to_last_name` varchar(100) NOT NULL,
+  `lost_to_name` varchar(100) NOT NULL,
   `lost_to_description` varchar(100) NOT NULL,
   `lost_to_created_at` datetime NOT NULL,
   `lost_to_updated_at` datetime NOT NULL
@@ -39,10 +42,11 @@ CREATE TABLE `trainingtm_lost_to` (
 -- Dumping data for table `trainingtm_lost_to`
 --
 
-INSERT INTO `trainingtm_lost_to` (`lost_to_aid`, `lost_to_is_active`, `lost_to_description`, `lost_to_created_at`, `lost_to_updated_at`) VALUES
-(5, 1, 'nabangga ng bike', '2023-09-06 09:58:48', '2023-09-06 09:58:48'),
-(6, 1, 'tumambling una ulo', '2023-09-06 09:59:17', '2023-09-06 09:59:17'),
-(7, 1, 'ginalit ang jowa', '2023-09-06 09:59:45', '2023-09-06 09:59:45');
+INSERT INTO `trainingtm_lost_to` (`lost_to_aid`, `lost_to_is_active`, `lost_to_first_name`, `lost_to_last_name`, `lost_to_name`, `lost_to_description`, `lost_to_created_at`, `lost_to_updated_at`) VALUES
+(5, 1, '', '', 'Cyrene', 'nabangga ng bike', '2023-09-06 09:58:48', '2023-09-06 12:37:00'),
+(6, 1, '', '', 'Emman', 'tumambling una ulo', '2023-09-06 09:59:17', '2023-09-06 12:38:31'),
+(7, 1, 'Emman', 'Reid', 'Emman Reid', 'ginalit ang jowasss', '2023-09-06 09:59:45', '2023-09-06 12:56:34'),
+(8, 1, 'Rhico', 'DM', 'Rhico DM', 'Hatdog', '2023-09-06 12:39:34', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +66,7 @@ ALTER TABLE `trainingtm_lost_to`
 -- AUTO_INCREMENT for table `trainingtm_lost_to`
 --
 ALTER TABLE `trainingtm_lost_to`
-  MODIFY `lost_to_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `lost_to_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

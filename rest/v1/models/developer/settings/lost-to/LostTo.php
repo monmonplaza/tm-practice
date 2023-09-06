@@ -2,8 +2,11 @@
 class LostTo
 {
     public $lost_to_aid;
-    public $lost_to_is_active;
     public $lost_to_description;
+    public $lost_to_first_name;
+    public $lost_to_last_name;
+    public $lost_to_name;
+    public $lost_to_is_active;
     public $lost_to_created_at;
     public $lost_to_updated_at;
 
@@ -25,16 +28,25 @@ class LostTo
         try {
             $sql = "insert into {$this->tblLostTo} ";
             $sql .= "( lost_to_description, "; 
+            $sql .= "lost_to_first_name, ";
+            $sql .= "lost_to_last_name, ";
+            $sql .= "lost_to_name, ";
             $sql .= "lost_to_is_active, ";
             $sql .= "lost_to_created_at, ";
             $sql .= "lost_to_updated_at ) values ( ";
-            $sql .= ":lost_to_description, "; 
+            $sql .= ":lost_to_description, ";
+            $sql .= ":lost_to_first_name, ";
+            $sql .= ":lost_to_last_name, "; 
+            $sql .= ":lost_to_name, "; 
             $sql .= ":lost_to_is_active, ";
             $sql .= ":lost_to_created_at, ";
             $sql .= ":lost_to_updated_at ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "lost_to_description" => $this->lost_to_description,
+                "lost_to_first_name" => $this->lost_to_first_name,
+                "lost_to_last_name" => $this->lost_to_last_name,
+                "lost_to_name" => $this->lost_to_name,
                 "lost_to_is_active" => $this->lost_to_is_active,
                 "lost_to_created_at" => $this->lost_to_created_at,
                 "lost_to_updated_at" => $this->lost_to_updated_at,
@@ -87,11 +99,17 @@ class LostTo
         try {
             $sql = "update {$this->tblLostTo} set ";
             $sql .= "lost_to_description = :lost_to_description, ";
+            $sql .= "lost_to_first_name = :lost_to_first_name, ";
+            $sql .= "lost_to_last_name = :lost_to_last_name, ";
+            $sql .= "lost_to_name = :lost_to_name, ";
             $sql .= "lost_to_updated_at = :lost_to_updated_at ";
             $sql .= "where lost_to_aid = :lost_to_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "lost_to_description" => $this->lost_to_description,
+                "lost_to_first_name" => $this->lost_to_first_name,
+                "lost_to_last_name" => $this->lost_to_last_name,
+                "lost_to_name" => $this->lost_to_name,
                 "lost_to_updated_at" => $this->lost_to_updated_at,
                 "lost_to_aid" => $this->lost_to_aid,
             ]);

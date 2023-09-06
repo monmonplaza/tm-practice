@@ -46,11 +46,17 @@ const ModalAddLostTo = ({ itemEdit }) => {
   const initVal = {
     lost_to_aid: itemEdit ? itemEdit.lost_to_aid : "",
     lost_to_description: itemEdit ? itemEdit.lost_to_description : "",
+    lost_to_name: itemEdit ? itemEdit.lost_to_name : "",
+    lost_to_first_name: itemEdit ? itemEdit.lost_to_first_name : "",
+    lost_to_last_name: itemEdit ? itemEdit.lost_to_last_name : "",
     lost_to_description_old: itemEdit ? itemEdit.lost_to_description : "",
   };
 
   const yupSchema = Yup.object({
     lost_to_description: Yup.string().required("Required"),
+    lost_to_name: Yup.string().required("Required"),
+    lost_to_first_name: Yup.string().required("Required"),
+    lost_to_last_name: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -83,6 +89,30 @@ const ModalAddLostTo = ({ itemEdit }) => {
               {(props) => {
                 return (
                   <Form>
+                    <div className="relative form__wrap">
+                      <InputText
+                        label="First Name"
+                        type="text"
+                        name="lost_to_first_name"
+                        disabled={mutation.isLoading}
+                      />
+                    </div>
+                    <div className="relative form__wrap">
+                      <InputText
+                        label="Last Name "
+                        type="text"
+                        name="lost_to_last_name"
+                        disabled={mutation.isLoading}
+                      />
+                    </div>
+                    <div className="relative form__wrap">
+                      <InputText
+                        label="Name"
+                        type="text"
+                        name="lost_to_name"
+                        disabled={mutation.isLoading}
+                      />
+                    </div>
                     <div className="relative form__wrap">
                       <InputText
                         label="Description"

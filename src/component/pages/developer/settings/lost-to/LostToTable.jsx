@@ -75,6 +75,9 @@ const LostToTable = ({ setItemEdit }) => {
             <tr>
               <th>#</th>
               <th>Status</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Name</th>
               <th>Description</th>
               <th className="action lg:hidden"></th>
             </tr>
@@ -113,6 +116,9 @@ const LostToTable = ({ setItemEdit }) => {
                       <Pills label="Inactive" bgc="bg-archive" />
                     )}
                   </td>
+                  <td>{item.lost_to_first_name}</td>
+                  <td>{item.lost_to_last_name}</td>
+                  <td>{item.lost_to_name}</td>
                   <td>{item.lost_to_description}</td>
 
                   <td
