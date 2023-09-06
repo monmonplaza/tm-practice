@@ -24,8 +24,6 @@ const ReferralSourceTable = ({ setItemEdit }) => {
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
   let counter = 1;
-  let active = 0;
-  let inactive = 0;
 
   const {
     isLoading,
@@ -33,9 +31,9 @@ const ReferralSourceTable = ({ setItemEdit }) => {
     error,
     data: referralSource,
   } = useQueryData(
-    "/v1/controllers/developer/settings/referral-source/referralSource.php", // endpoint
+    "/v1/controllers", // endpoint
     "get", // method
-    "settings-referral-source" // key
+    "setting" // key
   );
 
   const handleEdit = (item) => {
@@ -45,21 +43,21 @@ const ReferralSourceTable = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.referral_source_aid);
+    setId(item.referral_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.referral_source_aid);
+    setId(item.referral_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.referral_source_aid);
+    setId(item.referral_aid);
     setData(item);
     setDel(true);
   };
@@ -103,28 +101,24 @@ const ReferralSourceTable = ({ setItemEdit }) => {
             )}
 
             {referralSource?.data.map((item, key) => {
-              active += item.referral_source_is_active === 1;
-              inactive += item.referral_source_is_active === 0;
               return (
                 <tr key={key}>
                   <td>{counter++}.</td>
                   <td>
-                    {item.referral_source_is_active === 1 ? (
+                    {item.referral_is_active === 1 ? (
                       <Pills label="Active" bgc="bg-success" />
                     ) : (
                       <Pills label="Inactive" bgc="bg-archive" />
                     )}
                   </td>
-                  <td>{item.referral_source_name}</td>
-                  <td>{item.referral_source_description}</td>
+                  <td>{item.referral_name}</td>
                   <td>{item.referral_type_name}</td>
-                  <td>{item.department_name}</td>
 
                   <td
                     className="table__action top-0 right-5 "
                     data-ellipsis=". . ."
                   >
-                    {item.referral_source_is_active === 1 ? (
+                    {item.referral_is_active === 1 ? (
                       <ul className=" flex items-center  gap-4 bg-">
                         <li>
                           <button
@@ -177,10 +171,10 @@ const ReferralSourceTable = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v1/controllers/developer/settings/referral-source/active.php?referralSourceId=${id}`}
+          mysqlApiArchive={`/v1/controllers`}
           msg={"Are you sure you want to archive this referral source?"}
-          item={dataItem.referral_source_name}
-          queryKey={"settings-referral-source"}
+          item={dataItem.referral_name}
+          queryKey={"settings"}
         />
       )}
 
@@ -188,15 +182,15 @@ const ReferralSourceTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v1/controllers/developer/settings/referral-source/referralSource.php?referralSourceId=${id}`}
-          mysqlApiRestore={`/v1/controllers/developer/settings/referral-source/active.php?referralSourceId=${id}`}
+          mysqlApiDelete={`/v1/controllers`}
+          mysqlApiRestore={`/v1/controllers`}
           msg={
             isDel
               ? "Are you sure you want to delete this referral source?"
               : "Are you sure you want to restore this referral source?"
           }
-          item={dataItem.referral_source_name}
-          queryKey={"settings-referral-source"}
+          item={dataItem.referral_name}
+          queryKey={"settings"}
         />
       )}
     </>
