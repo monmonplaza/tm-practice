@@ -34,7 +34,7 @@ const LostToTable = ({ setItemEdit }) => {
     error,
     data: lostTo,
   } = useQueryData(
-    "/v1/lost-to", // endpoint
+    `/v1/controllers/developer/settings/lost-to/lost-to.php`, // endpoint
     "get", // method
     "settings-lost-to" // key
   );
@@ -108,9 +108,9 @@ const LostToTable = ({ setItemEdit }) => {
                   <td>{counter++}.</td>
                   <td>
                     {item.lost_to_is_active === 1 ? (
-                      <Pills label="Active" textColor="text-success" />
+                      <Pills label="Active" bgc="bg-success" />
                     ) : (
-                      <Pills label="Inactive" textColor="text-archive" />
+                      <Pills label="Inactive" bgc="bg-archive" />
                     )}
                   </td>
                   <td>{item.lost_to_description}</td>
@@ -173,7 +173,7 @@ const LostToTable = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v1/lost-to/active/${id}`}
+          mysqlApiArchive={`/v1/controllers/developer/settings/lost-to/active.php?lostToId=${id}`}
           msg={"Are you sure you want to archive this lost to?"}
           item={dataItem.lost_to_description}
           queryKey={"settings-lost-to"}
@@ -184,8 +184,8 @@ const LostToTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v1/lost-to/${id}`}
-          mysqlApiRestore={`/v1/lost-to/active/${id}`}
+          mysqlApiDelete={`/v1/controllers/developer/settings/lost-to/lost-to.php?lostToId=${id}`}
+          mysqlApiRestore={`/v1/controllers/developer/settings/lost-to/active.php?lostToId=${id}`}
           msg={
             isDel
               ? "Are you sure you want to delete this lost to?"

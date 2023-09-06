@@ -22,7 +22,8 @@ const ModalAddLostTo = ({ itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit ? `/v1/lost-to/${itemEdit.lost_to_aid}` : "/v1/lost-to",
+        itemEdit ? `/v1/controllers/developer/settings/lost-to/lost-to.php?lostToId=${itemEdit.lost_to_aid}` //update
+        : "/v1/controllers/developer/settings/lost-to/lost-to.php?", //add
         itemEdit ? "put" : "post",
         values
       ),
@@ -84,7 +85,7 @@ const ModalAddLostTo = ({ itemEdit }) => {
                   <Form>
                     <div className="relative form__wrap">
                       <InputText
-                        label="Name"
+                        label="Description"
                         type="text"
                         name="lost_to_description"
                         disabled={mutation.isLoading}
