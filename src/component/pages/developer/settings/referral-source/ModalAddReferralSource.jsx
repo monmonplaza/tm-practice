@@ -28,9 +28,7 @@ const ModalAddReferralSource = ({ itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/v1/controllers/developer/settings/referral-source/referralSource.php?referralSourceId=${itemEdit.referral_source_aid}`
-          : "/v1/controllers/developer/settings/referral-source/referralSource.php",
+        itemEdit ? `/v1/controllers` : "/v1/controllers",
         itemEdit ? "put" : "post",
         values
       ),
@@ -50,33 +48,13 @@ const ModalAddReferralSource = ({ itemEdit }) => {
     },
   });
 
-  const {
-    isLoading,
-    isFetching,
-    error,
-    data: referralType,
-  } = useQueryData(
-    `/v1/controllers/developer/settings/referral-type/referralType.php`, // endpoint
-    "get", // method
-    "settings-referral-type"
-  );
-
   const initVal = {
     referral_source_aid: itemEdit ? itemEdit.referral_source_aid : "",
     referral_source_name: itemEdit ? itemEdit.referral_source_name : "",
-    referral_source_description: itemEdit
-      ? itemEdit.referral_source_description
-      : "",
-    referral_source_referral_type_id: itemEdit
-      ? itemEdit.referral_source_referral_type_id
-      : "",
-    referral_source_name_old: itemEdit ? itemEdit.referral_source_name : "",
   };
 
   const yupSchema = Yup.object({
     referral_source_name: Yup.string().required("Required"),
-    referral_source_description: Yup.string().required("Required"),
-    referral_source_referral_type_id: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -118,46 +96,6 @@ const ModalAddReferralSource = ({ itemEdit }) => {
                           name="referral_source_name"
                           disabled={mutation.isLoading}
                         />
-                      </div>
-                      <div className="form__wrap">
-                        <InputTextArea
-                          label="Referral Description"
-                          type="text"
-                          name="referral_source_description"
-                          disabled={mutation.isLoading}
-                        />
-                      </div>
-                      <div className="form__wrap">
-                        <InputSelect
-                          label="Referral Type"
-                          name="referral_source_referral_type_id"
-                          disabled={mutation.isLoading || isLoading}
-                          onChange={(e) => e}
-                        >
-                          <optgroup label="Select Category">
-                            <option value="" hidden>
-                              {isLoading && "Loading..."}
-                            </option>
-
-                            {referralType?.data.length > 0 ? (
-                              referralType?.data.map((item, key) => {
-                                return (
-                                  <option
-                                    value={item.referral_type_aid}
-                                    id={item.referral_type_name}
-                                    key={key}
-                                  >
-                                    {item.referral_type_name}
-                                  </option>
-                                );
-                              })
-                            ) : (
-                              <option value="" disabled>
-                                No data
-                              </option>
-                            )}
-                          </optgroup>
-                        </InputSelect>
                       </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">
