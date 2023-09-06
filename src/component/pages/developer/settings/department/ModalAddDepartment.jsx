@@ -78,7 +78,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
                 console.log("values", values);
-                // mutation.mutate(values);
+                mutation.mutate(values);
               }}
             >
               {(props) => {
