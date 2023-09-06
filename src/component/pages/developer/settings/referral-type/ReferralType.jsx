@@ -4,9 +4,17 @@ import BreadCrumbs from "../../../../partials/BreadCrumbs.jsx";
 import Header from "../../../../partials/Header.jsx";
 import Navigation from "../../../../partials/Navigation.jsx";
 import ReferralTypeTable from "./ReferralTypeTable.jsx";
+import { setIsAdd } from "../../../../../store/StoreAction.jsx";
+import ModalAddReferralType from "./ModalAddReferralType.jsx";
 
 const ReferralType = () => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const [itemEdit, setItemEdit] = React.useState(null);
+
+  const handleOpenModal = () => {
+    dispatch(setIsAdd(true));
+    setItemEdit(null);
+  };
 
   return (
     <>
@@ -19,12 +27,19 @@ const ReferralType = () => {
           <BreadCrumbs param={location.search} />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Referral Type</h1>
-            <button className="btn btn--accent btn--sm">Add</button>
+            <button
+              className="btn btn--accent btn--sm"
+              onClick={handleOpenModal}
+            >
+              Add
+            </button>
           </div>
 
           <ReferralTypeTable />
         </main>
       </section>
+
+      {store.isAdd && <ModalAddReferralType itemEdit={itemEdit} />}
     </>
   );
 };
