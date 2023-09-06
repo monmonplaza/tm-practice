@@ -106,6 +106,7 @@ const ReferralTypeTable = ({ setItemEdit }) => {
                 <tr key={key}>
                   <td>{counter++}.</td>
                   <td>
+                    {console.log(item.referral_type_is_active)}
                     {item.referral_type_is_active === 1 ? (
                       <Pills label="Active" bgc="bg-success" />
                     ) : (
