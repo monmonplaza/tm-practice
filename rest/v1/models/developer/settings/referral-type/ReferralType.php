@@ -93,11 +93,11 @@ class ReferralType
             $sql .= "referral.referral_type_name, ";
             $sql .= "referral.referral_type_description, ";
             $sql .= "referral.referral_type_department_id, ";
-            // $sql .= "referral.referral_type_is_active ";
-            // $sql .= "referral.referral_type_update_at ";
-            $sql .= "department.department_name ";
-            // $sql .= "department.department_created ";
-            // $sql .= "department.department_datetime ";
+            $sql .= "referral.referral_type_is_active, ";
+            $sql .= "referral.referral_type_update_at, ";
+            $sql .= "department.department_name, ";
+            $sql .= "department.department_created, ";
+            $sql .= "department.department_datetime ";
             $sql .= "from ";
             $sql .= "{$this->tblReferralType} as referral, ";
             $sql .= "{$this->tblDepartment} as department ";
