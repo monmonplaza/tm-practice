@@ -9,36 +9,34 @@ import {
   setValidate,
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
-import { Form, Formik } from "formik";
 import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
-import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import { handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
+import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import { Form, Formik } from "formik";
 
 const ModalAddReferralType = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
-  const handleCloseModal = () => dispatch(setIsAdd(false));
-
   const mutation = useMutation({
-    mutationFn: (values) => {
+    mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v1/controllers/developer/settings/referral-type/referralType.php?referralTypeId=${itemEdit.referral_type_aid}`
-          : "/v1/controllers/developer/settings/referral-type/referralType.php",
+          ? `/v1/controllers/developer/settings/referral-type/referralType.php?referralTypeId=${itemEdit.referral_type_aid}` //update
+          : "/v1/controllers/developer/settings/referral-type/referralType.php", //add
         itemEdit ? "put" : "post",
         values
-      );
-    },
+      ),
     onSuccess: (data) => {
+      // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["settings-referral-type"] });
-      console.log(data);
       if (data.success) {
-        console.log(`run`);
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
-        dispatch(setMessage(`Successfully ${itemEdit ? "updated" : "added"}.`));
+        dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
       }
+      // show error box
       if (!data.success) {
         dispatch(setValidate(true));
         dispatch(setMessage(data.error));
@@ -47,7 +45,6 @@ const ModalAddReferralType = ({ itemEdit }) => {
   });
 
   const initVal = {
-    referral_type_aid: itemEdit ? itemEdit.referral_type_aid : "",
     referral_type_name: itemEdit ? itemEdit.referral_type_name : "",
     referral_type_description: itemEdit
       ? itemEdit.referral_type_description
@@ -59,6 +56,12 @@ const ModalAddReferralType = ({ itemEdit }) => {
     referral_type_name: Yup.string().required("Required"),
     referral_type_description: Yup.string().required("Required"),
   });
+
+  const handleCloseModal = () => {
+    dispatch(setIsAdd(false));
+  };
+
+  handleEscape(() => handleClose());
 
   return (
     <>
@@ -82,7 +85,7 @@ const ModalAddReferralType = ({ itemEdit }) => {
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
-                console.log(values);
+                // console.log(values);
                 mutation.mutate(values);
               }}
             >
