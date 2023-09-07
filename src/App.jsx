@@ -10,6 +10,7 @@ import LostTo from "./component/pages/developer/settings/lost-to/LostTo";
 import ClientProfile from "./component/pages/developer/settings/client-profile/ClientProfile";
 import UserProfile from "./component/pages/developer/settings/user-profile/UserProfile";
 import LostReason from "./component/pages/developer/settings/lost-reason/LostReason";
+import WonReason from "./component/pages/developer/settings/won-reason/WonReason";
 
 function App() {
   // Create a client
@@ -35,6 +36,10 @@ function App() {
             <Route
               path={`/${devNavUrl}/settings/lost-reason`}
               element={<LostReason />}
+            />
+            <Route
+              path={`/${devNavUrl}/settings/won-reason`}
+              element={<WonReason />}
             />
             <Route
               path={`/${devNavUrl}/settings/client-profile`}

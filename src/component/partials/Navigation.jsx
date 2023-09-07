@@ -181,6 +181,22 @@ const Navigation = ({
                 Lost Reason
               </Link>
             </li>
+            <li
+              className={` ${
+                submenu === "settingsWonReason"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/won-reason`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsWonReason" ? "active__submenu" : ""
+                }`}
+              >
+                Won Reason
+              </Link>
+            </li>
           </ul>
         </div>
       </ul>
