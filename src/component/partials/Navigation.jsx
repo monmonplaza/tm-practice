@@ -116,10 +116,12 @@ const Navigation = ({
               >
                 Lost To
               </Link>
-              </li>
+            </li>
             <li
               className={` ${
-                submenu === "settingsClientProfile" ? "bg-[#436c8a]/80 rounded-md" : ""
+                submenu === "settingsClientProfile"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
               }`}
             >
               <Link
@@ -145,6 +147,38 @@ const Navigation = ({
                 }`}
               >
                 User Profile
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsLocation"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/location`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsLocation" ? "active__submenu" : ""
+                }`}
+              >
+                Location
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsLostReason"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/lost-reason`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsLostReason" ? "active__submenu" : ""
+                }`}
+              >
+                Lost Reason
               </Link>
             </li>
           </ul>
