@@ -38,6 +38,16 @@ const Navigation = ({
   return (
     <div className="px-2 py-4 bg-tm-gradient h-full">
       <ul className="custom__scroll">
+        <li className="nav__link">
+          <Link
+            to={`${urlRolePath}/client`}
+            className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+              submenu === "client" ? "active__submenu" : ""
+            }`}
+          >
+            Client
+          </Link>
+        </li>
         <li className="nav__link  has__dropdown">
           <button
             className={`${menu === "settings" ? "bg-[#436c8a]" : ""}`}
@@ -179,6 +189,22 @@ const Navigation = ({
                 }`}
               >
                 Lost Reason
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsSampleOtp"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/sample-otp`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsSampleOtp" ? "active__submenu" : ""
+                }`}
+              >
+                Sample Otp
               </Link>
             </li>
           </ul>
