@@ -9,6 +9,7 @@ import ReferralSource from "./component/pages/developer/settings/referral-source
 import LostTo from "./component/pages/developer/settings/lost-to/LostTo";
 import ClientProfile from "./component/pages/developer/settings/client-profile/ClientProfile";
 import UserProfile from "./component/pages/developer/settings/user-profile/UserProfile";
+import LostReason from "./component/pages/developer/settings/lost-reason/LostReason";
 
 function App() {
   // Create a client
@@ -33,7 +34,7 @@ function App() {
             />
             <Route
               path={`/${devNavUrl}/settings/lost-reason`}
-              element={<LostTo />}
+              element={<LostReason />}
             />
             <Route
               path={`/${devNavUrl}/settings/client-profile`}
