@@ -18,10 +18,11 @@ import {
 import { handleEscape } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
-import useQueryData from "../../../custom-hooks/useQueryData";
 
 const ModalAddClient = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
+
+  console.log(itemEdit.client_aid);
 
   const queryClient = useQueryClient();
 
@@ -59,7 +60,7 @@ const ModalAddClient = ({ itemEdit }) => {
   };
 
   const yupSchema = Yup.object({
-    client_id: Yup.string().required("Required"),
+    client_id: Yup.number().required("Required"),
     client_first_name: Yup.string().required("Required"),
     client_last_name: Yup.string().required("Required"),
     client_description: Yup.string().required("Required"),
@@ -100,7 +101,6 @@ const ModalAddClient = ({ itemEdit }) => {
                       <div className="form__wrap">
                         <InputText
                           label="ID"
-                          type="text"
                           name="client_id"
                           number="number"
                           disabled={mutation.isLoading}
