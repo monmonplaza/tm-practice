@@ -3,23 +3,23 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$userProfile = new UserProfile($conn);
+$location = new UserProfile($conn);
 // get should not be present
-if (array_key_exists("userProfileId", $_GET)) {
+if (array_key_exists("locationId", $_GET)) {
     checkEndpoint();
 }
 // check data
 checkPayload($data);
 // get data
-$userProfile->user_profile_first_name = checkIndex($data, "user_profile_first_name");
-$userProfile->user_profile_last_name = checkIndex($data, "user_profile_last_name");
-$userProfile->user_profile_department = checkIndex($data, "user_profile_department");
-$userProfile->user_profile_supervisor = checkIndex($data, "user_profile_supervisor");
-$userProfile->user_profile_is_active = 1;
-$userProfile->user_profile_created_at = date("Y-m-d H:i:s");
-$userProfile->user_profile_update_at = date("Y-m-d H:i:s");
+$location->location_barrangay = checkIndex($data, "location_barrangay");
+$location->location_city = checkIndex($data, "location_city");
+$location->location_province = checkIndex($data, "location_province");
+$location->location_zip_code = checkIndex($data, "location_zip_code");
+$location->location_is_active = 1;
+$location->user_profile_created_at = date("Y-m-d H:i:s");
+$location->user_profile_update_at = date("Y-m-d H:i:s");
 // // check name
 // isNameExist($referralType, $referralType->department_name);
 // create
-$query = checkCreate($userProfile);
-returnSuccess($userProfile, "User Profile", $query);
+$query = checkCreate($location);
+returnSuccess($location, "User Profile", $query);
