@@ -12,6 +12,7 @@ if (array_key_exists("clientId", $_GET)) {
     checkPayload($data);
     // get data
     $client->client_aid = $_GET['clientId'];
+    $client->client_id = checkIndex($data, "client_id");
     $client->client_first_name = checkIndex($data, "client_first_name");
     $client->client_last_name = checkIndex($data, "client_last_name");
     $client->client_description = checkIndex($data, "client_description");

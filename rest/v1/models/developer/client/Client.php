@@ -25,8 +25,8 @@ class Client
     {
         try {
             $sql = "insert into {$this->tblClient} ";
-            $sql .= "( client_first_name, ";
-            $sql .= "client_id, ";
+            $sql .= "( client_id, ";
+            $sql .= "client_first_name, ";
             $sql .= "client_last_name, ";
             $sql .= "client_description, ";
             $sql .= "client_is_active, ";
@@ -102,7 +102,7 @@ class Client
             $sql .= "client_last_name = :client_last_name, ";
             $sql .= "client_description = :client_description, ";
             $sql .= "client_update_at = :client_update_at ";
-            $sql .= "where client_aid  = :client_aid ";
+            $sql .= "where client_aid  = :client_aid  ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "client_id" => $this->client_id,
@@ -110,14 +110,13 @@ class Client
                 "client_last_name" => $this->client_last_name,
                 "client_description" => $this->client_description,
                 "client_update_at" => $this->client_update_at,
-                "client_aid " => $this->client_aid,
+                "client_aid" => $this->client_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
         }
         return $query;
     }
-
 
     // active
     public function active()
@@ -131,7 +130,7 @@ class Client
             $query->execute([
                 "client_is_active" => $this->client_is_active,
                 "client_update_at" => $this->client_update_at,
-                "client_aid " => $this->client_aid,
+                "client_aid" => $this->client_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -147,7 +146,7 @@ class Client
             $sql .= "where client_aid  = :client_aid  ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "client_aid " => $this->client_aid,
+                "client_aid" => $this->client_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;
