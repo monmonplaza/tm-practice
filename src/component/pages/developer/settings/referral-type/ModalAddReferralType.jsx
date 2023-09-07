@@ -31,8 +31,7 @@ const ModalAddReferralType = ({ itemEdit }) => {
       );
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["settings-referral-type"] });
-      console.log(data);
+      queryClient.invalidateQueries({ queryKey: ["settings-referral"] });
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
