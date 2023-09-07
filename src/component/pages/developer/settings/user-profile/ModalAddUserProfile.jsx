@@ -24,13 +24,13 @@ const ModalAddReferralType = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v1/controllers/developer/settings/referral-type/referralType.php?referralTypeId=${itemEdit.referral_type_aid}`
-          : "/v1/controllers/developer/settings/referral-type/referralType.php",
+          ? `/v1/controllers/developer/settings/user-profile/userProfile.php?userProfileId=${itemEdit.user_profile_aid}`
+          : "/v1/controllers/developer/settings/user-profile/userProfile.php",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["settings-referral-type"] });
+      queryClient.invalidateQueries({ queryKey: ["settings-user-profile"] });
       console.log(data);
       if (data.success) {
         console.log(`run`);
@@ -46,17 +46,29 @@ const ModalAddReferralType = ({ itemEdit }) => {
   });
 
   const initVal = {
-    referral_type_aid: itemEdit ? itemEdit.referral_type_aid : "",
-    referral_type_name: itemEdit ? itemEdit.referral_type_name : "",
-    referral_type_description: itemEdit
-      ? itemEdit.referral_type_description
+    user_profile_aid: itemEdit ? itemEdit.user_profile_aid : "",
+    user_profile_first_name: itemEdit ? itemEdit.user_profile_first_name : "",
+    user_profile_last_name: itemEdit ? itemEdit.user_profile_last_name : "",
+    user_profile_department: itemEdit ? itemEdit.user_profile_department : "",
+    user_profile_supervisor: itemEdit ? itemEdit.user_profile_supervisor : "",
+
+    user_profile_first_name_old: itemEdit
+      ? itemEdit.user_profile_first_name
       : "",
-    referral_type_name_old: itemEdit ? itemEdit.referral_type_name : "",
+    user_profile_last_name_old: itemEdit ? itemEdit.user_profile_last_name : "",
+    user_profile_department_old: itemEdit
+      ? itemEdit.user_profile_department
+      : "",
+    user_profile_supervisor_old: itemEdit
+      ? itemEdit.user_profile_supervisor
+      : "",
   };
 
   const yupSchema = Yup.object({
-    referral_type_name: Yup.string().required("Required"),
-    referral_type_description: Yup.string().required("Required"),
+    user_profile_first_name: Yup.string().required("Required"),
+    user_profile_last_name: Yup.string().required("Required"),
+    user_profile_department: Yup.string().required("Required"),
+    user_profile_supervisor: Yup.string().required("Required"),
   });
 
   return (
@@ -90,17 +102,33 @@ const ModalAddReferralType = ({ itemEdit }) => {
                     <div className="modal__body ">
                       <div className="form__wrap">
                         <InputText
-                          label="Referral Source"
+                          label="First Name"
                           type="text"
-                          name="referral_type_name"
+                          name="user_profile_first_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
                       <div className="form__wrap">
                         <InputTextArea
-                          label="Description"
+                          label="Last Name"
                           type="text"
-                          name="referral_type_description"
+                          name="user_profile_last_name"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputTextArea
+                          label="Department"
+                          type="text"
+                          name="user_profile_department"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputTextArea
+                          label="Supervisor"
+                          type="text"
+                          name="user_profile_supervisor"
                           disabled={mutation.isLoading}
                         />
                       </div>

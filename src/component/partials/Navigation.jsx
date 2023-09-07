@@ -117,6 +117,22 @@ const Navigation = ({
                 Lost To
               </Link>
             </li>
+            <li
+              className={` ${
+                submenu === "settingsUserProfile"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/user-profile`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsUserProfile" ? "active__submenu" : ""
+                }`}
+              >
+                User Profile
+              </Link>
+            </li>
           </ul>
         </div>
       </ul>
