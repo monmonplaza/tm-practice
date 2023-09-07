@@ -28,7 +28,8 @@ const ModalAddReferralSource = ({ itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit ? `/v1/controllers` : "/v1/controllers",
+        itemEdit ? `/v1/controllers/developer/settings/referral-source/referral-source.php?referralSourceId=${itemEdit.referral_source_aid}` //update
+        : "/v1/controllers/developer/settings/referral-source/referral-source.php", //add
         itemEdit ? "put" : "post",
         values
       ),

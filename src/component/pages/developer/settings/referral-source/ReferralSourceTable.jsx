@@ -24,6 +24,9 @@ const ReferralSourceTable = ({ setItemEdit }) => {
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
   let counter = 1;
+  let active = 0;
+  let inactive = 0;
+
 
   const {
     isLoading,
@@ -31,9 +34,9 @@ const ReferralSourceTable = ({ setItemEdit }) => {
     error,
     data: referralSource,
   } = useQueryData(
-    "/v1/controllers", // endpoint
+    "/v1/controllers/developer/settings/referral-source/referral-source.php", // endpoint
     "get", // method
-    "setting" // key
+    "settings-referral-source" // key
   );
 
   const handleEdit = (item) => {
@@ -43,21 +46,21 @@ const ReferralSourceTable = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.referral_aid);
+    setId(item.referral_source_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.referral_aid);
+    setId(item.referral_source_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.referral_aid);
+    setId(item.referral_source_aid);
     setData(item);
     setDel(true);
   };
@@ -98,24 +101,26 @@ const ReferralSourceTable = ({ setItemEdit }) => {
             )}
 
             {referralSource?.data.map((item, key) => {
+               active += item.referral_source_is_active === 1;
+               inactive += item.referral_source_is_active === 0;
               return (
                 <tr key={key}>
                   <td>{counter++}.</td>
                   <td>
-                    {item.referral_is_active === 1 ? (
+                    {item.referral_source_is_active === 1 ? (
                       <Pills label="Active" bgc="bg-success" />
                     ) : (
                       <Pills label="Inactive" bgc="bg-archive" />
                     )}
                   </td>
-                  <td>{item.referral_name}</td>
+                  <td>{item.referral_source_name}</td>
                   <td>{item.referral_type_name}</td>
 
                   <td
                     className="table__action top-0 right-5 "
                     data-ellipsis=". . ."
                   >
-                    {item.referral_is_active === 1 ? (
+                    {item.referral_source_is_active === 1 ? (
                       <ul className=" flex items-center  gap-4 bg-">
                         <li>
                           <button
@@ -168,10 +173,10 @@ const ReferralSourceTable = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v1/controllers`}
+          mysqlApiArchive={`/v1/controllers/developer/settings/referral-source/active.php?referralSourceId=${id}`}
           msg={"Are you sure you want to archive this referral source?"}
-          item={dataItem.referral_name}
-          queryKey={"settings"}
+          item={dataItem.referral_source_name}
+          queryKey={"settings-referral-source"}
         />
       )}
 
@@ -179,15 +184,15 @@ const ReferralSourceTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v1/controllers`}
-          mysqlApiRestore={`/v1/controllers`}
+          mysqlApiDelete={`/v1/controllers/developer/settings/referral-source/referral-source.php?referralSourceId=${id}`}
+          mysqlApiRestore={`/v1/controllers/developer/settings/referral-source/active.php?referralSourceId=${id}`}
           msg={
             isDel
               ? "Are you sure you want to delete this referral source?"
               : "Are you sure you want to restore this referral source?"
           }
-          item={dataItem.referral_name}
-          queryKey={"settings"}
+          item={dataItem.referral_source_name}
+          queryKey={"settings-referral-source"}
         />
       )}
     </>
