@@ -23,12 +23,16 @@ function App() {
               path={`/${devNavUrl}/settings/referral-type`}
               element={<ReferralType />}
             />
-            {/* <Route
+            <Route
               path={`/${devNavUrl}/settings/referral-source`}
               element={<ReferralSource />}
-            /> */}
+            />
             <Route
               path={`/${devNavUrl}/settings/lost-to`}
+              element={<LostTo />}
+            />
+            <Route
+              path={`/${devNavUrl}/settings/lost-reason`}
               element={<LostTo />}
             />
             <Route
@@ -40,6 +44,11 @@ function App() {
                path={`/${devNavUrl}/settings/user-profile`}
                element={<UserProfile />}      
             />
+            <Route
+               path={`/${devNavUrl}/settings/location`}
+               element={<UserProfile />}      
+            />
+      
           </Routes>
         </Router>
       </StoreProvider>
