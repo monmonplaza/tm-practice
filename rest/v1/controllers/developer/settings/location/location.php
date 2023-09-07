@@ -4,7 +4,7 @@ require '../../../../core/header.php';
 // use needed functions
 require '../../../../core/functions.php';
 // use needed classes
-require '../../../../models/developer/settings/user-profile/UserProfile.php';
+require '../../../../models/developer/settings/location/Location.php';
 // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);

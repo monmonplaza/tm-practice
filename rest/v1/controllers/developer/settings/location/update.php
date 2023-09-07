@@ -3,24 +3,24 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$userProfile = new UserProfile($conn);
+$location = new Location($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("userProfileId", $_GET)) {
+if (array_key_exists("locationId", $_GET)) {
     // check data
     checkPayload($data);
     // get data
-    $userProfile->user_profile_aid = $_GET['userProfileId'];
-    $userProfile->user_profile_first_name = checkIndex($data, "user_profile_first_name");
-    $userProfile->user_profile_last_name = checkIndex($data, "user_profile_last_name");
-    $userProfile->user_profile_department = checkIndex($data, "user_profile_department");
-    $userProfile->user_profile_supervisor = checkIndex($data, "user_profile_supervisor");
-    $userProfile->user_profile_update_at = date("Y-m-d H:i:s");
-    checkId($userProfile->user_profile_aid);
+    $location->location_aid  = $_GET['locationId'];
+    $location->location_barrangay = checkIndex($data, "location_barrangay");
+    $location->location_city = checkIndex($data, "location_city");
+    $location->location_province = checkIndex($data, "location_province");
+    $location->location_zip_code = checkIndex($data, "location_zip_code");
+    $location->location_update_at = date("Y-m-d H:i:s");
+    checkId($location->location_aid);
     // update
-    $query = checkUpdate($userProfile);
-    returnSuccess($userProfile, "Referral Type", $query);
+    $query = checkUpdate($location);
+    returnSuccess($location, "Location", $query);
 }
 
 // return 404 error if endpoint not available

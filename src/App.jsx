@@ -9,6 +9,8 @@ import ReferralSource from "./component/pages/developer/settings/referral-source
 import LostTo from "./component/pages/developer/settings/lost-to/LostTo";
 import ClientProfile from "./component/pages/developer/settings/client-profile/ClientProfile";
 import UserProfile from "./component/pages/developer/settings/user-profile/UserProfile";
+import Location from "./component/pages/developer/settings/location/Location";
+import Client from "./component/pages/developer/client/Client";
 import LostReason from "./component/pages/developer/settings/lost-reason/LostReason";
 
 function App() {
@@ -39,17 +41,20 @@ function App() {
             <Route
               path={`/${devNavUrl}/settings/client-profile`}
               element={<ClientProfile />}
-             
             />
             <Route
-               path={`/${devNavUrl}/settings/user-profile`}
-               element={<UserProfile />}      
+              path={`/${devNavUrl}/settings/user-profile`}
+              element={<UserProfile />}
             />
             <Route
-               path={`/${devNavUrl}/settings/location`}
-               element={<UserProfile />}      
+              path={`/${devNavUrl}/settings/location`}
+              element={<Location />}
             />
-      
+            <Route path={`/${devNavUrl}/client`} element={<Client />} />
+            <Route
+              path={`/${devNavUrl}/settings/sample-otp`}
+              element={<Client />}
+            />
           </Routes>
         </Router>
       </StoreProvider>
