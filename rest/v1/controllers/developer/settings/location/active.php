@@ -4,27 +4,27 @@ require '../../../../core/header.php';
 // use needed functions
 require '../../../../core/functions.php';
 // use needed classes
-require '../../../../models/developer/settings/referral-type/ReferralType.php';
+require '../../../../models/developer/settings/user-profile/UserProfile.php';
 // check database connection
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$referralType = new ReferralType($conn);
+$userProfile = new UserProfile($conn);
 // // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
 // get $_GET data
 // validate api key 
-if (array_key_exists("referralTypeId", $_GET)) {
+if (array_key_exists("userProfileId", $_GET)) {
     // check data
     checkPayload($data);
-    $referralType->referral_type_aid = $_GET['referralTypeId'];
-    $referralType->referral_type_is_active = trim($data["isActive"]);
-    // $referralType->department_datetime = date("Y-m-d H:i:s");
-    checkId($referralType->referral_type_aid);
-    $query = checkActive($referralType);
+    $userProfile->user_profile_aid = $_GET['userProfileId'];
+    $userProfile->user_profile_is_active = trim($data["isActive"]);
+    $userProfile->user_profile_update_at = date("Y-m-d H:i:s");
+    checkId($userProfile->user_profile_aid);
+    $query = checkActive($userProfile);
     http_response_code(200);
-    returnSuccess($referralType, "Referral Type", $query);
+    returnSuccess($userProfile, "User Profile", $query);
 }
 // return 404 error if endpoint not available
 checkEndpoint();

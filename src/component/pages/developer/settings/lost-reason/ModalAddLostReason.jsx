@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
@@ -9,32 +10,32 @@ import {
   setValidate,
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
-import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
+import {
+  InputSelect,
+  InputText,
+  InputTextArea,
+} from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
-import { Form, Formik } from "formik";
+import useQueryData from "../../../../custom-hooks/useQueryData";
 
-const ModalAddReferralType = ({ itemEdit }) => {
+const ModalAddLostReason = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/v1/controllers/developer/settings/referral-type/referralType.php?referralTypeId=${itemEdit.referral_type_aid}` //update
-          : "/v1/controllers/developer/settings/referral-type/referralType.php", //add
+        itemEdit ? `/v1/controllers/developer/settings/lost-reason/lost-reason.php?lostReasonId=${itemEdit.lost_reason_aid}` //update
+        : "/v1/controllers/developer/settings/lost-reason/lost-reason.php", //add
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
-<<<<<<< HEAD
-      queryClient.invalidateQueries({ queryKey: ["settings-referral"] });
-=======
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["settings-referral-type"] });
->>>>>>> 3e859065cc972150d4604e05224f8a89f91ecc0f
+      queryClient.invalidateQueries({ queryKey: ["settings-lost-reason"] });
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -49,19 +50,19 @@ const ModalAddReferralType = ({ itemEdit }) => {
   });
 
   const initVal = {
-    referral_type_name: itemEdit ? itemEdit.referral_type_name : "",
-    referral_type_description: itemEdit
-      ? itemEdit.referral_type_description
-      : "",
-    referral_type_name_old: itemEdit ? itemEdit.referral_type_name : "",
+    lost_reason_aid: itemEdit ? itemEdit.lost_reason_aid : "",
+    lost_reason_first_name: itemEdit ? itemEdit.lost_reason_first_name : "",
+    lost_reason_last_name: itemEdit ? itemEdit.lost_reason_last_name : "",
+    lost_reason_description: itemEdit ? itemEdit.lost_reason_description : "",
   };
 
   const yupSchema = Yup.object({
-    referral_type_name: Yup.string().required("Required"),
-    referral_type_description: Yup.string().required("Required"),
+    lost_reason_first_name: Yup.string().required("Required"),
+    lost_reason_last_name: Yup.string().required("Required"),
+    lost_reason_description: Yup.string().required("Required"),
   });
 
-  const handleCloseModal = () => {
+  const handleClose = () => {
     dispatch(setIsAdd(false));
   };
 
@@ -74,21 +75,18 @@ const ModalAddReferralType = ({ itemEdit }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} Referral Type </h3>
-            <button
-              className="absolute -top-4 right-0 "
-              onClick={handleCloseModal}
-            >
+            <h3> {itemEdit ? "Update" : "Add"} Client Profile </h3>
+            <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
           </div>
-
           <div className="moda__body overflow-auto max-h-[50vh]">
             <Formik
               initialValues={initVal}
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
+                console.log(values);
                 mutation.mutate(values);
               }}
             >
@@ -98,9 +96,17 @@ const ModalAddReferralType = ({ itemEdit }) => {
                     <div className="modal__body ">
                       <div className="form__wrap">
                         <InputText
-                          label="Referral Source"
+                          label="First Name"
                           type="text"
-                          name="referral_type_name"
+                          name="lost_reason_first_name"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Last Name"
+                          type="text"
+                          name="lost_reason_last_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -108,7 +114,7 @@ const ModalAddReferralType = ({ itemEdit }) => {
                         <InputTextArea
                           label="Description"
                           type="text"
-                          name="referral_type_description"
+                          name="lost_reason_description"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -130,7 +136,7 @@ const ModalAddReferralType = ({ itemEdit }) => {
                           type="button"
                           className="btn btn--cancel"
                           disabled={mutation.isLoading}
-                          onClick={handleCloseModal}
+                          onClick={handleClose}
                         >
                           Cancel
                         </button>
@@ -147,4 +153,4 @@ const ModalAddReferralType = ({ itemEdit }) => {
   );
 };
 
-export default ModalAddReferralType;
+export default ModalAddLostReason;

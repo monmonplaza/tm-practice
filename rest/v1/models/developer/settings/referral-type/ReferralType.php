@@ -89,11 +89,13 @@ class ReferralType
         try {
             $sql = "update {$this->tblReferralType} set ";
             $sql .= "referral_type_name = :referral_type_name, ";
+            $sql .= "referral_type_description = :referral_type_description, ";
             $sql .= "referral_type_update_at = :referral_type_update_at ";
             $sql .= "where referral_type_aid = :referral_type_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "referral_type_name" => $this->referral_type_name,
+                "referral_type_description" => $this->referral_type_description,
                 "referral_type_update_at" => $this->referral_type_update_at,
                 "referral_type_aid" => $this->referral_type_aid,
             ]);

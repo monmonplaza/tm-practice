@@ -3,21 +3,22 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$referralType = new ReferralType($conn);
+$referralSource = new ReferralSource($conn);
 // get $_GET data 
 
-if (array_key_exists("referralTypeId", $_GET)) {
-    $referralType->referral_type_aid = $_GET['referralTypeId'];
-    checkId($referralType->referral_type_aid);
-    $query = checkReadById($referralType);
+if (array_key_exists("referralSourceId", $_GET) ) {
+    $referralSource->referral_source_aid = $_GET['referralSourceId'];
+    checkId($referralSource->referral_source_aid);
+    $query = checkReadById($referralSource);
     http_response_code(200);
     getQueriedData($query);
 }
 
 if (empty($_GET)) {
-    $query = checkReadAll($referralType);
+    $query = checkReadAll($referralSource);
     http_response_code(200);
     getQueriedData($query);
+     
 }
 
 // return 404 error if endpoint not available

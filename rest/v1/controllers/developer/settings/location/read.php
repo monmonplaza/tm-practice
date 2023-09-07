@@ -3,19 +3,19 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$referralType = new ReferralType($conn);
+$userProfile = new UserProfile($conn);
 // get $_GET data 
 
-if (array_key_exists("referralTypeId", $_GET)) {
-    $referralType->referral_type_aid = $_GET['referralTypeId'];
-    checkId($referralType->referral_type_aid);
-    $query = checkReadById($referralType);
+if (array_key_exists("userProfileId", $_GET)) {
+    $userProfile->user_profile_aid = $_GET['userProfileId'];
+    checkId($userProfile->user_profile_aid);
+    $query = checkReadById($userProfile);
     http_response_code(200);
     getQueriedData($query);
 }
 
 if (empty($_GET)) {
-    $query = checkReadAll($referralType);
+    $query = checkReadAll($userProfile);
     http_response_code(200);
     getQueriedData($query);
 }

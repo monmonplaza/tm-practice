@@ -9,38 +9,35 @@ import {
   setValidate,
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
-import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
-import { handleEscape } from "../../../../helpers/functions-general";
-import { queryData } from "../../../../helpers/queryData";
-import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 import { Form, Formik } from "formik";
+import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
+import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import { queryData } from "../../../../helpers/queryData";
 
 const ModalAddReferralType = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
+  const handleCloseModal = () => dispatch(setIsAdd(false));
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v1/controllers/developer/settings/referral-type/referralType.php?referralTypeId=${itemEdit.referral_type_aid}` //update
-          : "/v1/controllers/developer/settings/referral-type/referralType.php", //add
+          ? `/v1/controllers/developer/settings/user-profile/userProfile.php?userProfileId=${itemEdit.user_profile_aid}`
+          : "/v1/controllers/developer/settings/user-profile/userProfile.php",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
-<<<<<<< HEAD
-      queryClient.invalidateQueries({ queryKey: ["settings-referral"] });
-=======
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["settings-referral-type"] });
->>>>>>> 3e859065cc972150d4604e05224f8a89f91ecc0f
+      queryClient.invalidateQueries({ queryKey: ["settings-user-profile"] });
+      console.log(data);
       if (data.success) {
+        console.log(`run`);
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
-        dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
+        dispatch(setMessage(`Successfully ${itemEdit ? "updated" : "added"}.`));
       }
-      // show error box
       if (!data.success) {
         dispatch(setValidate(true));
         dispatch(setMessage(data.error));
@@ -49,23 +46,30 @@ const ModalAddReferralType = ({ itemEdit }) => {
   });
 
   const initVal = {
-    referral_type_name: itemEdit ? itemEdit.referral_type_name : "",
-    referral_type_description: itemEdit
-      ? itemEdit.referral_type_description
+    user_profile_aid: itemEdit ? itemEdit.user_profile_aid : "",
+    user_profile_first_name: itemEdit ? itemEdit.user_profile_first_name : "",
+    user_profile_last_name: itemEdit ? itemEdit.user_profile_last_name : "",
+    user_profile_department: itemEdit ? itemEdit.user_profile_department : "",
+    user_profile_supervisor: itemEdit ? itemEdit.user_profile_supervisor : "",
+
+    user_profile_first_name_old: itemEdit
+      ? itemEdit.user_profile_first_name
       : "",
-    referral_type_name_old: itemEdit ? itemEdit.referral_type_name : "",
+    user_profile_last_name_old: itemEdit ? itemEdit.user_profile_last_name : "",
+    user_profile_department_old: itemEdit
+      ? itemEdit.user_profile_department
+      : "",
+    user_profile_supervisor_old: itemEdit
+      ? itemEdit.user_profile_supervisor
+      : "",
   };
 
   const yupSchema = Yup.object({
-    referral_type_name: Yup.string().required("Required"),
-    referral_type_description: Yup.string().required("Required"),
+    user_profile_first_name: Yup.string().required("Required"),
+    user_profile_last_name: Yup.string().required("Required"),
+    user_profile_department: Yup.string().required("Required"),
+    user_profile_supervisor: Yup.string().required("Required"),
   });
-
-  const handleCloseModal = () => {
-    dispatch(setIsAdd(false));
-  };
-
-  handleEscape(() => handleClose());
 
   return (
     <>
@@ -98,17 +102,33 @@ const ModalAddReferralType = ({ itemEdit }) => {
                     <div className="modal__body ">
                       <div className="form__wrap">
                         <InputText
-                          label="Referral Source"
+                          label="First Name"
                           type="text"
-                          name="referral_type_name"
+                          name="user_profile_first_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
                       <div className="form__wrap">
                         <InputTextArea
-                          label="Description"
+                          label="Last Name"
                           type="text"
-                          name="referral_type_description"
+                          name="user_profile_last_name"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputTextArea
+                          label="Department"
+                          type="text"
+                          name="user_profile_department"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputTextArea
+                          label="Supervisor"
+                          type="text"
+                          name="user_profile_supervisor"
                           disabled={mutation.isLoading}
                         />
                       </div>

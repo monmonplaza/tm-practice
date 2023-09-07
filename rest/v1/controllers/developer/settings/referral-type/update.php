@@ -3,21 +3,22 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$department = new Department($conn);
+$referralType = new ReferralType($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("departmentId", $_GET)) {
+if (array_key_exists("referralTypeId", $_GET)) {
     // check data
     checkPayload($data);
     // get data
-    $department->department_aid = $_GET['departmentId'];
-    $department->department_name = checkIndex($data, "department_name");
-    $department->department_datetime = date("Y-m-d H:i:s");
-    checkId($department->department_aid);
+    $referralType->referral_type_aid = $_GET['referralTypeId'];
+    $referralType->referral_type_name = checkIndex($data, "referral_type_name");
+    $referralType->referral_type_description = checkIndex($data, "referral_type_description");
+    $referralType->referral_type_update_at = date("Y-m-d H:i:s");
+    checkId($referralType->referral_type_aid);
     // update
-    $query = checkUpdate($department);
-    returnSuccess($department, "Department", $query);
+    $query = checkUpdate($referralType);
+    returnSuccess($referralType, "Referral Type", $query);
 }
 
 // return 404 error if endpoint not available

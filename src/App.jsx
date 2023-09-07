@@ -7,6 +7,9 @@ import { StoreProvider } from "./store/StoreContext";
 import ReferralType from "./component/pages/developer/settings/referral-type/ReferralType";
 import ReferralSource from "./component/pages/developer/settings/referral-source/ReferralSource";
 import LostTo from "./component/pages/developer/settings/lost-to/LostTo";
+import ClientProfile from "./component/pages/developer/settings/client-profile/ClientProfile";
+import UserProfile from "./component/pages/developer/settings/user-profile/UserProfile";
+import LostReason from "./component/pages/developer/settings/lost-reason/LostReason";
 
 function App() {
   // Create a client
@@ -29,6 +32,24 @@ function App() {
               path={`/${devNavUrl}/settings/lost-to`}
               element={<LostTo />}
             />
+            <Route
+              path={`/${devNavUrl}/settings/lost-reason`}
+              element={<LostReason />}
+            />
+            <Route
+              path={`/${devNavUrl}/settings/client-profile`}
+              element={<ClientProfile />}
+             
+            />
+            <Route
+               path={`/${devNavUrl}/settings/user-profile`}
+               element={<UserProfile />}      
+            />
+            <Route
+               path={`/${devNavUrl}/settings/location`}
+               element={<UserProfile />}      
+            />
+      
           </Routes>
         </Router>
       </StoreProvider>

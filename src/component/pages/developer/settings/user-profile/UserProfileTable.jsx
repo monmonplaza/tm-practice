@@ -19,7 +19,7 @@ import Footer from "../../../../partials/Footer.jsx";
 import ModalConfirm from "../../../../partials/modals/ModalConfirm.jsx";
 import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore.jsx";
 
-const ReferralTypeTable = ({ setItemEdit }) => {
+const UserProfileTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
@@ -32,11 +32,11 @@ const ReferralTypeTable = ({ setItemEdit }) => {
     isLoading,
     isFetching,
     error,
-    data: referralType,
+    data: userProfile,
   } = useQueryData(
-    `/v1/controllers/developer/settings/referral-type/referralType.php`, // endpoint
+    `/v1/controllers/developer/settings/user-profile/userProfile.php`, // endpoint
     "get", // method
-    "settings-referral-type" // key
+    "settings-user-profile" // key
   );
 
   const handleEdit = (item) => {
@@ -47,21 +47,21 @@ const ReferralTypeTable = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.referral_type_aid);
+    setId(item.user_profile_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.referral_type_aid);
+    setId(item.user_profile_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.referral_type_aid);
+    setId(item.user_profile_aid);
     setData(item);
     setDel(true);
   };
@@ -75,13 +75,15 @@ const ReferralTypeTable = ({ setItemEdit }) => {
             <tr>
               <th>#</th>
               <th>Status</th>
-              <th>Name</th>
-              <th>Description</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Department</th>
+              <th>Supervisor</th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
           <tbody>
-            {(isLoading || referralType?.data.length === 0) && (
+            {(isLoading || userProfile?.data.length === 0) && (
               <tr className="text-center ">
                 <td colSpan="100%" className="p-10">
                   {isLoading ? (
@@ -101,27 +103,29 @@ const ReferralTypeTable = ({ setItemEdit }) => {
               </tr>
             )}
             {}
-            {referralType?.data.map((item, key) => {
-              active += item.referral_type_is_active === 1;
-              inactive += item.referral_type_is_active === 0;
+            {userProfile?.data.map((item, key) => {
+              active += item.user_profile_is_active === 1;
+              inactive += item.user_profile_is_active === 0;
               return (
                 <tr key={key}>
                   <td>{counter++}.</td>
                   <td>
-                    {item.referral_type_is_active === 1 ? (
+                    {item.user_profile_is_active === 1 ? (
                       <Pills label="Active" bgc="bg-success" />
                     ) : (
                       <Pills label="Inactive" bgc="bg-archive" />
                     )}
                   </td>
-                  <td>{item.referral_type_name}</td>
-                  <td>{item.referral_type_description}</td>
+                  <td>{item.user_profile_first_name}</td>
+                  <td>{item.user_profile_last_name}</td>
+                  <td>{item.user_profile_department}</td>
+                  <td>{item.user_profile_supervisor}</td>
 
                   <td
                     className="table__action top-0 right-5 "
                     data-ellipsis=". . ."
                   >
-                    {item.referral_type_is_active === 1 ? (
+                    {item.user_profile_is_active === 1 ? (
                       <ul className=" flex items-center  gap-4 bg-">
                         <li>
                           <button
@@ -171,18 +175,14 @@ const ReferralTypeTable = ({ setItemEdit }) => {
           </tbody>
         </table>
       </div>
-      <Footer
-        record={referralType?.count}
-        active={active}
-        inactive={inactive}
-      />
+      <Footer record={userProfile?.count} active={active} inactive={inactive} />
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v1/controllers/developer/settings/referral-type/active.php?referralTypeId=${id}`}
-          msg={"Are you sure you want to archive this referral type?"}
+          mysqlApiArchive={`/v1/controllers/developer/settings/user-profile/active.php?userProfileId=${id}`}
+          msg={"Are you sure you want to archive this user profile?"}
           item={dataItem.referral_type_name}
-          queryKey={"settings-referral-type"}
+          queryKey={"settings-user-profile"}
         />
       )}
 
@@ -190,19 +190,19 @@ const ReferralTypeTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v1/controllers/developer/settings/referral-type/referralType.php?referralTypeId=${id}`}
-          mysqlApiRestore={`/v1/controllers/developer/settings/referral-type/active.php?referralTypeId=${id}`}
+          mysqlApiDelete={`/v1/controllers/developer/settings/user-profile/userProfile.php?userProfileId=${id}`}
+          mysqlApiRestore={`/v1/controllers/developer/settings/user-profile/active.php?userProfileId=${id}`}
           msg={
             isDel
-              ? "Are you sure you want to delete this referral type?"
-              : "Are you sure you want to restore this referral type?"
+              ? "Are you sure you want to delete this user profile?"
+              : "Are you sure you want to restore this user profile?"
           }
           item={dataItem.referral_type_name}
-          queryKey={"settings-referral-type"}
+          queryKey={"settings-user-profile"}
         />
       )}
     </>
   );
 };
 
-export default ReferralTypeTable;
+export default UserProfileTable;
