@@ -8,10 +8,28 @@ const OtpSample = () => {
       <Header />
       <section className={`main__grid ${store.isShow ? "open" : ""}`}>
         <aside className={`${store.isShow ? "open " : ""}   `}>
-          <Navigation menu="settings" submenu="OtpSample" />
+          <Navigation menu="settings" submenu="settingsSampleOtp" />
         </aside>
         <main className="px-2 lg:pr-10">
-          <p>sample</p>
+          <div className="App">
+            - Number OTP:
+            <OTPInput
+              autoFocus
+              isNumberInput
+              length={4}
+              className="otpContainer"
+              inputClassName="otpInput"
+              onChangeOTP={(otp) => console.log("Number OTP: ", otp)}
+            />
+            - String OTP:
+            <OTPInput
+              autoFocus
+              length={4}
+              className="otpContainer"
+              inputClassName="otpInput"
+              onChangeOTP={(otp) => console.log("String OTP: ", otp)}
+            />
+          </div>
         </main>
       </section>
     </>
