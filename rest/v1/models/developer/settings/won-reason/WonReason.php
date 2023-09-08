@@ -7,6 +7,7 @@ class WonReason
     public $won_reason_last_name;
     public $won_reason_description;
     public $won_reason_id;
+    public $won_reason_type;
     public $won_reason_created_at;
     public $won_reason_updated_at;
 
@@ -31,6 +32,7 @@ class WonReason
             $sql .= "won_reason_last_name, ";
             $sql .= "won_reason_description, ";
             $sql .= "won_reason_id, ";
+            $sql .= "won_reason_type, ";
             $sql .= "won_reason_is_active, ";
             $sql .= "won_reason_created_at, ";
             $sql .= "won_reason_updated_at ) values ( ";
@@ -38,6 +40,7 @@ class WonReason
             $sql .= ":won_reason_last_name, "; 
             $sql .= ":won_reason_description, "; 
             $sql .= ":won_reason_id, "; 
+            $sql .= ":won_reason_type, "; 
             $sql .= ":won_reason_is_active, ";
             $sql .= ":won_reason_created_at, ";
             $sql .= ":won_reason_updated_at ) ";
@@ -47,6 +50,7 @@ class WonReason
                 "won_reason_last_name" => $this->won_reason_last_name,
                 "won_reason_description" => $this->won_reason_description,
                 "won_reason_id" => $this->won_reason_id,
+                "won_reason_type" => $this->won_reason_type,
                 "won_reason_is_active" => $this->won_reason_is_active,
                 "won_reason_created_at" => $this->won_reason_created_at,
                 "won_reason_updated_at" => $this->won_reason_updated_at,
@@ -101,6 +105,7 @@ class WonReason
             $sql .= "won_reason_last_name = :won_reason_last_name, ";
             $sql .= "won_reason_description = :won_reason_description, ";
             $sql .= "won_reason_id = :won_reason_id, ";
+            $sql .= "won_reason_type = :won_reason_type, ";
             $sql .= "won_reason_updated_at = :won_reason_updated_at ";
             $sql .= "where won_reason_aid = :won_reason_aid ";
             $query = $this->connection->prepare($sql);
@@ -109,6 +114,7 @@ class WonReason
                 "won_reason_last_name" => $this->won_reason_last_name,
                 "won_reason_description" => $this->won_reason_description,
                 "won_reason_id" => $this->won_reason_id,
+                "won_reason_type" => $this->won_reason_type,
                 "won_reason_updated_at" => $this->won_reason_updated_at,
                 "won_reason_aid" => $this->won_reason_aid,
             ]);

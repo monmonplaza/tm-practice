@@ -27,7 +27,6 @@ const WonReasonTable = ({ setItemEdit }) => {
   let active = 0;
   let inactive = 0;
 
-
   const {
     isLoading,
     isFetching,
@@ -46,21 +45,21 @@ const WonReasonTable = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.won_reason_aid );
+    setId(item.won_reason_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.won_reason_aid );
+    setId(item.won_reason_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.won_reason_aid );
+    setId(item.won_reason_aid);
     setData(item);
     setDel(true);
   };
@@ -78,6 +77,7 @@ const WonReasonTable = ({ setItemEdit }) => {
               <th>ID</th>
               <th>First Name</th>
               <th>Last Name</th>
+              <th>Type</th>
               <th>Description</th>
               <th className="action lg:hidden"></th>
             </tr>
@@ -104,8 +104,8 @@ const WonReasonTable = ({ setItemEdit }) => {
             )}
 
             {wonReason?.data.map((item, key) => {
-               active += item.won_reason_is_active === 1;
-               inactive += item.won_reason_is_active === 0;
+              active += item.won_reason_is_active === 1;
+              inactive += item.won_reason_is_active === 0;
               return (
                 <tr key={key}>
                   <td>{counter++}.</td>
@@ -119,6 +119,7 @@ const WonReasonTable = ({ setItemEdit }) => {
                   <td>{item.won_reason_id}</td>
                   <td>{item.won_reason_first_name}</td>
                   <td>{item.won_reason_last_name}</td>
+                  <td>{item.won_reason_type}</td>
                   <td>{item.won_reason_description}</td>
                   <td
                     className="table__action top-0 right-5 "

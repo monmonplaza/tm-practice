@@ -50,6 +50,7 @@ const ModalAddWonReason = ({ itemEdit }) => {
     won_reason_id: itemEdit ? itemEdit.won_reason_id : "",
     won_reason_first_name: itemEdit ? itemEdit.won_reason_first_name : "",
     won_reason_last_name: itemEdit ? itemEdit.won_reason_last_name : "",
+    won_reason_type: itemEdit ? itemEdit.won_reason_type : "",
     won_reason_description: itemEdit ? itemEdit.won_reason_description : "",
   };
 
@@ -57,6 +58,7 @@ const ModalAddWonReason = ({ itemEdit }) => {
     won_reason_id: Yup.string().required("Required"),
     won_reason_first_name: Yup.string().required("Required"),
     won_reason_last_name: Yup.string().required("Required"),
+    won_reason_type: Yup.string().required("Required"),
     won_reason_description: Yup.string().required("Required"),
   });
 
@@ -100,14 +102,16 @@ const ModalAddWonReason = ({ itemEdit }) => {
                           disabled={mutation.isLoading}
                         />
                       </div>
-                      <div className="form__wrap">
-                        <InputText
-                          label="First Name"
-                          type="text"
-                          name="won_reason_first_name"
-                          disabled={mutation.isLoading}
-                        />
-                      </div>
+                      {props.values.won_reason_id !== "" && (
+                        <div className="form__wrap">
+                          <InputText
+                            label="First Name"
+                            type="text"
+                            name="won_reason_first_name"
+                            disabled={mutation.isLoading}
+                          />
+                        </div>
+                      )}
                       <div className="form__wrap">
                         <InputText
                           label="Last Name"
@@ -115,6 +119,21 @@ const ModalAddWonReason = ({ itemEdit }) => {
                           name="won_reason_last_name"
                           disabled={mutation.isLoading}
                         />
+                      </div>
+                      <div className="form__wrap">
+                        <InputSelect
+                          label="Type"
+                          type="text"
+                          name="won_reason_type"
+                          disabled={mutation.isLoading}
+                          onChange={(e) => e}
+                        >
+                          <optgroup label="Select won reason type">
+                            <option value="staff">Staff</option>
+                            <option value="employee">Employee</option>
+                            <option value="client">Client</option>
+                          </optgroup>
+                        </InputSelect>
                       </div>
                       <div className="form__wrap">
                         <InputTextArea
