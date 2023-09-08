@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2023 at 03:05 AM
+-- Generation Time: Sep 08, 2023 at 06:40 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -35,8 +35,19 @@ CREATE TABLE `trainingtm_won_reason` (
   `won_reason_description` varchar(200) NOT NULL,
   `won_reason_created_at` datetime NOT NULL,
   `won_reason_updated_at` datetime NOT NULL,
-  `won_reason_is_active` tinyint(1) NOT NULL
+  `won_reason_is_active` tinyint(1) NOT NULL,
+  `won_reason_type` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `trainingtm_won_reason`
+--
+
+INSERT INTO `trainingtm_won_reason` (`won_reason_aid`, `won_reason_id`, `won_reason_first_name`, `won_reason_last_name`, `won_reason_description`, `won_reason_created_at`, `won_reason_updated_at`, `won_reason_is_active`, `won_reason_type`) VALUES
+(3, '091131', 'Balo', 'ashgdjagkjas', 'yasfjddghasfdkghaskdhas', '2023-09-08 09:15:57', '2023-09-08 12:36:52', 1, 'client'),
+(5, '1111', 'emman', 'the man', 'asdasdasd', '2023-09-08 09:16:19', '2023-09-08 12:36:37', 1, 'client'),
+(6, '1123123', 'asdasdas', 'aasdasdas', 'asdasdasd', '2023-09-08 10:16:02', '2023-09-08 12:38:53', 1, 'employee'),
+(7, '111', 'hatdog', 'adasjhdgas', 'qaasdadasdasd', '2023-09-08 10:16:23', '2023-09-08 10:16:23', 1, '');
 
 --
 -- Indexes for dumped tables
@@ -56,7 +67,7 @@ ALTER TABLE `trainingtm_won_reason`
 -- AUTO_INCREMENT for table `trainingtm_won_reason`
 --
 ALTER TABLE `trainingtm_won_reason`
-  MODIFY `won_reason_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `won_reason_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

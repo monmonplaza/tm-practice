@@ -84,7 +84,7 @@ export const InputText = ({ label, ...props }) => {
         <PatternFormat
           {...field}
           {...props}
-          format="##-#######"
+          format="##-###-###"
           allowEmptyFormatting
           mask="_"
           className={meta.touched && meta.error ? "error-show" : null}
