@@ -94,14 +94,19 @@ const ModalAddDepartment = ({ itemEdit }) => {
                           disabled={mutation.isLoading}
                         />
                       </div>
+
                       <div className="form__wrap">
-                        <InputText
-                          label="Name"
+                        <InputSelect
+                          label="Class"
                           type="text"
-                          name="department_name"
-                          number="number"
+                          name="client_class_id"
                           disabled={mutation.isLoading}
-                        />
+                          onChange={(e) => e}
+                        >
+                          <optgroup label="Select Class">
+                            <option value=""></option>
+                          </optgroup>
+                        </InputSelect>
                       </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">
