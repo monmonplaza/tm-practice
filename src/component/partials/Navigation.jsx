@@ -193,12 +193,29 @@ const Navigation = ({
             </li>
             <li
               className={` ${
-                submenu === "settingsSampleOtp"
+                submenu === "settingsWonReason"
                   ? "bg-[#436c8a]/80 rounded-md"
                   : ""
               }`}
             >
               <Link
+                to={`${urlRolePath}/settings/won-reason`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsWonReason" ? "active__submenu" : ""
+                }`}
+              >
+                Won Reason
+              </Link>
+            </li>
+
+            <li
+              className={` ${
+                submenu === "settingsSampleOtp"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+              >
+                <Link
                 to={`${urlRolePath}/settings/sample-otp`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsSampleOtp" ? "active__submenu" : ""

@@ -11,7 +11,7 @@ import {
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { InputText } from "../../../../helpers/FormInputs";
-import { handleEscape } from "../../../../helpers/functions-general";
+import { GetFocus, handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 
@@ -19,11 +19,14 @@ const ModalAddLostTo = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
+  GetFocus("btnClose");
+
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit ? `/v1/controllers/developer/settings/lost-to/lost-to.php?lostToId=${itemEdit.lost_to_aid}` //update
-        : "/v1/controllers/developer/settings/lost-to/lost-to.php?", //add
+        itemEdit
+          ? `/v1/controllers/developer/settings/lost-to/lost-to.php?lostToId=${itemEdit.lost_to_aid}` //update
+          : "/v1/controllers/developer/settings/lost-to/lost-to.php?", //add
         itemEdit ? "put" : "post",
         values
       ),
@@ -99,7 +102,7 @@ const ModalAddLostTo = ({ itemEdit }) => {
                     </div>
                     <div className="relative form__wrap">
                       <InputText
-                        label="Last Name "
+                        label="Last Name"
                         type="text"
                         name="lost_to_last_name"
                         disabled={mutation.isLoading}
@@ -116,6 +119,7 @@ const ModalAddLostTo = ({ itemEdit }) => {
                     <div className="relative form__wrap">
                       <InputText
                         label="Description"
+                        id="btnClose"
                         type="text"
                         name="lost_to_description"
                         disabled={mutation.isLoading}
