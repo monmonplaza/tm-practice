@@ -3,10 +3,10 @@ import { setIsAdd, setIsSettingsOpen } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
 import Header from "../../../../partials/Header";
 import ModalValidate from "../../../../partials/modals/ModalValidate";
-import DepartmentTable from "./DepartmentTable";
-import ModalAddDepartment from "./ModalAddDepartment";
 import Navigation from "../../../../partials/Navigation";
 import Toast from "../../../../partials/Toast";
+import DepartmentTable from "./DepartmentTable";
+import ModalAddDepartment from "./ModalAddDepartment";
 
 const Department = () => {
   const { store, dispatch } = React.useContext(StoreContext);
