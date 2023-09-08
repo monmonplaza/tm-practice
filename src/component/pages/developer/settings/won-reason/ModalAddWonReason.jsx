@@ -10,15 +10,10 @@ import {
   setValidate,
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
-import {
-  InputSelect,
-  InputText,
-  InputTextArea,
-} from "../../../../helpers/FormInputs";
+import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
-import useQueryData from "../../../../custom-hooks/useQueryData";
 
 const ModalAddWonReason = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -28,8 +23,9 @@ const ModalAddWonReason = ({ itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit ? `/v1/controllers/developer/settings/won-reason/won-reason.php?wonReasonId=${itemEdit.won_reason_aid}` //update
-        : "/v1/controllers/developer/settings/won-reason/won-reason.php", //add
+        itemEdit
+          ? `/v1/controllers/developer/settings/won-reason/won-reason.php?wonReasonId=${itemEdit.won_reason_aid}` //update
+          : "/v1/controllers/developer/settings/won-reason/won-reason.php", //add
         itemEdit ? "put" : "post",
         values
       ),

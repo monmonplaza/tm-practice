@@ -9,9 +9,8 @@ import Header from "../../../../partials/Header.jsx";
 import Navigation from "../../../../partials/Navigation.jsx";
 import Toast from "../../../../partials/Toast.jsx";
 import ModalValidate from "../../../../partials/modals/ModalValidate.jsx";
-import ModalAddWonReason from "./ModalAddWOnReason.jsx";
 import WonReasonTable from "./WonReasonTable.jsx";
-
+import ModalAddWonReason from "./ModalAddWonReason.jsx";
 
 const WonReason = () => {
   const { store, dispatch } = React.useContext(StoreContext);
