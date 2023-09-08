@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2023 at 02:09 AM
+-- Generation Time: Sep 08, 2023 at 03:05 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -34,7 +34,8 @@ CREATE TABLE `trainingtm_won_reason` (
   `won_reason_last_name` varchar(100) NOT NULL,
   `won_reason_description` varchar(200) NOT NULL,
   `won_reason_created_at` datetime NOT NULL,
-  `won_reason_updated_at` datetime NOT NULL
+  `won_reason_updated_at` datetime NOT NULL,
+  `won_reason_is_active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -55,7 +56,7 @@ ALTER TABLE `trainingtm_won_reason`
 -- AUTO_INCREMENT for table `trainingtm_won_reason`
 --
 ALTER TABLE `trainingtm_won_reason`
-  MODIFY `won_reason_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `won_reason_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
