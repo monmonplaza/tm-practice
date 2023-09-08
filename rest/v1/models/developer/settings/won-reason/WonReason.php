@@ -64,8 +64,7 @@ class WonReason
         try {
             $sql = "select ";
             $sql .= "* ";
-            $sql .= "from ";
-            $sql .= "{$this->tblWonReason} ";
+            $sql .= "from {$this->tblWonReason} ";
             $sql .= "order by won_reason_is_active desc, ";
             $sql .= "won_reason_first_name asc ";
             $query = $this->connection->query($sql);
@@ -82,7 +81,7 @@ class WonReason
         try {
             $sql = "select * from {$this->tblWonReason} ";
             $sql .= "where won_reason_aid = :won_reason_aid ";
-            $sql .= "order by won_reason_name asc ";
+            $sql .= "order by won_reason_first_name asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "won_reason_aid" => $this->won_reason_aid,
@@ -160,11 +159,11 @@ class WonReason
     public function checkName()
     {
         try {
-            $sql = "select won_reason_name from {$this->tblWonReason} ";
-            $sql .= "where won_reason_name = :won_reason_name ";
+            $sql = "select won_reason_first_name from {$this->tblWonReason} ";
+            $sql .= "where won_reason_first_name = :won_reason_first_name ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "won_reason_name" => "{$this->won_reason_name}",
+                "won_reason_first_name" => "{$this->won_reason_first_name}",
             ]);
         } catch (PDOException $ex) {
             $query = false;

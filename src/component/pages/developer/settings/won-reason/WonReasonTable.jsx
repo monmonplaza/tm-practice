@@ -179,7 +179,7 @@ const WonReasonTable = ({ setItemEdit }) => {
         <ModalConfirm
           mysqlApiArchive={`/v1/controllers/developer/settings/won-reason/active.php?wonReasonId=${id}`}
           msg={"Are you sure you want to archive this won reason?"}
-          item={dataItem.won_reason_name}
+          item={dataItem.won_reason_first_name}
           queryKey={"settings-won-reason"}
         />
       )}
@@ -195,7 +195,7 @@ const WonReasonTable = ({ setItemEdit }) => {
               ? "Are you sure you want to delete this won reason?"
               : "Are you sure you want to restore this won reason?"
           }
-          item={dataItem.won_reason_name}
+          item={dataItem.won_reason_first_name}
           queryKey={"settings-won-reason"}
         />
       )}

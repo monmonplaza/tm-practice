@@ -28,14 +28,14 @@ const ModalAddWonReason = ({ itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit ? `/v1/controllers/developer/settings/lost-reason/lost-reason.php?lostReasonId=${itemEdit.lost_reason_aid}` //update
-        : "/v1/controllers/developer/settings/lost-reason/lost-reason.php", //add
+        itemEdit ? `/v1/controllers/developer/settings/won-reason/won-reason.php?wonReasonId=${itemEdit.won_reason_aid}` //update
+        : "/v1/controllers/developer/settings/won-reason/won-reason.php", //add
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["settings-lost-reason"] });
+      queryClient.invalidateQueries({ queryKey: ["settings-won-reason"] });
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -50,16 +50,18 @@ const ModalAddWonReason = ({ itemEdit }) => {
   });
 
   const initVal = {
-    lost_reason_aid: itemEdit ? itemEdit.lost_reason_aid : "",
-    lost_reason_first_name: itemEdit ? itemEdit.lost_reason_first_name : "",
-    lost_reason_last_name: itemEdit ? itemEdit.lost_reason_last_name : "",
-    lost_reason_description: itemEdit ? itemEdit.lost_reason_description : "",
+    won_reason_aid: itemEdit ? itemEdit.won_reason_aid : "",
+    won_reason_id: itemEdit ? itemEdit.won_reason_id : "",
+    won_reason_first_name: itemEdit ? itemEdit.won_reason_first_name : "",
+    won_reason_last_name: itemEdit ? itemEdit.won_reason_last_name : "",
+    won_reason_description: itemEdit ? itemEdit.won_reason_description : "",
   };
 
   const yupSchema = Yup.object({
-    lost_reason_first_name: Yup.string().required("Required"),
-    lost_reason_last_name: Yup.string().required("Required"),
-    lost_reason_description: Yup.string().required("Required"),
+    won_reason_id: Yup.string().required("Required"),
+    won_reason_first_name: Yup.string().required("Required"),
+    won_reason_last_name: Yup.string().required("Required"),
+    won_reason_description: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -75,7 +77,7 @@ const ModalAddWonReason = ({ itemEdit }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} Client Profile </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Won Reason </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -97,7 +99,7 @@ const ModalAddWonReason = ({ itemEdit }) => {
                       <div className="form__wrap">
                         <InputText
                           label="ID"
-                          type="text"
+                          number="number"
                           name="won_reason_id"
                           disabled={mutation.isLoading}
                         />
