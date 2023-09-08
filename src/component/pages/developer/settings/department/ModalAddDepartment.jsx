@@ -9,7 +9,7 @@ import {
   setValidate,
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
-import { InputText } from "../../../../helpers/FormInputs";
+import { InputSelect, InputText } from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";

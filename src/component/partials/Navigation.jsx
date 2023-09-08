@@ -38,16 +38,6 @@ const Navigation = ({
   return (
     <div className="px-2 py-4 bg-tm-gradient h-full">
       <ul className="custom__scroll">
-        <li className="nav__link">
-          <Link
-            to={`${urlRolePath}/client`}
-            className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-              submenu === "client" ? "active__submenu" : ""
-            }`}
-          >
-            Client
-          </Link>
-        </li>
         <li className="nav__link  has__dropdown">
           <button
             className={`${menu === "settings" ? "bg-[#436c8a]" : ""}`}
@@ -81,132 +71,6 @@ const Navigation = ({
                 Department
               </Link>
             </li>
-            <li
-              className={` ${
-                submenu === "settingsReferralType"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/settings/referral-type`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsReferralType" ? "active__submenu" : ""
-                }`}
-              >
-                Referral Type
-              </Link>
-            </li>
-            <li
-              className={` ${
-                submenu === "settingsReferralSource"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/settings/referral-source`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsReferralSource" ? "active__submenu" : ""
-                }`}
-              >
-                Referral Source
-              </Link>
-            </li>
-            <li
-              className={` ${
-                submenu === "settingsLostTo" ? "bg-[#436c8a]/80 rounded-md" : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/settings/lost-to`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsLostTo" ? "active__submenu" : ""
-                }`}
-              >
-                Lost To
-              </Link>
-            </li>
-            <li
-              className={` ${
-                submenu === "settingsClientProfile"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/settings/client-profile`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsClientProfile" ? "active__submenu" : ""
-                }`}
-              >
-                Client Profiles
-              </Link>
-            </li>
-            <li
-              className={` ${
-                submenu === "settingsUserProfile"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/settings/user-profile`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsUserProfile" ? "active__submenu" : ""
-                }`}
-              >
-                User Profile
-              </Link>
-            </li>
-            <li
-              className={` ${
-                submenu === "settingsLocation"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/settings/location`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsLocation" ? "active__submenu" : ""
-                }`}
-              >
-                Location
-              </Link>
-            </li>
-            <li
-              className={` ${
-                submenu === "settingsLostReason"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/settings/lost-reason`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsLostReason" ? "active__submenu" : ""
-                }`}
-              >
-                Lost Reason
-              </Link>
-            </li>
-            <li
-              className={` ${
-                submenu === "settingsWonReason"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/settings/won-reason`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsWonReason" ? "active__submenu" : ""
-                }`}
-              >
-                Won Reason
-              </Link>
-            </li>
 
             <li
               className={` ${
@@ -214,8 +78,8 @@ const Navigation = ({
                   ? "bg-[#436c8a]/80 rounded-md"
                   : ""
               }`}
-              >
-                <Link
+            >
+              <Link
                 to={`${urlRolePath}/settings/sample-otp`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsSampleOtp" ? "active__submenu" : ""
