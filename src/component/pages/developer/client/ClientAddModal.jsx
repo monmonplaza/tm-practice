@@ -22,8 +22,6 @@ import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
 const ModalAddClient = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
 
-  console.log(itemEdit.client_aid);
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
