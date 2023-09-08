@@ -13,6 +13,7 @@ import Location from "./component/pages/developer/settings/location/Location";
 import Client from "./component/pages/developer/client/Client";
 import LostReason from "./component/pages/developer/settings/lost-reason/LostReason";
 import WonReason from "./component/pages/developer/settings/won-reason/WonReason";
+import OtpSample from "./component/pages/developer/settings/otp-sample/OtpSample";
 
 function App() {
   // Create a client
@@ -58,7 +59,7 @@ function App() {
             <Route path={`/${devNavUrl}/client`} element={<Client />} />
             <Route
               path={`/${devNavUrl}/settings/sample-otp`}
-              element={<Client />}
+              element={<OtpSample />}
             />
           </Routes>
         </Router>
