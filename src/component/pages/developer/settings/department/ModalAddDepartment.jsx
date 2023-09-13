@@ -1,19 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 import {
-  setIsAdd,
   setMessage,
   setSuccess,
-  setValidate,
+  setValidate
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { InputSelect, InputText } from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
-import { Form, Formik } from "formik";
 
 const ModalAddDepartment = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -32,7 +31,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["settings-department"] });
       if (data.success) {
-        dispatch(setIsAdd(false));
+        // dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
       }
@@ -53,9 +52,9 @@ const ModalAddDepartment = ({ itemEdit }) => {
     department_name: Yup.string().required("Required"),
   });
 
-  const handleClose = () => {
-    dispatch(setIsAdd(false));
-  };
+  // const handleClose = () => {
+  //   dispatch(setIsAdd(false));
+  // };
 
   handleEscape(() => handleClose());
 

@@ -67,13 +67,7 @@ export const setIsEdit = (val) => {
     payload: val,
   };
 };
-
-export const setIsAdd = (val) => {
-  return {
-    type: "IS_ADD",
-    payload: val,
-  };
-};
+ 
 
 export const setIsView = (val) => {
   return {

@@ -1,5 +1,4 @@
 import React from "react";
-import { setIsAdd } from "../../store/StoreAction";
 import { StoreContext } from "../../store/StoreContext";
 
 // CYCY url // cyrenemlumabas@gmail.com
@@ -103,12 +102,12 @@ export const getUserType = () => {
   return link;
 };
 
-export const closeModal = (setShow, dispatch) => {
-  setShow("");
-  setTimeout(() => {
-    dispatch(setIsAdd(false));
-  }, 200);
-};
+// export const closeModal = (setShow, dispatch) => {
+//   setShow("");
+//   setTimeout(() => {
+//     dispatch(setIsAdd(false));
+//   }, 200);
+// };
 
 export const handleEscape = (handleClose) => {
   React.useEffect(() => {

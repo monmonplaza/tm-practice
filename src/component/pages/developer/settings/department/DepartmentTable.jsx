@@ -4,20 +4,19 @@ import { MdRestore } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 import {
-  setIsAdd,
   setIsConfirm,
-  setIsRestore,
+  setIsRestore
 } from "../../../../../store/StoreAction.jsx";
 import { StoreContext } from "../../../../../store/StoreContext.jsx";
 import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
 import Footer from "../../../../partials/Footer.jsx";
+import ModalConfirm from "../../../../partials/modals/ModalConfirm.jsx";
+import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore.jsx";
 import NoData from "../../../../partials/NoData.jsx";
 import Pills from "../../../../partials/Pills.jsx";
 import ServerError from "../../../../partials/ServerError.jsx";
-import TableLoading from "../../../../partials/TableLoading.jsx";
-import ModalConfirm from "../../../../partials/modals/ModalConfirm.jsx";
-import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore.jsx";
 import TableSpinner from "../../../../partials/spinners/TableSpinner.jsx";
+import TableLoading from "../../../../partials/TableLoading.jsx";
 
 const DepartmentTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -39,10 +38,10 @@ const DepartmentTable = ({ setItemEdit }) => {
     "settings-department" // key
   );
 
-  const handleEdit = (item) => {
-    dispatch(setIsAdd(true));
-    setItemEdit(item);
-  };
+  // const handleEdit = (item) => {
+  //   dispatch(setIsAdd(true));
+  //   setItemEdit(item);
+  // };
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
