@@ -4,6 +4,7 @@ import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 import {
+  setIsAdd,
   setMessage,
   setSuccess,
   setValidate
@@ -31,7 +32,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["settings-department"] });
       if (data.success) {
-        // dispatch(setIsAdd(false));
+        dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
       }
@@ -52,9 +53,9 @@ const ModalAddDepartment = ({ itemEdit }) => {
     department_name: Yup.string().required("Required"),
   });
 
-  // const handleClose = () => {
-  //   dispatch(setIsAdd(false));
-  // };
+  const handleClose = () => {
+    dispatch(setIsAdd(false));
+  };
 
   handleEscape(() => handleClose());
 
@@ -75,8 +76,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
               initialValues={initVal}
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
-                // mutate data
-                console.log("values", values);
+                // mutate data 
                 mutation.mutate(values);
               }}
             >
@@ -88,25 +88,11 @@ const ModalAddDepartment = ({ itemEdit }) => {
                         <InputText
                           label="Name"
                           type="text"
-                          name="department_name"
-                          number="number"
+                          name="department_name"  
                           disabled={mutation.isLoading}
                         />
                       </div>
-
-                      <div className="form__wrap">
-                        <InputSelect
-                          label="Class"
-                          type="text"
-                          name="client_class_id"
-                          disabled={mutation.isLoading}
-                          onChange={(e) => e}
-                        >
-                          <optgroup label="Select Class">
-                            <option value=""></option>
-                          </optgroup>
-                        </InputSelect>
-                      </div>
+ 
 
                       <div className="modal__action flex justify-end mt-6 gap-2">
                         <button

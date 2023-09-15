@@ -1,5 +1,5 @@
 import React from "react";
-import { setIsSettingsOpen } from "../../../../../store/StoreAction";
+import { setIsAdd, setIsSettingsOpen } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
 import Header from "../../../../partials/Header";
 import ModalValidate from "../../../../partials/modals/ModalValidate";
@@ -13,13 +13,10 @@ const Department = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
 
   const handleAdd = () => { 
+    dispatch(setIsAdd(true))
     setItemEdit(null);
   };
-
-  React.useEffect(() => {
-    dispatch(setIsSettingsOpen(true));
-  }, []);
-
+ 
   return (
     <>
       <Header />
@@ -40,10 +37,10 @@ const Department = () => {
         </main>
       </section>
 
-      {/* {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} />} */}
-      {store.validate && <ModalValidate />}
+      {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} />}
+      {store.validate && <ModalValidate />} 
 
-      {store.success && <Toast />}
+
     </>
   );
 };

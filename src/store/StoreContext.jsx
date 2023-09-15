@@ -11,6 +11,7 @@ const initVal = {
   isConfirm: false,
   isRestore: false, 
   isEdit: false,
+  isAdd: false,
   isView: false,
   isFeedback: false,
   isSearch: false,
