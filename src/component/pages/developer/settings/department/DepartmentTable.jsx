@@ -21,6 +21,9 @@ import TableLoading from "../../../../partials/TableLoading.jsx";
 import ModalConfirm from "../../../../partials/modals/ModalConfirm.jsx";
 import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore.jsx";
 import TableSpinner from "../../../../partials/spinners/TableSpinner.jsx";
+import { Link } from "react-router-dom";
+import { devNavUrl } from "../../../../helpers/functions-general.jsx";
+import { FaRegEye } from "react-icons/fa";
 
 const DepartmentTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -165,7 +168,13 @@ const DepartmentTable = ({ setItemEdit }) => {
                     data-ellipsis=". . ."
                   >
                     {item.department_is_active === 1 ? (
-                      <ul className=" flex items-center  gap-4 bg-">
+                      <ul className=" flex items-center  gap-4 bg-"> <Link to={`${devNavUrl}/settings/department/view?departmentId=${item.department_aid}`}><button
+                      className="tooltip"
+                      data-tooltip="view" 
+                    >
+                      <FaRegEye />
+                    </button>
+                  </Link>
                         <li>
                           <button
                             className="tooltip"
@@ -187,6 +196,7 @@ const DepartmentTable = ({ setItemEdit }) => {
                       </ul>
                     ) : (
                       <ul className="flex items-center gap-4">
+                       
                         <li>
                           <button
                             className="tooltip"
