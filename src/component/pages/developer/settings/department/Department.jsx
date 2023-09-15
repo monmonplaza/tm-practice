@@ -7,6 +7,7 @@ import Navigation from "../../../../partials/Navigation";
 import Toast from "../../../../partials/Toast";
 import DepartmentTable from "./DepartmentTable";
 import ModalAddDepartment from "./ModalAddDepartment";
+import BreadCrumbs from "../../../../partials/Breadcrumbs";
 
 const Department = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -25,7 +26,7 @@ const Department = () => {
           <Navigation menu="settings" submenu="settingsDepartment" />
         </aside>
         <main className="px-2 lg:pr-10">
-          {/* <BreadCrumbs param={location.search} /> */}
+          <BreadCrumbs/>
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Department</h1>
             <button className="btn btn--accent btn--sm" onClick={handleAdd}>

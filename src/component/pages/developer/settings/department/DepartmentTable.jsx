@@ -36,6 +36,7 @@ const DepartmentTable = ({ setItemEdit }) => {
   let active = 0; 
   let inactive = 0; 
 
+  console.log("location",location)
   // use if with loadmore button and search bar
   const {
     data: result,
@@ -63,14 +64,14 @@ const DepartmentTable = ({ setItemEdit }) => {
     },
     refetchOnWindowFocus: true, 
   });
-
+ 
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
       fetchNextPage();
     }
   }, [inView]);
- 
+  
    
   const handleEdit = (item) => {
     dispatch(setIsAdd(true));
