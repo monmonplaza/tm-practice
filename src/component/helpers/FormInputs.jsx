@@ -77,26 +77,6 @@ export const InputText = ({ label, ...props }) => {
     );
   }
 
-  if (props.ein_ssn === "ein_ssn") {
-    return (
-      <>
-        <label htmlFor={props.id || props.name}>{label}</label>
-        <PatternFormat
-          {...field}
-          {...props}
-          format="##-###-###"
-          allowEmptyFormatting
-          mask="_"
-          className={meta.touched && meta.error ? "error-show" : null}
-          autoComplete="off"
-        />
-
-        {meta.touched && meta.error ? (
-          <span className="error-show">{meta.error}</span>
-        ) : null}
-      </>
-    );
-  }
   if (props.landline === "landline") {
     return (
       <>
