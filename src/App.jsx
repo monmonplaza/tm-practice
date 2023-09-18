@@ -5,6 +5,7 @@ import { devNavUrl } from "./component/helpers/functions-general";
 import Department from "./component/pages/developer/settings/department/Department";
 import OtpSample from "./component/pages/developer/settings/otp-sample/OtpSample";
 import { StoreProvider } from "./store/StoreContext";
+import DepartmentView from "./component/pages/developer/settings/department/view/DepartmentView";
 
 function App() {
   // Create a client
@@ -15,6 +16,8 @@ function App() {
         <Router>
           <Routes>
             <Route path={`*`} element={<Department />} />
+            <Route path={`/settings/department`} element={<Department />} />
+            <Route path={`/settings/department/view`} element={<DepartmentView />} />
 
             <Route
               path={`/${devNavUrl}/settings/sample-otp`}

@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
@@ -6,14 +7,13 @@ import {
   setIsAdd,
   setMessage,
   setSuccess,
-  setValidate,
+  setValidate
 } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { InputSelect, InputText } from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
 import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
-import { Form, Formik } from "formik";
 
 const ModalAddDepartment = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -76,8 +76,7 @@ const ModalAddDepartment = ({ itemEdit }) => {
               initialValues={initVal}
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
-                // mutate data
-                console.log("values", values);
+                // mutate data 
                 mutation.mutate(values);
               }}
             >
@@ -89,25 +88,11 @@ const ModalAddDepartment = ({ itemEdit }) => {
                         <InputText
                           label="Name"
                           type="text"
-                          name="department_name"
-                          number="number"
+                          name="department_name"  
                           disabled={mutation.isLoading}
                         />
                       </div>
-
-                      <div className="form__wrap">
-                        <InputSelect
-                          label="Class"
-                          type="text"
-                          name="client_class_id"
-                          disabled={mutation.isLoading}
-                          onChange={(e) => e}
-                        >
-                          <optgroup label="Select Class">
-                            <option value=""></option>
-                          </optgroup>
-                        </InputSelect>
-                      </div>
+ 
 
                       <div className="modal__action flex justify-end mt-6 gap-2">
                         <button

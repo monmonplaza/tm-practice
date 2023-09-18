@@ -3,12 +3,15 @@ class Department
 {
     public $department_aid;
     public $department_is_active;
-    public $department_name;
-    public $department_description;
+    public $department_name; 
     public $department_created;
     public $department_datetime;
 
     public $employee_aid;
+
+    public $department_start;
+    public $department_total;
+    public $department_search;
 
     public $connection;
     public $lastInsertedId;
@@ -53,8 +56,7 @@ class Department
         try {
             $sql = "select ";
             $sql .= "* ";
-            $sql .= "from ";
-            $sql .= " {$this->tblDepartment} ";
+            $sql .= "from {$this->tblDepartment} ";
             $sql .= "order by department_is_active desc, ";
             $sql .= "department_name asc ";
             $query = $this->connection->query($sql);
@@ -63,7 +65,47 @@ class Department
         }
         return $query;
     }
- 
+  
+    // read all limit
+    public function readLimit()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "* ";
+            $sql .= "from {$this->tblDepartment} ";
+            $sql .= "order by department_is_active desc, ";
+            $sql .= "department_name asc ";
+            $sql .= "limit :start, ";
+            $sql .= ":total ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "start" => $this->department_start - 1,
+                "total" => $this->department_total,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    
+    public function search()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "* ";
+            $sql .= "from {$this->tblDepartment} ";
+            $sql .= "where department_name like :search ";  
+            $sql .= "order by department_is_active desc, ";
+            $sql .= "department_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "search" => "%{$this->department_search}%",  
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 
     // read by id
     public function readById()

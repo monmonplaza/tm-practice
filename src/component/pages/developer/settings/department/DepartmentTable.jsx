@@ -1,48 +1,86 @@
+import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import { FiArchive, FiEdit3 } from "react-icons/fi";
 import { MdRestore } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { useInView } from "react-intersection-observer";
 
 import {
   setIsAdd,
   setIsConfirm,
-  setIsRestore,
+  setIsRestore
 } from "../../../../../store/StoreAction.jsx";
 import { StoreContext } from "../../../../../store/StoreContext.jsx";
-import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
-import Footer from "../../../../partials/Footer.jsx";
+import { queryDataInfinite } from "../../../../helpers/queryDataInfinite.jsx";
+import Loadmore from "../../../../partials/Loadmore.jsx";
 import NoData from "../../../../partials/NoData.jsx";
 import Pills from "../../../../partials/Pills.jsx";
+import Searchbar from "../../../../partials/Searchbar.jsx";
 import ServerError from "../../../../partials/ServerError.jsx";
 import TableLoading from "../../../../partials/TableLoading.jsx";
 import ModalConfirm from "../../../../partials/modals/ModalConfirm.jsx";
 import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore.jsx";
 import TableSpinner from "../../../../partials/spinners/TableSpinner.jsx";
+import { Link } from "react-router-dom";
+import { devNavUrl } from "../../../../helpers/functions-general.jsx";
+import { FaRegEye } from "react-icons/fa";
 
 const DepartmentTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
-  let counter = 1;
-  let active = 0;
-  let inactive = 0;
 
+  const [page, setPage] = React.useState(1);
+  const search = React.useRef(null);
+  const { ref, inView } = useInView();
+
+  let counter = 1; 
+  let active = 0; 
+  let inactive = 0; 
+
+  console.log("location",location)
+  // use if with loadmore button and search bar
   const {
-    isLoading,
-    isFetching,
+    data: result,
     error,
-    data: department,
-  } = useQueryData(
-    `/v1/controllers/developer/settings/department/department.php`, // endpoint
-    "get", // method
-    "settings-department" // key
-  );
-
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["settings-department", store.isSearch],
+    queryFn: async ({ pageParam = 1 }) =>
+      await queryDataInfinite(
+      `/v1/controllers/developer/settings/department/search.php`, // search endpoint
+      `/v1/controllers/developer/settings/department/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        store.isSearch, // search boolean
+        "post",
+        { search: search.current.value }
+      ),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.total) {
+        return lastPage.page + lastPage.count;
+      }
+      return;
+    },
+    refetchOnWindowFocus: true, 
+  });
+ 
+  React.useEffect(() => {
+    if (inView) {
+      setPage((prev) => prev + 1);
+      fetchNextPage();
+    }
+  }, [inView]);
+  
+   
   const handleEdit = (item) => {
     dispatch(setIsAdd(true));
     setItemEdit(item);
   };
+
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
@@ -67,10 +105,18 @@ const DepartmentTable = ({ setItemEdit }) => {
 
   return (
     <>
-      <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
-        {isFetching && !isLoading && <TableSpinner />}
+    <Searchbar 
+        search={search}
+        dispatch={dispatch}
+        store={store}
+        result={result?.pages}
+        isFetching={isFetching}
+        /> 
 
-        <table>
+      <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
+         {isFetching && status!=="loading" && <TableSpinner />}  
+
+           <table>
           <thead>
             <tr>
               <th>#</th>
@@ -80,11 +126,11 @@ const DepartmentTable = ({ setItemEdit }) => {
             </tr>
           </thead>
           <tbody>
-            {(isLoading || department?.data.length === 0) && (
+            {(status==="loading" || result?.pages[0].data.length === 0) && (
               <tr className="text-center ">
                 <td colSpan="100%" className="p-10">
-                  {isLoading ? (
-                    <TableLoading count={20} cols={3} />
+                  {status==="loading" ? (
+                    <TableLoading count={20} cols={3} /> 
                   ) : (
                     <NoData />
                   )}
@@ -100,10 +146,12 @@ const DepartmentTable = ({ setItemEdit }) => {
               </tr>
             )}
 
-            {department?.data.map((item, key) => {
-              active += item.department_is_active === 1;
-              inactive += item.department_is_active === 0;
-              return (
+            {result?.pages.map((page, key) => (
+                <React.Fragment key={key}> 
+               {page.data.map((item, key) => {
+                      active += item.department_is_active === 1;
+                      inactive += item.department_is_active === 0;
+                return (
                 <tr key={key}>
                   <td>{counter++}.</td>
                   <td>
@@ -120,7 +168,13 @@ const DepartmentTable = ({ setItemEdit }) => {
                     data-ellipsis=". . ."
                   >
                     {item.department_is_active === 1 ? (
-                      <ul className=" flex items-center  gap-4 bg-">
+                      <ul className=" flex items-center  gap-4 bg-"> <Link to={`${devNavUrl}/settings/department/view?departmentId=${item.department_aid}`}><button
+                      className="tooltip"
+                      data-tooltip="view" 
+                    >
+                      <FaRegEye />
+                    </button>
+                  </Link>
                         <li>
                           <button
                             className="tooltip"
@@ -142,6 +196,7 @@ const DepartmentTable = ({ setItemEdit }) => {
                       </ul>
                     ) : (
                       <ul className="flex items-center gap-4">
+                       
                         <li>
                           <button
                             className="tooltip"
@@ -164,12 +219,26 @@ const DepartmentTable = ({ setItemEdit }) => {
                     )}
                   </td>
                 </tr>
-              );
-            })}
+                );
+                })}
+
+                </React.Fragment>
+            ))}
           </tbody>
-        </table>
-      </div>
-      <Footer record={department?.count} active={active} inactive={inactive} />
+        </table> 
+          <div className="loadmore flex justify-center flex-col items-center my-5">
+            <Loadmore 
+              fetchNextPage={fetchNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+              hasNextPage={hasNextPage}
+              result={result?.pages[0]}
+              setPage={setPage}
+              page={page}
+              refView={ref}
+                />
+            </div>
+      </div>   
+      
 
       {store.isConfirm && (
         <ModalConfirm

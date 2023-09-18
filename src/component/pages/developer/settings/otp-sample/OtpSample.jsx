@@ -1,14 +1,16 @@
+import { Form, Formik } from "formik";
 import React from "react";
+import * as Yup from "yup";
+import { StoreContext } from "../../../../../store/StoreContext.jsx";
+import { InputText } from "../../../../helpers/FormInputs.jsx";
 import Header from "../../../../partials/Header.jsx";
 import Navigation from "../../../../partials/Navigation.jsx";
-import { StoreContext } from "../../../../../store/StoreContext.jsx";
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import { InputText } from "../../../../helpers/FormInputs.jsx";
+import Toast from "../../../../partials/Toast.jsx";
 
 const OtpSample = () => {
   const { store } = React.useContext(StoreContext);
-
+  const [itemEdit, setItemEdit] = React.useState(null);
+  
   const inputfocus = (e) => {
     if (e.key === "Delete" || e.key === "Backspace") {
       const next = e.target.tabIndex - 2;
@@ -88,6 +90,7 @@ const OtpSample = () => {
           </Formik>
         </main>
       </section>
+      {store.success && <Toast />}
     </>
   );
 };

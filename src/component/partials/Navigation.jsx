@@ -23,8 +23,8 @@ const Navigation = ({
   const { store, dispatch } = React.useContext(StoreContext);
   const urlRolePath = `${devNavUrl}`;
   const handleShow = () => {
-    dispatch(setIsShow(!store.isShow));
-    dispatch(setIsSearch(false));
+    // dispatch(setIsShow(!store.isShow));
+    // dispatch(setIsSearch(false));
   };
 
   const handleDropDownTool = (e) => {

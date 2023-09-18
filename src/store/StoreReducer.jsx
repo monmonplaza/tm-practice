@@ -53,12 +53,7 @@ export const StoreReducer = (state, action) => {
         ...state,
         isRestore: action.payload,
       };
-
-    case "IS_ADD":
-      return {
-        ...state,
-        isAdd: action.payload,
-      };
+ 
 
     case "IS_FEEDBACK":
       return {
@@ -70,6 +65,12 @@ export const StoreReducer = (state, action) => {
       return {
         ...state,
         isEdit: action.payload,
+      };
+
+    case "IS_ADD":
+      return {
+        ...state,
+        isAdd: action.payload,
       };
 
     case "IS_VIEW":

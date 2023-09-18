@@ -3,6 +3,7 @@ import React from "react";
 const ButtonSpinner = ({ color = "stroke-white" }) => {
   return (
     <>
+      
       <div className="flex justify-center items-center flex-col text-center rounded-full">
         <svg
           className="spinner"
