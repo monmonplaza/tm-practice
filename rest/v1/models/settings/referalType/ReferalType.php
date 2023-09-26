@@ -62,26 +62,24 @@ class ReferalType
     return $query;
   }
 
-//   public function update()
-//   {
-//     try {
-//       $sql = "update {$this->tblEmployees} set ";
-//       $sql .= "emp_name = :emp_name, ";
-//       $sql .= "emp_position = :emp_position, ";
-//       $sql .= "emp_datetime = :emp_datetime ";
-//       $sql .= "where emp_aid = :emp_aid ";
-//       $query = $this->connection->prepare($sql);
-//       $query->execute([
-//         "emp_name" => $this->emp_name,
-//         "emp_position" => $this->emp_position,
-//         "emp_datetime" => $this->emp_datetime,
-//         "emp_aid" => $this->emp_aid,
-//       ]);
-//     } catch (PDOException $ex) {
-//       $query = false;
-//     }
-//     return $query;
-//   }
+  public function update()
+  {
+    try {
+      $sql = "update {$this->tblReferalType} set ";
+      $sql .= "referral_type_name = :referral_type_name, ";
+      $sql .= "referral_type_datetime = :referral_type_datetime ";
+      $sql .= "where referral_type_aid  = :referral_type_aid  ";
+      $query = $this->connection->prepare($sql);
+      $query->execute([
+        "referral_type_name" => $this->referral_type_name,
+        "referral_type_datetime" => $this->referral_type_datetime,
+        "referral_type_aid " => $this->referral_type_aid,
+      ]);
+    } catch (PDOException $ex) {
+      $query = false;
+    }
+    return $query;
+  }
 
   public function delete()
   {
