@@ -5,7 +5,7 @@ require '../../../core/header.php';
 require '../../../core/functions.php';
 // require 'functions.php';
 // use needed classes
-require '../../../models/settings/referaltype/referaltype.php';
+require '../../../models/settings/offices/offices.php';
 
 
 // check database connection
@@ -13,7 +13,7 @@ require '../../../models/settings/referaltype/referaltype.php';
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$referalType = new ReferalType($conn);
+$offices = new Offices($conn);
 // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -21,15 +21,15 @@ $data = json_decode($body, true);
 // validate api key
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
   checkApiKey();
-  if (array_key_exists("reftypeid", $_GET)) {
+  if (array_key_exists("officeid", $_GET)) {
     // check data
     checkPayload($data);
-    $referalType->referral_type_aid = $_GET['reftypeid'];
-    $referalType->referral_type_is_active = trim($data["isActive"]);
-    checkId($referalType->referral_type_aid);
-    $query = checkActive($referalType);
+    $offices->office_aid = $_GET['officeid'];
+    $offices->office_is_active = trim($data["isActive"]);
+    checkId($offices->office_aid);
+    $query = checkActive($offices);
     http_response_code(200);
-    returnSuccess($referalType, "Referral Type", $query);
+    returnSuccess($offices, "Referral Type", $query);
   }
   // return 404 error if endpoint not available
   checkEndpoint();

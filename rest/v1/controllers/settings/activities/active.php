@@ -13,7 +13,7 @@ require '../../../models/settings/activities/activities.php';
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$emp = new Employees($conn);
+$act = new Activities($conn);
 // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -21,15 +21,15 @@ $data = json_decode($body, true);
 // validate api key
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
   checkApiKey();
-  if (array_key_exists("empid", $_GET)) {
+  if (array_key_exists("actid", $_GET)) {
     // check data
     checkPayload($data);
-    $emp->emp_aid = $_GET['empid'];
-    $emp->emp_is_active = trim($data["isActive"]);
-    checkId($emp->emp_aid);
-    $query = checkActive($emp);
+    $act->settings_activities_aid = $_GET['actid'];
+    $act->settings_activities_is_active = trim($data["isActive"]);
+    checkId($act->settings_activities_aid);
+    $query = checkActive($act);
     http_response_code(200);
-    returnSuccess($emp, "Employee", $query);
+    returnSuccess($act, "Activities", $query);
   }
   // return 404 error if endpoint not available
   checkEndpoint();

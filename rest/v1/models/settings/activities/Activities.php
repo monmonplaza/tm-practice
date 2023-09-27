@@ -116,24 +116,23 @@ class Activities
     return $query;
   }
 
-  // active
-  // public function active()
-  //   {
-  //   try {
-  //   $sql = "update {$this->tblEmployees} set ";
-  //   $sql .= "emp_is_active = :emp_is_active, ";
-  //   $sql .= "emp_datetime = :emp_datetime ";
-  //   $sql .= "where emp_aid = :emp_aid ";
-  //   $query = $this->connection->prepare($sql);
-  //   $query->execute([
-  //   "emp_is_active" => $this->emp_is_active,
-  //   "emp_datetime" => $this->emp_datetime,
-  //   "emp_aid" => $this->emp_aid,
-  //   ]);
-  //   } catch (PDOException $ex) {
-  //   $query = false;
-  //   }
-  //   return $query;
-  // }
+  public function active()
+    {
+    try {
+    $sql = "update {$this->tblActivities} set ";
+    $sql .= "settings_activities_is_active = :settings_activities_is_active, ";
+    $sql .= "settings_activities_datetime = :settings_activities_datetime ";
+    $sql .= "where settings_activities_aid = :settings_activities_aid ";
+    $query = $this->connection->prepare($sql);
+    $query->execute([
+    "settings_activities_is_active" => $this->settings_activities_is_active,
+    "settings_activities_datetime" => $this->settings_activities_datetime,
+    "settings_activities_aid" => $this->settings_activities_aid,
+    ]);
+    } catch (PDOException $ex) {
+    $query = false;
+    }
+    return $query;
+  }
 
 }

@@ -68,12 +68,12 @@ class ReferalType
       $sql = "update {$this->tblReferalType} set ";
       $sql .= "referral_type_name = :referral_type_name, ";
       $sql .= "referral_type_datetime = :referral_type_datetime ";
-      $sql .= "where referral_type_aid  = :referral_type_aid  ";
+      $sql .= "where referral_type_aid = :referral_type_aid ";
       $query = $this->connection->prepare($sql);
       $query->execute([
         "referral_type_name" => $this->referral_type_name,
         "referral_type_datetime" => $this->referral_type_datetime,
-        "referral_type_aid " => $this->referral_type_aid,
+        "referral_type_aid" => $this->referral_type_aid,
       ]);
     } catch (PDOException $ex) {
       $query = false;
@@ -96,24 +96,24 @@ class ReferalType
     return $query;
   }
 
-//   // active
-//   public function active()
-//     {
-//     try {
-//     $sql = "update {$this->tblEmployees} set ";
-//     $sql .= "emp_is_active = :emp_is_active, ";
-//     $sql .= "emp_datetime = :emp_datetime ";
-//     $sql .= "where emp_aid = :emp_aid ";
-//     $query = $this->connection->prepare($sql);
-//     $query->execute([
-//     "emp_is_active" => $this->emp_is_active,
-//     "emp_datetime" => $this->emp_datetime,
-//     "emp_aid" => $this->emp_aid,
-//     ]);
-//     } catch (PDOException $ex) {
-//     $query = false;
-//     }
-//     return $query;
-//   }
+  // active
+  public function active()
+    {
+    try {
+    $sql = "update {$this->tblReferalType} set ";
+    $sql .= "referral_type_is_active = :referral_type_is_active, ";
+    $sql .= "referral_type_datetime = :referral_type_datetime ";
+    $sql .= "where referral_type_aid = :referral_type_aid ";
+    $query = $this->connection->prepare($sql);
+    $query->execute([
+    "referral_type_is_active" => $this->referral_type_is_active,
+    "referral_type_datetime" => $this->referral_type_datetime,
+    "referral_type_aid" => $this->referral_type_aid,
+    ]);
+    } catch (PDOException $ex) {
+    $query = false;
+    }
+    return $query;
+  }
 
 }

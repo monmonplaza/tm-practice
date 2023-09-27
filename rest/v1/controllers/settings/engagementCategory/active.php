@@ -5,7 +5,7 @@ require '../../../core/header.php';
 require '../../../core/functions.php';
 // require 'functions.php';
 // use needed classes
-require '../../../models/settings/referaltype/referaltype.php';
+require '../../../models/settings/engagementcategory/engagementcategory.php';
 
 
 // check database connection
@@ -13,7 +13,7 @@ require '../../../models/settings/referaltype/referaltype.php';
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$referalType = new ReferalType($conn);
+$engageCateg = new EngagementCategory($conn);
 // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -21,15 +21,15 @@ $data = json_decode($body, true);
 // validate api key
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
   checkApiKey();
-  if (array_key_exists("reftypeid", $_GET)) {
+  if (array_key_exists("engagecategid", $_GET)) {
     // check data
     checkPayload($data);
-    $referalType->referral_type_aid = $_GET['reftypeid'];
-    $referalType->referral_type_is_active = trim($data["isActive"]);
-    checkId($referalType->referral_type_aid);
-    $query = checkActive($referalType);
+    $engageCateg->engagement_category_aid = $_GET['engagecategid'];
+    $engageCateg->engagement_category_is_active = trim($data["isActive"]);
+    checkId($engageCateg->engagement_category_aid);
+    $query = checkActive($engageCateg);
     http_response_code(200);
-    returnSuccess($referalType, "Referral Type", $query);
+    returnSuccess($engageCateg, "EngagementCategory", $query);
   }
   // return 404 error if endpoint not available
   checkEndpoint();
