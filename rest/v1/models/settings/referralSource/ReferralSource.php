@@ -2,11 +2,11 @@
 
 class Rates
 {
-    public $settings_rates_aid;
-    public $settings_rates_description;
-    public $settings_rates_is_active;
-    public $settings_rates_created;
-    public $settings_rates_datetime;
+    public $referral_source_aid;
+    public $referral_source_name;
+    public $referral_source_is_active;
+    public $referral_source_create;
+    public $referral_source_datetime;
 
     public $connection;
     public $lastInsertedId;
@@ -14,21 +14,21 @@ class Rates
     public $emp_total;
     public $emp_search;
 
-    public $tblRates;
+    public $tblReferralSrc;
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblRates = "tmv1_settings_rates";
+        $this->tblReferralSrc = "tmv1_settings_referral_source";
         
     }
 
     public function readAll()
       {
         try {
-          $sql = "select * from {$this->tblRates} ";
-          $sql .= "order by settings_rates_is_active desc, ";
-          $sql .= "settings_rates_description asc ";
+          $sql = "select * from {$this->tblReferralSrc} ";
+          $sql .= "order by referral_source_is_active desc, ";
+          $sql .= "referral_source_name asc ";
           $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
           $query = false;

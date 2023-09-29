@@ -15,7 +15,7 @@ import SearchBar from "../../../../partials/Searchbar.jsx";
 import ServerError from "../../../../partials/ServerError.jsx";
 import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
 
-const DepartmentTable = ({ setIsShow, setItemEdit }) => {
+const EngagementCategoryTable = ({ setIsShow, setItemEdit }) => {
   
   let counter = 1;
 
@@ -23,14 +23,14 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
     isLoading,
     isFetching,
     error,
-    data: departments,
+    data: engagementcategory,
   } = useQueryData(
-    "/v1/departments", // endpoint
+    "/v1/engagement-category", // endpoint
     "get", // method
-    "departments" // key
+    "engagementcategory" // key
   );
 
-  console.log(departments)
+  console.log(engagementcategory)
 
 
   return (
@@ -45,13 +45,15 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
+                  <th>Description</th>
+                  <th>Invoce Desc</th>
                   <th>Status</th>
                   <th className="action"></th>
                 </tr>
               </thead>
               <tbody>
                 {isLoading ||
-                  (departments?.data.length === 0 && (
+                  (engagementcategory?.data.length === 0 && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         {isLoading ? (
@@ -68,15 +70,17 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
                   </td>
                 </tr> */}
 
-                {departments?.data.map((item, key) => {
+                {engagementcategory?.data.map((item, key) => {
                   
                   return (
 
                   <tr key={key}>
                     <td>{counter++}</td>
-                    <td>{item.department_name}</td>
+                    <td>{item.engagement_category_name}</td>
+                    <td>{item.engagement_category_description}</td>
+                    <td>{item.engagement_category_invoice_description}</td>
                     <td>
-                      {item.department_is_active === 1 ? (
+                      {item.engagement_category_is_active === 1 ? (
                         <Pills label="Active" bgc="bg-green-800" />
                       ) : (
                         <Pills label="Inactive" bgc="bg-gray-500" />
@@ -133,4 +137,4 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
   );
 };
 
-export default DepartmentTable;
+export default EngagementCategoryTable;

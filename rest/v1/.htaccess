@@ -45,3 +45,13 @@ RewriteRule ^user-others/reset$ controllers/settings/user/other/reset-password.p
 RewriteRule ^category$ controllers/food/category/category.php [L]
 RewriteRule ^category/([0-9]+)$ controllers/food/category/category.php?categoryid=$1 [L]
 RewriteRule ^category/active/([0-9]+)$ controllers/food/category/active.php?categoryid=$1 [L]
+
+#department
+RewriteRule ^departments$ controllers/settings/department/department.php [L]
+RewriteRule ^departments/([0-9]+)$ controllers/settings/department/department.php?departmentid=$1 [L]
+RewriteRule ^departments/active/([0-9]+)$ controllers/settings/department/active.php?departmentid=$1 [L]
+
+#engagement-category
+RewriteRule ^engagement-category$ controllers/settings/engagementCategory/engagementCategory.php [L]
+RewriteRule ^engagement-category/([0-9]+)$ controllers/settings/engagementCategory/engagementCategory.php?departmentid=$1 [L]
+RewriteRule ^engagement-category/active/([0-9]+)$ controllers/settings/engagementCategory/active.php?departmentid=$1 [L]

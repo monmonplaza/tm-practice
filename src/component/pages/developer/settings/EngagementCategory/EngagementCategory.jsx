@@ -4,17 +4,17 @@ import Breadcrumbs from "../../../../partials/Breadcrumbs";
 import Navigation from "../../../../partials/Navigation";
 import Toast from "../../../../partials/Toast";
 import ModalError from "../../../../partials/modals/ModalError";
-import DepartmentTable from "./DepartmentTable";
-import ModalAddDepartment from "./ModalAddDepartment";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { setIsAdd } from "../../../../../store/StoreAction";
-import ModalValidate from "../../../../partials/modals/ModalValidate";
+import ModalAddEngagementCategory from "./ModalAddEngagementCategory";
+import EngagementCategoryTable from "./EngagementCategoryTable";
 
-const Department = () => {
+const EngagementCategory = () => {
 
   const {store, dispatch} = React.useContext(StoreContext);
   
   const handleAddDepartment = () => dispatch(setIsAdd(true));
+
 
   const [itemEdit, setItemEdit] = useState([]);
 
@@ -31,22 +31,22 @@ const Department = () => {
         <main className="px-4 lg:pr-10 overflow-hidden  ">
           <Breadcrumbs thePageTitle="Department" />
           <div className="flex justify-between items-center my-5">
-            <h1>Department</h1>
+            <h1>Engagement Category</h1>
             <button className="btn btn--acent btn--sm" onClick={handleAddDepartment}>
               Add
             </button>
           </div>
-          <DepartmentTable />
+          <EngagementCategoryTable />
         </main>
       </section>
       {store.isAdd && (
-        <ModalAddDepartment/>
+        <ModalAddEngagementCategory/>
       )}
-      {store.isSuccess && <Toast setSuccess={setSuccess} />}
+      {/* {isSuccess && <Toast setSuccess={setSuccess} />}
 
-      {store.isValidate && <ModalValidate setError={setError} />}
+      {isError && <ModalError setError={setError} />} */}
     </>
   );
 };
 
-export default Department;
+export default EngagementCategory;
