@@ -5,7 +5,8 @@ import ReferralSource from "./component/pages/developer/settings/ReferralSource/
 import Department from "./component/pages/developer/settings/Department/Department";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StoreProvider } from "./store/StoreContext";
-import EngagementCategory from "./component/pages/developer/settings/EngagementCategory/EngagementCategory";
+import Activities from "./component/pages/developer/settings/Activities/Activities";
+
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,7 +19,7 @@ function App() {
           <Route path="/settings/LostReason" element={<LostReason />} />
           <Route path="/settings/ReferralSource" element={<ReferralSource />} />
           <Route path="/settings/Department" element={<Department />} />
-          <Route path="/settings/EngagementCategory" element={<EngagementCategory />} />
+          <Route path="/settings/Activities" element={<Activities />} />
         </Routes>
       </Router>
       </StoreProvider>

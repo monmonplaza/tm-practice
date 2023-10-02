@@ -53,5 +53,15 @@ RewriteRule ^departments/active/([0-9]+)$ controllers/settings/department/active
 
 #engagement-category
 RewriteRule ^engagement-category$ controllers/settings/engagementCategory/engagementCategory.php [L]
-RewriteRule ^engagement-category/([0-9]+)$ controllers/settings/engagementCategory/engagementCategory.php?departmentid=$1 [L]
-RewriteRule ^engagement-category/active/([0-9]+)$ controllers/settings/engagementCategory/active.php?departmentid=$1 [L]
+RewriteRule ^engagement-category/([0-9]+)$ controllers/settings/engagementCategory/engagementCategory.php?engagecategid=$1 [L]
+RewriteRule ^engagement-category/active/([0-9]+)$ controllers/settings/engagementCategory/active.php?engagecategid=$1 [L]
+
+#activities
+RewriteRule ^activities$ controllers/settings/activities/activities.php [L]
+RewriteRule ^activities/([0-9]+)$ controllers/settings/activities/activities.php?actid=$1 [L]
+RewriteRule ^activities/active/([0-9]+)$ controllers/settings/activities/active.php?actid=$1 [L]
+
+#referralSource
+RewriteRule ^referralsource$ controllers/settings/referralsource/referralsource.php [L]
+RewriteRule ^referralsource/([0-9]+)$ controllers/settings/referralsource/referralsource.php?referralsourceid=$1 [L]
+RewriteRule ^referralsource/active/([0-9]+)$ controllers/settings/referralsource/active.php?referralsourceid=$1 [L]

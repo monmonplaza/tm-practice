@@ -3,21 +3,21 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$rates = new Rates($conn);
+$refSource = new ReferralSource($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
 
-if (array_key_exists("rateid", $_GET)) {
-  $rates->settings_rates_aid = $_GET['rateid'];
-  checkId($rates->settings_rates_aid);
-  $query = checkReadById($rates);
+if (array_key_exists("referralsourceid", $_GET)) {
+  $refSource->referral_source_aid  = $_GET['referralsourceid'];
+  checkId($refSource->referral_source_aid );
+  $query = checkReadById($refSource);
   http_response_code(200);
   getQueriedData($query);
 }
 
 if (empty($_GET)) {
-  $query = checkReadAll($rates);
+  $query = checkReadAll($refSource);
   http_response_code(200);
   getQueriedData($query);
 }

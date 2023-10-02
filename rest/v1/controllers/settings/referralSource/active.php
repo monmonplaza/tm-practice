@@ -5,7 +5,7 @@ require '../../../core/header.php';
 require '../../../core/functions.php';
 // require 'functions.php';
 // use needed classes
-require '../../../models/settings/rates/rates.php';
+require '../../../models/settings/referralsource/referralsource.php';
 
 
 // check database connection
@@ -13,7 +13,7 @@ require '../../../models/settings/rates/rates.php';
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$rates = new Rates($conn);
+$refSource = new ReferralSource($conn);
 // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -21,15 +21,15 @@ $data = json_decode($body, true);
 // validate api key
 if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
   checkApiKey();
-  if (array_key_exists("ratesid", $_GET)) {
+  if (array_key_exists("referralsourceid", $_GET)) {
     // check data
     checkPayload($data);
-    $rates->settings_rates_aid = $_GET['ratesid'];
-    $rates->settings_rates_is_active = trim($data["isActive"]);
-    checkId($rates->settings_rates_aid);
-    $query = checkActive($rates);
+    $refSource->referral_source_aid = $_GET['referralsourceid'];
+    $refSource->referral_source_is_active = trim($data["isActive"]);
+    checkId($refSource->referral_source_aid);
+    $query = checkActive($refSource);
     http_response_code(200);
-    returnSuccess($rates, "Rates", $query);
+    returnSuccess($refSource, "Referral Source", $query);
   }
   // return 404 error if endpoint not available
   checkEndpoint();

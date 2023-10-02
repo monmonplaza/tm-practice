@@ -15,7 +15,7 @@ import SearchBar from "../../../../partials/Searchbar.jsx";
 import ServerError from "../../../../partials/ServerError.jsx";
 import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
 
-const EngagementCategoryTable = ({ setIsShow, setItemEdit }) => {
+const ActivitiesTable = ({ setIsShow, setItemEdit }) => {
   
   let counter = 1;
 
@@ -23,14 +23,14 @@ const EngagementCategoryTable = ({ setIsShow, setItemEdit }) => {
     isLoading,
     isFetching,
     error,
-    data: engagementcategory,
+    data: activities,
   } = useQueryData(
-    "/v1/engagement-category", // endpoint
+    "/v1/activities", // endpoint
     "get", // method
-    "engagementcategory" // key
+    "activities" // key
   );
 
-  console.log(engagementcategory)
+  console.log(activities)
 
 
   return (
@@ -45,15 +45,15 @@ const EngagementCategoryTable = ({ setIsShow, setItemEdit }) => {
                 <tr>
                   <th>#</th>
                   <th>Name</th>
-                  <th>Description</th>
-                  <th>Invoce Desc</th>
+                  <th>Invoice Decription</th>
                   <th>Status</th>
+                  <th></th>
                   <th className="action"></th>
                 </tr>
               </thead>
               <tbody>
                 {isLoading ||
-                  (engagementcategory?.data.length === 0 && (
+                  (activities?.data.length === 0 && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         {isLoading ? (
@@ -70,24 +70,23 @@ const EngagementCategoryTable = ({ setIsShow, setItemEdit }) => {
                   </td>
                 </tr> */}
 
-                {engagementcategory?.data.map((item, key) => {
+                {activities?.data.map((item, key) => {
                   
                   return (
 
                   <tr key={key}>
                     <td>{counter++}</td>
-                    <td>{item.engagement_category_name}</td>
-                    <td>{item.engagement_category_description}</td>
-                    <td>{item.engagement_category_invoice_description}</td>
+                    <td>{item.settings_activities_name}</td>
+                    <td>{item.settings_activities_invoice_description}</td>
                     <td>
-                      {item.engagement_category_is_active === 1 ? (
+                      {item.settings_activities_is_active === 1 ? (
                         <Pills label="Active" bgc="bg-green-800" />
                       ) : (
                         <Pills label="Inactive" bgc="bg-gray-500" />
                       )}
                     </td>
                     <td className="table__action">
-                      {item.department_is_active === 1 ? (
+                      {item.settings_activities_is_active === 1 ? (
                         <ul className="flex items-center gap-4">
                           <li className="tooltip" data-tooltip="Edit">
                             <button>
@@ -137,4 +136,4 @@ const EngagementCategoryTable = ({ setIsShow, setItemEdit }) => {
   );
 };
 
-export default EngagementCategoryTable;
+export default ActivitiesTable;

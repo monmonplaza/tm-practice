@@ -1,6 +1,6 @@
 <?php
 
-class Rates
+class ReferralSource
 {
     public $referral_source_aid;
     public $referral_source_name;
@@ -39,21 +39,21 @@ class Rates
       public function create()
   {
     try {
-      $sql = "insert into {$this->tblRates} ";
-      $sql .= "( settings_rates_description, ";
-      $sql .= "settings_rates_is_active, ";
-      $sql .= "settings_rates_created, ";
-      $sql .= "settings_rates_datetime ) values ( ";
-      $sql .= ":settings_rates_description, ";
-      $sql .= ":settings_rates_is_active, ";
-      $sql .= ":settings_rates_created, ";
-      $sql .= ":settings_rates_datetime ) ";
+      $sql = "insert into {$this->tblReferralSrc} ";
+      $sql .= "( referral_source_name, ";
+      $sql .= "referral_source_is_active, ";
+      $sql .= "referral_source_create, ";
+      $sql .= "referral_source_datetime ) values ( ";
+      $sql .= ":referral_source_name, ";
+      $sql .= ":referral_source_is_active, ";
+      $sql .= ":referral_source_create, ";
+      $sql .= ":referral_source_datetime ) ";
       $query = $this->connection->prepare($sql);
       $query->execute([
-        "settings_rates_description" => $this->settings_rates_description,
-        "settings_rates_is_active" => $this->settings_rates_is_active,
-        "settings_rates_created" => $this->settings_rates_created,
-        "settings_rates_datetime" => $this->settings_rates_datetime,
+        "referral_source_name" => $this->referral_source_name,
+        "referral_source_is_active" => $this->referral_source_is_active,
+        "referral_source_create" => $this->referral_source_create,
+        "referral_source_datetime" => $this->referral_source_datetime,
       ]);
       $this->lastInsertedId = $this->connection->lastInsertId();
     } catch (PDOException $ex) {
@@ -65,15 +65,15 @@ class Rates
   public function update()
   {
     try {
-      $sql = "update {$this->tblRates} set ";
-      $sql .= "settings_rates_description = :settings_rates_description, ";
-      $sql .= "settings_rates_datetime = :settings_rates_datetime ";
-      $sql .= "where settings_rates_aid = :settings_rates_aid ";
+      $sql = "update {$this->tblReferralSrc} set ";
+      $sql .= "referral_source_name = :referral_source_name, ";
+      $sql .= "referral_source_datetime = :referral_source_datetime ";
+      $sql .= "where referral_source_aid = :referral_source_aid  ";
       $query = $this->connection->prepare($sql);
       $query->execute([
-        "settings_rates_description" => $this->settings_rates_description,
-        "settings_rates_datetime" => $this->settings_rates_datetime,
-        "settings_rates_aid" => $this->settings_rates_aid,
+        "referral_source_name" => $this->referral_source_name,
+        "referral_source_datetime" => $this->referral_source_datetime,
+        "referral_source_aid" => $this->referral_source_aid,
       ]);
     } catch (PDOException $ex) {
       $query = false;
@@ -84,11 +84,11 @@ class Rates
   public function delete()
   {
     try {
-      $sql = "delete from {$this->tblRates} ";
-      $sql .= "where settings_rates_aid = :settings_rates_aid ";
+      $sql = "delete from {$this->tblReferralSrc} ";
+      $sql .= "where referral_source_aid = :referral_source_aid ";
       $query = $this->connection->prepare($sql);
       $query->execute([
-        "settings_rates_aid" => $this->settings_rates_aid,
+        "referral_source_aid" => $this->referral_source_aid,
       ]);
     } catch (PDOException $ex) {
       $query = false;
@@ -100,15 +100,15 @@ class Rates
   public function active()
     {
     try {
-    $sql = "update {$this->tblRates} set ";
-    $sql .= "settings_rates_is_active = :settings_rates_is_active, ";
-    $sql .= "settings_rates_datetime = :settings_rates_datetime ";
-    $sql .= "where settings_rates_aid = :settings_rates_aid ";
+    $sql = "update {$this->tblReferralSrc} set ";
+    $sql .= "referral_source_is_active = :referral_source_is_active, ";
+    $sql .= "referral_source_datetime = :referral_source_datetime ";
+    $sql .= "where referral_source_aid  = :referral_source_aid ";
     $query = $this->connection->prepare($sql);
     $query->execute([
-    "settings_rates_is_active" => $this->settings_rates_is_active,
-    "settings_rates_datetime" => $this->settings_rates_datetime,
-    "settings_rates_aid" => $this->settings_rates_aid,
+    "referral_source_is_active" => $this->referral_source_is_active,
+    "referral_source_datetime" => $this->referral_source_datetime,
+    "referral_source_aid" => $this->referral_source_aid,
     ]);
     } catch (PDOException $ex) {
     $query = false;

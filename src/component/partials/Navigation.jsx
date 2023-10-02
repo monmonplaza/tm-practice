@@ -83,6 +83,11 @@ const Navigation = ({ menu, submenu }) => {
                     Engagement Category
                   </Link>
                 </li>
+                <li>
+                  <Link to="/settings/activities" className="dropdown__link">
+                    Activities
+                  </Link>
+                </li>
               </ul>
             )}
           </li>
