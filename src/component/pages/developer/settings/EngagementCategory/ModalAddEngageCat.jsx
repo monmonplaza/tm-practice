@@ -10,24 +10,23 @@ import { InputText } from "../../../../helpers/FormInputs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryData } from "../../../../helpers/queryData";
 
-const ModalAddActivities = ({itemEdit}) => {
+const ModalAddEngageCat = ({itemEdit}) => {
   const {store, dispatch} = React.useContext(StoreContext);
   const handleClose = () => dispatch(setIsAdd(false));
   const queryClient = useQueryClient();
-
 
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v1/activities/${itemEdit.settings_activities_aid}`
-          : "/v1/activities",
+          ? `/v1/departments/${itemEdit.department_aid}`
+          : "/v1/departments",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["activities"] });
+      queryClient.invalidateQueries({ queryKey: ["departments"] });
 
       // show error box
       if (!data.success) {
@@ -43,19 +42,14 @@ const ModalAddActivities = ({itemEdit}) => {
 
 //initial value of the form
   const initVal = {
-    settings_activities_aid: itemEdit ? itemEdit.settings_activities_aid : "",
-    settings_activities_name: itemEdit ? itemEdit.settings_activities_name : "",
-    settings_activities_id: itemEdit ? itemEdit.settings_activities_id : "",
-    settings_activities_description: itemEdit ? itemEdit.settings_activities_description : "",
-    settings_activities_invoice_description: itemEdit ? itemEdit.settings_activities_invoice_description : "",
+    engagement_category_aid: itemEdit ? itemEdit.engagement_category_aid : "",
+    engagement_category_name: itemEdit ? itemEdit.engagement_category_name : "",
+    engagement_category_name: itemEdit ? itemEdit.engagement_category_name : "",
   };
 
 //validation of required inputs
   const yupSchema = Yup.object({
-    settings_activities_name: Yup.string().required("Required"),
-    settings_activities_description: Yup.string().required("Required"),
-    settings_activities_id: Yup.string().required("Required"),
-    settings_activities_invoice_description: Yup.string().required("Required"),
+    department_name: Yup.string().required("Required"),
   });
 
   return (
@@ -81,38 +75,30 @@ const ModalAddActivities = ({itemEdit}) => {
         <Form>
           <div className="modal__body min-h-[10vh]">
             <div className="form__wrap">
-              <div className="mb-4 relative">
+            <div className="mb-4 relative">
                 <InputText
-                  label="Activity Name"
+                  label="Engagement Name"
                   type="text"
-                  name="settings_activities_name"
+                  name="settings_activities_description"
                   // disabled={mutation.isLoading}
                 />
-              </div>
-              <div className="mb-4 relative">
-                <InputText
-                  label="Invoice"
-                  type="text"
-                  name="settings_activities_invoice_description"
-                  // disabled={mutation.isLoading}
-                />
-              </div>
-              <div className="mb-4 relative">
+            </div>
+            <div className="mb-4 relative">
                 <InputText
                   label="Description"
                   type="text"
                   name="settings_activities_description"
                   // disabled={mutation.isLoading}
                 />
-              </div>
-              <div className="mb-4 relative">
+            </div>
+            <div className="mb-4 relative">
                 <InputText
-                  label="Activities ID"
+                  label="Invoice"
                   type="text"
-                  name="settings_activities_id"
+                  name="settings_activities_description"
                   // disabled={mutation.isLoading}
                 />
-              </div>
+            </div>
             </div>
           </div>
           <div className="modal__action flex justify-end gap-1">
@@ -132,4 +118,4 @@ const ModalAddActivities = ({itemEdit}) => {
   );
 };
 
-export default ModalAddActivities;
+export default ModalAddEngageCat;

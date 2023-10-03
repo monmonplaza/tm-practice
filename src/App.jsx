@@ -6,6 +6,7 @@ import Department from "./component/pages/developer/settings/Department/Departme
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StoreProvider } from "./store/StoreContext";
 import Activities from "./component/pages/developer/settings/Activities/Activities";
+import EngagementCategory from "./component/pages/developer/settings/EngagementCategory/EngagementCategory";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/settings/ReferralSource" element={<ReferralSource />} />
           <Route path="/settings/Department" element={<Department />} />
           <Route path="/settings/Activities" element={<Activities />} />
+          <Route path="/settings/engagementcategory" element={<EngagementCategory />} />
         </Routes>
       </Router>
       </StoreProvider>
