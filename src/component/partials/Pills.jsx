@@ -1,6 +1,6 @@
 import React from "react";
 
-function Pills({ label = "active", bgc = "bg-green-800" }) {
+function Pills({ label = "active", bgc = "bg-green-" }) {
   return (
     <span
       className={`${bgc} text-[10px]  

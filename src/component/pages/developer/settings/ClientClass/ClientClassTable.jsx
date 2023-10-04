@@ -17,7 +17,7 @@ import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
 import { StoreContext } from "../../../../../store/StoreContext.jsx";
 import { setIsAdd, setIsConfirm, setIsDelete } from "../../../../../store/StoreAction.jsx";
 
-const EngageCatTable = ({ setIsShow, setItemEdit }) => {
+const ClientClassTable = ({ setIsShow, setItemEdit }) => {
 
   const {store , dispatch} = React.useContext(StoreContext);
   const [id, setID] = React.useState("");
@@ -193,4 +193,4 @@ const EngageCatTable = ({ setIsShow, setItemEdit }) => {
   );
 };
 
-export default EngageCatTable;
+export default ClientClassTable;

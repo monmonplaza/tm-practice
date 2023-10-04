@@ -128,7 +128,7 @@ const [data, setData] = React.useState("");
                       {item.settings_activities_is_active === 1 ? (
                         <ul className="flex items-center gap-4">
                           <li className="tooltip" data-tooltip="Edit">
-                            <button onClick={()=>handleEdit(item)}>
+                            <button onClick={()=>handleEdit(item)} >
                               <AiFillEdit />
                             </button>
                           </li>
@@ -187,6 +187,7 @@ const [data, setData] = React.useState("");
           msg="Are you sure you want to delete this role?"
           data={data}
           queryKey={"activities"}
+          
         />
       )}
       

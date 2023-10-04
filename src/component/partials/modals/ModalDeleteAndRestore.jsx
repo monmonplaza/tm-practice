@@ -10,7 +10,7 @@ import { StoreContext } from "../../../store/StoreContext";
 const ModalDeleteAndRestore = ({ setIsDelete, isRestore, data, queryKey , mysqlApiDelete }) => {
   const {store, dispatch} = React.useContext(StoreContext)
 
-const handleClose = () => setIsDelete(false);
+  const handleClose = () => dispatch(setIsDelete(false));
 const queryClient = useQueryClient();
 
 const mutation = useMutation({

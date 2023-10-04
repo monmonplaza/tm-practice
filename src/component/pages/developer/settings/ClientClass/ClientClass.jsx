@@ -4,16 +4,18 @@ import Breadcrumbs from "../../../../partials/Breadcrumbs";
 import Navigation from "../../../../partials/Navigation";
 import Toast from "../../../../partials/Toast";
 import ModalError from "../../../../partials/modals/ModalError";
-import DepartmentTable from "./EngageCatTable";
-import ModalAddDepartment from "./ModalAddEngageCat";
+import DepartmentTable from "./ClientClassTable";
+import ModalAddDepartment from "./ModalAddClientClass";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { setIsAdd } from "../../../../../store/StoreAction";
 import ModalValidate from "../../../../partials/modals/ModalValidate";
-import EngageCatTable from "./EngageCatTable";
-import ModalAddEngageCat from "./ModalAddEngageCat";
+import EngageCatTable from "./ClientClassTable";
+import ModalAddEngageCat from "./ModalAddClientClass";
 import ModalSuccess from "../../../../partials/modals/ModalSuccess";
+import ClientClassTable from "./ClientClassTable";
+import ModalAddClientClass from "./ModalAddClientClass";
 
-const EngagementCategory = () => {
+const ClientClass = () => {
 
   const {store, dispatch} = React.useContext(StoreContext);
   
@@ -36,16 +38,16 @@ const EngagementCategory = () => {
         <main className="px-4 lg:pr-10 overflow-hidden  ">
           <Breadcrumbs thePageTitle="Department" />
           <div className="flex justify-between items-center my-5">
-            <h1>Engagement Category</h1>
+            <h1>Client Class</h1>
             <button className="btn btn--acent btn--sm" onClick={handleAddEngageCateg}>
               Add
             </button>
           </div>
-          <EngageCatTable setItemEdit={setItemEdit}/>
+          <ClientClassTable setItemEdit={setItemEdit}/>
         </main>
       </section>
       {store.isAdd && (
-        <ModalAddEngageCat itemEdit={itemEdit}/>
+        <ModalAddClientClass itemEdit={itemEdit}/>
       )}
       {store.isSuccess && <Toast setSuccess={setSuccess} />}
       {store.success && <ModalSuccess />}
@@ -54,4 +56,4 @@ const EngagementCategory = () => {
   );
 };
 
-export default EngagementCategory;
+export default ClientClass;

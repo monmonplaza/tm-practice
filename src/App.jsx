@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StoreProvider } from "./store/StoreContext";
 import Activities from "./component/pages/developer/settings/Activities/Activities";
 import EngagementCategory from "./component/pages/developer/settings/EngagementCategory/EngagementCategory";
+import ClientClass from "./component/pages/developer/settings/ClientClass/ClientClass";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/settings/Department" element={<Department />} />
           <Route path="/settings/Activities" element={<Activities />} />
           <Route path="/settings/engagementcategory" element={<EngagementCategory />} />
+          <Route path="/settings/clientclass" element={<ClientClass />} />
         </Routes>
       </Router>
       </StoreProvider>

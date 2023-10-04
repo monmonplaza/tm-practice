@@ -14,8 +14,19 @@ import Loadmore from "../../../../partials/Loadmore.jsx";
 import SearchBar from "../../../../partials/Searchbar.jsx";
 import ServerError from "../../../../partials/ServerError.jsx";
 import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
+import { StoreContext } from "../../../../../store/StoreContext.jsx";
+import { setIsAdd, setIsConfirm, setIsDelete } from "../../../../../store/StoreAction.jsx";
 
 const DepartmentTable = ({ setIsShow, setItemEdit }) => {
+
+const {store, dispatch} = React.useContext(StoreContext);
+
+
+const [id, setId] = React.useState("");
+
+const [isActive, setIsActive] = React.useState(false);
+
+const [data, setData] = React.useState("");
   
   let counter = 1;
 
@@ -30,7 +41,36 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
     "departments" // key
   );
 
-  console.log(departments)
+  
+  
+  const handleEdit = (item) => {
+    dispatch(setIsAdd(true));
+    setItemEdit(item);
+  };
+
+
+  const handleArchive = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.department_aid);
+    setData(item);
+    setIsActive(true)
+  };
+
+  const handleRestore = (item) => {
+    dispatch(setIsConfirm(true));
+    setId(item.department_aid);
+    setData(item);
+    setIsActive(false)
+  };
+
+  const handleDelete = (item) => {
+    dispatch(setIsDelete(true));
+    setId(item.department_aid);
+    setData(item);
+  };
+
+
+
 
 
   return (
@@ -86,7 +126,7 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
                       {item.department_is_active === 1 ? (
                         <ul className="flex items-center gap-4">
                           <li className="tooltip" data-tooltip="Edit">
-                            <button>
+                            <button onClick={()=>handleEdit(item)}>
                               <AiFillEdit />
                             </button>
                           </li>
@@ -94,7 +134,7 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
                             className="tooltip"
                             data-tooltip="Archive"
                           >
-                            <button>
+                            <button onClick={()=>handleArchive(item)}>
                               <BsArchiveFill />
                             </button>
                           </li>
@@ -105,7 +145,7 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
                             className="tooltip"
                             data-tooltip="Delete"
                           >
-                            <button>
+                            <button onClick={()=>handleDelete(item)}>
                               <BsFillTrashFill />
                             </button>
                           </li>
@@ -113,7 +153,7 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
                             className="tooltip"
                             data-tooltip="Restore"
                           >
-                            <button>
+                            <button onClick={()=>handleRestore(item)}>
                               <FaTrashRestoreAlt />
                             </button>
                           </li>
@@ -129,6 +169,25 @@ const DepartmentTable = ({ setIsShow, setItemEdit }) => {
         </>
       )}
       <Footer/>
+
+      {store.isConfirm && 
+      (<ModalConfirm 
+        isActive = {isActive} 
+        data={data} 
+        mysqlApiArchive = {`/v1/departments/active/${id}`}  
+        queryKey = "departments"/> 
+      )}
+
+      {store.isDelete && (
+        <ModalDeleteAndRestore
+          setIsDelete={setIsDelete}
+          mysqlApiDelete={`/v1/departments?departmentid=${id}`}
+          msg="Are you sure you want to delete this role?"
+          data={data}
+          queryKey={"departments"}
+        />
+      )}
+
     </div>
   );
 };

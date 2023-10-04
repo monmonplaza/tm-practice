@@ -16,7 +16,7 @@ const Department = () => {
   
   const handleAddDepartment = () => dispatch(setIsAdd(true));
 
-  const [itemEdit, setItemEdit] = useState([]);
+  const [itemEdit, setItemEdit] = useState(null);
 
 
 
@@ -36,11 +36,11 @@ const Department = () => {
               Add
             </button>
           </div>
-          <DepartmentTable />
+          <DepartmentTable setItemEdit={setItemEdit} />
         </main>
       </section>
       {store.isAdd && (
-        <ModalAddDepartment/>
+        <ModalAddDepartment itemEdit={itemEdit} />
       )}
       {store.isSuccess && <Toast setSuccess={setSuccess} />}
 

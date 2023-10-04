@@ -88,6 +88,11 @@ const Navigation = ({ menu, submenu }) => {
                     Activities
                   </Link>
                 </li>
+                <li>
+                  <Link to="/settings/clientclass" className="dropdown__link">
+                    Client Class
+                  </Link>
+                </li>
               </ul>
             )}
           </li>

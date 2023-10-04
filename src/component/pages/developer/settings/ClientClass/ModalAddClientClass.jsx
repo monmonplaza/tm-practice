@@ -10,7 +10,7 @@ import { InputText } from "../../../../helpers/FormInputs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryData } from "../../../../helpers/queryData";
 
-const ModalAddEngageCat = ({itemEdit}) => {
+const ModalAddClientClass = ({itemEdit}) => {
   const {store, dispatch} = React.useContext(StoreContext);
   const handleClose = () => dispatch(setIsAdd(false));
 
@@ -123,4 +123,4 @@ const ModalAddEngageCat = ({itemEdit}) => {
   );
 };
 
-export default ModalAddEngageCat;
+export default ModalAddClientClass;
