@@ -125,6 +125,7 @@
 }
 
 @layer components {
+
   .dropdown__link {
     @apply text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1;
   }

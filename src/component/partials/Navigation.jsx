@@ -93,6 +93,21 @@ const Navigation = ({ menu, submenu }) => {
                     Client Class
                   </Link>
                 </li>
+                <li>
+                  <Link to="/settings/offices" className="dropdown__link">
+                    Offices
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/settings/rates" className="dropdown__link">
+                    Rates
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/settings/referraltype" className="dropdown__link">
+                    Referral Type
+                  </Link>
+                </li>
               </ul>
             )}
           </li>

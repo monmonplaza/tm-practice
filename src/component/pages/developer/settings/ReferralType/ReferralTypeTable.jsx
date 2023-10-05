@@ -17,7 +17,7 @@ import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
 import { StoreContext } from "../../../../../store/StoreContext.jsx";
 import { setIsAdd, setIsConfirm, setIsDelete } from "../../../../../store/StoreAction.jsx";
 
-const ClientClassTable = ({ setIsShow, setItemEdit }) => {
+const ReferralTypeTable = ({ setIsShow, setItemEdit }) => {
 
   const {store , dispatch} = React.useContext(StoreContext);
   const [id, setID] = React.useState("");
@@ -32,11 +32,11 @@ const ClientClassTable = ({ setIsShow, setItemEdit }) => {
     isLoading,
     isFetching,
     error,
-    data: clientClass,
+    data: referraltype,
   } = useQueryData(
-    "/v1/clientClass", // endpoint
+    "/v1/referral-type", // endpoint
     "get", // method
-    "clientClass" // key
+    "referraltype" // key
   );
 
 
@@ -48,21 +48,21 @@ const ClientClassTable = ({ setIsShow, setItemEdit }) => {
 
   const handleDelete = (item) => {
     dispatch(setIsDelete(true));
-    setID(item.client_class_aid);
+    setID(item.referral_type_aid);
     setData(item);
   };
 
   
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setID(item.client_class_aid);
+    setID(item.referral_type_aid);
     setData(item);
     setIsActive(true)
   };
 
   const handleRestore = (item) => {
     dispatch(setIsConfirm(true));
-    setID(item.client_class_aid);
+    setID(item.referral_type_aid);
     setData(item);
     setIsActive(false)
   };
@@ -88,7 +88,7 @@ const ClientClassTable = ({ setIsShow, setItemEdit }) => {
               </thead>
               <tbody>
                 {isLoading ||
-                  (clientClass?.data.length === 0 && (
+                  (referraltype?.data.length === 0 && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         {isLoading ? (
@@ -105,22 +105,22 @@ const ClientClassTable = ({ setIsShow, setItemEdit }) => {
                   </td>
                 </tr> */}
 
-                {clientClass?.data.map((item, key) => {
+                {referraltype?.data.map((item, key) => {
                   
                   return (
 
                   <tr key={key}>
                     <td>{counter++}</td>
-                    <td>{item.client_class_name}</td>
+                    <td>{item.referral_type_name}</td>
                     <td  className="text-center">
-                      {item.client_class_is_active === 1 ? (
+                      {item.referral_type_is_active === 1 ? (
                         <Pills label="Active" bgc="bg-green-800" />
                       ) : (
                         <Pills label="Inactive" bgc="bg-gray-500" />
                       )}
                     </td>
                     <td className="table__action">
-                      {item.client_class_is_active === 1 ? (
+                      {item.referral_type_is_active === 1 ? (
                         <ul className="flex items-center gap-4">
                           <li className="tooltip" data-tooltip="Edit">
                             <button onClick={()=>handleEdit(item)}>
@@ -172,17 +172,17 @@ const ClientClassTable = ({ setIsShow, setItemEdit }) => {
       (<ModalConfirm 
         isActive = {isActive} 
         data={data} 
-        mysqlApiArchive = {`/v1/clientClass/active/${id}`}  
-        queryKey = "clientClass"/> 
+        mysqlApiArchive = {`/v1/referral-type/active/${id}`}  
+        queryKey = "referraltype"/> 
       )}
 
       {store.isDelete && (
         <ModalDeleteAndRestore
           setIsDelete={setIsDelete}
-          mysqlApiDelete={`/v1/clientClass?clientclassid=${id}`}
+          mysqlApiDelete={`/v1/referral-type?reftypeid=${id}`}
           msg="Are you sure you want to delete this role?"
           data={data}
-          queryKey={"clientClass"}
+          queryKey={"referraltype"}
           
         />
       )}
@@ -190,4 +190,4 @@ const ClientClassTable = ({ setIsShow, setItemEdit }) => {
   );
 };
 
-export default ClientClassTable;
+export default ReferralTypeTable;

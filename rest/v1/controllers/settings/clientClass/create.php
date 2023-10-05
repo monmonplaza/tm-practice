@@ -5,7 +5,7 @@ $conn = checkDbConnection();
 // make instance of classes
 $clientClass = new ClientClass($conn);
 // get should not be present
-if (array_key_exists("empid", $_GET)) {
+if (array_key_exists("clientclassid", $_GET)) {
     checkEndpoint();
 }
 // check data

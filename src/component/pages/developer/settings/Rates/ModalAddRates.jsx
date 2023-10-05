@@ -10,7 +10,7 @@ import { InputText } from "../../../../helpers/FormInputs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { queryData } from "../../../../helpers/queryData";
 
-const ModalAddClientClass = ({itemEdit}) => {
+const ModalAddRates = ({itemEdit}) => {
   const {store, dispatch} = React.useContext(StoreContext);
   const handleClose = () => dispatch(setIsAdd(false));
 
@@ -21,14 +21,14 @@ const ModalAddClientClass = ({itemEdit}) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v1/clientClass/${itemEdit.client_class_aid}`
-          : "/v1/clientClass",
+          ? `/v1/rates/${itemEdit.settings_rates_aid}`
+          : "/v1/rates",
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["clientClass"] });
+      queryClient.invalidateQueries({ queryKey: ["rates"] });
 
       // show error box
       if (!data.success) {
@@ -44,13 +44,13 @@ const ModalAddClientClass = ({itemEdit}) => {
 
 //initial value of the form
   const initVal = {
-    client_class_aid : itemEdit ? itemEdit.client_class_aid : "",
-    client_class_name: itemEdit ? itemEdit.client_class_name : "",
+    settings_rates_aid : itemEdit ? itemEdit.settings_rates_aid : "",
+    settings_rates_description: itemEdit ? itemEdit.settings_rates_description : "",
   };
 
 //validation of required inputs
   const yupSchema = Yup.object({
-    client_class_name: Yup.string().required("Required"),
+    settings_rates_description: Yup.string().required("Required"),
   });
 
   return (
@@ -78,9 +78,9 @@ const ModalAddClientClass = ({itemEdit}) => {
             <div className="form__wrap">
             <div className="mb-4 relative">
                 <InputText
-                  label="Client Class Name"
+                  label="Rates Description"
                   type="text"
-                  name="client_class_name"
+                  name="settings_rates_description"
                   // disabled={mutation.isLoading}
                 />
             </div>
@@ -103,4 +103,4 @@ const ModalAddClientClass = ({itemEdit}) => {
   );
 };
 
-export default ModalAddClientClass;
+export default ModalAddRates;

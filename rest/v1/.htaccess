@@ -70,3 +70,23 @@ RewriteRule ^referralsource/active/([0-9]+)$ controllers/settings/referralsource
 RewriteRule ^engagement-category$ controllers/settings/engagementcategory/engagementcategory.php [L]
 RewriteRule ^engagement-category/([0-9]+)$ controllers/settings/engagementcategory/engagementcategory.php?engagecategid=$1 [L]
 RewriteRule ^engagement-category/active/([0-9]+)$ controllers/settings/engagementcategory/active.php?engagecategid=$1 [L]
+
+#clientClass
+RewriteRule ^clientClass$ controllers/settings/clientclass/clientclass.php [L]
+RewriteRule ^clientClass/([0-9]+)$ controllers/settings/clientclass/clientclass.php?clientclassid=$1 [L]
+RewriteRule ^clientClass/active/([0-9]+)$ controllers/settings/clientclass/active.php?clientclassid=$1 [L]
+
+#offices
+RewriteRule ^offices$ controllers/settings/offices/offices.php [L]
+RewriteRule ^offices/([0-9]+)$ controllers/settings/offices/offices.php?officeid=$1 [L]
+RewriteRule ^offices/active/([0-9]+)$ controllers/settings/offices/active.php?officeid=$1 [L]
+
+#rates
+RewriteRule ^rates$ controllers/settings/rates/rates.php [L]
+RewriteRule ^rates/([0-9]+)$ controllers/settings/rates/rates.php?ratesid=$1 [L]
+RewriteRule ^rates/active/([0-9]+)$ controllers/settings/rates/active.php?ratesid=$1 [L]
+
+#referralType
+RewriteRule ^referral-type$ controllers/settings/referaltype/referaltype.php [L]
+RewriteRule ^referral-type/([0-9]+)$ controllers/settings/referaltype/referaltype.php?reftypeid=$1 [L]
+RewriteRule ^referral-type/active/([0-9]+)$ controllers/settings/referaltype/active.php?reftypeid=$1 [L]

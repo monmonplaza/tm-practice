@@ -8,6 +8,9 @@ import { StoreProvider } from "./store/StoreContext";
 import Activities from "./component/pages/developer/settings/Activities/Activities";
 import EngagementCategory from "./component/pages/developer/settings/EngagementCategory/EngagementCategory";
 import ClientClass from "./component/pages/developer/settings/ClientClass/ClientClass";
+import Offices from "./component/pages/developer/settings/Offices/Offices";
+import Rates from "./component/pages/developer/settings/Rates/Rates";
+import ReferralType from "./component/pages/developer/settings/ReferralType/ReferralType";
 
 
 function App() {
@@ -24,6 +27,9 @@ function App() {
           <Route path="/settings/Activities" element={<Activities />} />
           <Route path="/settings/engagementcategory" element={<EngagementCategory />} />
           <Route path="/settings/clientclass" element={<ClientClass />} />
+          <Route path="/settings/offices" element={<Offices />} />
+          <Route path="/settings/rates" element={<Rates />} />
+          <Route path="/settings/referraltype" element={<ReferralType />} />
         </Routes>
       </Router>
       </StoreProvider>

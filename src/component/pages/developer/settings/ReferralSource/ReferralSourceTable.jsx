@@ -3,7 +3,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsArchiveFill } from "react-icons/bs";
 import { BsFillTrashFill } from "react-icons/bs";
 import { FaSearch, FaTrashRestoreAlt } from "react-icons/fa";
-import { referralSource } from "./data.js";
+import { department } from "./data.js";
 import Pills from "../../../../partials/Pills.jsx";
 import TableLoading from "../../../../partials/TableLoading.jsx";
 import ModalConfirm from "../../../../partials/modals/ModalConfirm.jsx";
@@ -13,69 +13,82 @@ import Nodata from "../../../../partials/Nodata.jsx";
 import Loadmore from "../../../../partials/Loadmore.jsx";
 import SearchBar from "../../../../partials/Searchbar.jsx";
 import ServerError from "../../../../partials/ServerError.jsx";
+import useQueryData from "../../../../custom-hooks/useQueryData.jsx";
+import { StoreContext } from "../../../../../store/StoreContext.jsx";
+import { setIsAdd, setIsConfirm, setIsDelete } from "../../../../../store/StoreAction.jsx";
 
 const ReferralSourceTable = ({ setIsShow, setItemEdit }) => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isArchive, setIsArchive] = React.useState(false);
-  const [isDelete, setIsDelete] = React.useState(false);
-  const [isRestore, setIsRestore] = React.useState(false);
-  const [item, setItem] = React.useState([]);
 
-  const handleArchive = (item) => {
-    setItem(item);
-    setIsArchive(true);
-  };
-  const handleDelete = (item) => {
-    setItem(item);
-    setIsDelete(true);
-    setIsRestore(false);
-  };
-  const handleRestore = (item) => {
-    setItem(item);
-    setIsDelete(true);
-    setIsRestore(true);
-  };
-  const activeRoles = referralSource.filter((item) => {
-    return item.status === 1;
-  });
-  const inActiveRoles = referralSource.filter((item) => {
-    return item.status === 0;
-  });
+  const {store , dispatch} = React.useContext(StoreContext);
+  const [id, setID] = React.useState("");
 
+
+  const [isActive, setIsActive] = React.useState(false);
+  const [data , setData] = React.useState("")
+  
+  let counter = 1;
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    data: referralsource,
+  } = useQueryData(
+    "/v1/referralsource", // endpoint
+    "get", // method
+    "referralsource" // key
+  );
+
+
+    
   const handleEdit = (item) => {
+    dispatch(setIsAdd(true));
     setItemEdit(item);
-    setIsShow(true);
   };
 
-  React.useEffect(() => {
-    function loadData() {
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
-    }
-    loadData();
-  }, []);
+  const handleDelete = (item) => {
+    dispatch(setIsDelete(true));
+    setID(item.referral_source_aid);
+    setData(item);
+  };
+
+  
+  const handleArchive = (item) => {
+    dispatch(setIsConfirm(true));
+    setID(item.referral_source_aid);
+    setData(item);
+    setIsActive(true)
+  };
+
+  const handleRestore = (item) => {
+    dispatch(setIsConfirm(true));
+    setID(item.referral_source_aid);
+    setData(item);
+    setIsActive(false)
+  };
+
+
+
+
   return (
     <div>
       {isLoading ? (
         <TableLoading count={15} cols={3} />
       ) : (
         <>
-          <SearchBar />
           <div className="overflow-x-auto table__wrapper">
             <table>
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Description</th>
-                  <th>Status</th>
+                  <th>Name</th>
+                  <th className="text-center">Status</th>
                   <th className="action"></th>
                 </tr>
               </thead>
               <tbody>
                 {isLoading ||
-                  (referralSource.length === 0 && (
+                  (referralsource?.data.length === 0 && (
                     <tr className="text-center ">
                       <td colSpan="100%" className="p-10">
                         {isLoading ? (
@@ -92,31 +105,33 @@ const ReferralSourceTable = ({ setIsShow, setItemEdit }) => {
                   </td>
                 </tr> */}
 
-                {referralSource.map((item, key) => (
+                {referralsource?.data.map((item, key) => {
+                  
+                  return (
+
                   <tr key={key}>
-                    <td>{item.id}</td>
-                    <td>{item.description}</td>
-                    <td>
-                      {item.status === 1 ? (
+                    <td>{counter++}</td>
+                    <td>{item.referral_source_name}</td>
+                    <td  className="text-center">
+                      {item.referral_source_is_active === 1 ? (
                         <Pills label="Active" bgc="bg-green-800" />
                       ) : (
                         <Pills label="Inactive" bgc="bg-gray-500" />
                       )}
                     </td>
                     <td className="table__action">
-                      {item.status === 1 ? (
+                      {item.referral_source_is_active === 1 ? (
                         <ul className="flex items-center gap-4">
                           <li className="tooltip" data-tooltip="Edit">
-                            <button onClick={() => handleEdit(item)}>
+                            <button onClick={()=>handleEdit(item)}>
                               <AiFillEdit />
                             </button>
                           </li>
                           <li
                             className="tooltip"
                             data-tooltip="Archive"
-                            onClick={() => handleArchive(item)}
                           >
-                            <button>
+                            <button onClick={()=>handleArchive(item)}>
                               <BsArchiveFill />
                             </button>
                           </li>
@@ -126,18 +141,16 @@ const ReferralSourceTable = ({ setIsShow, setItemEdit }) => {
                           <li
                             className="tooltip"
                             data-tooltip="Delete"
-                            onClick={() => handleDelete(item)}
                           >
-                            <button>
+                            <button onClick={()=>handleDelete(item)}>
                               <BsFillTrashFill />
                             </button>
                           </li>
                           <li
                             className="tooltip"
                             data-tooltip="Restore"
-                            onClick={() => handleRestore(item)}
                           >
-                            <button>
+                            <button onClick={()=>handleRestore(item)}>
                               <FaTrashRestoreAlt />
                             </button>
                           </li>
@@ -145,24 +158,32 @@ const ReferralSourceTable = ({ setIsShow, setItemEdit }) => {
                       )}
                     </td>
                   </tr>
-                ))}
+                )})}
               </tbody>
             </table>
             <Loadmore />
           </div>
         </>
       )}
-      <Footer
-        record={referralSource.length}
-        active={activeRoles.length}
-        inactive={inActiveRoles.length}
-      />
-      {isArchive && <ModalConfirm setIsArchive={setIsArchive} item={item} />}
-      {isDelete && (
+      <Footer/>
+
+      
+      {store.isConfirm && 
+      (<ModalConfirm 
+        isActive = {isActive} 
+        data={data} 
+        mysqlApiArchive = {`/v1/referralsource/active/${id}`}  
+        queryKey = "referralsource"/> 
+      )}
+
+      {store.isDelete && (
         <ModalDeleteAndRestore
           setIsDelete={setIsDelete}
-          item={item}
-          isRestore={isRestore}
+          mysqlApiDelete={`/v1/referralsource?referralsourceid=${id}`}
+          msg="Are you sure you want to delete this role?"
+          data={data}
+          queryKey={"referralsource"}
+          
         />
       )}
     </div>

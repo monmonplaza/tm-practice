@@ -22,7 +22,7 @@ const ClientClass = () => {
   const [itemEdit, setItemEdit] = useState([]);
 
 
-  const handleAddEngageCateg = () => {
+  const handleAddClientClass = () => {
     setItemEdit(null)
     dispatch(setIsAdd(true)
  )};
@@ -39,7 +39,7 @@ const ClientClass = () => {
           <Breadcrumbs thePageTitle="Department" />
           <div className="flex justify-between items-center my-5">
             <h1>Client Class</h1>
-            <button className="btn btn--acent btn--sm" onClick={handleAddEngageCateg}>
+            <button className="btn btn--acent btn--sm" onClick={handleAddClientClass}>
               Add
             </button>
           </div>

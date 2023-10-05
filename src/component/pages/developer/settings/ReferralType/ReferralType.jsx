@@ -4,27 +4,29 @@ import Breadcrumbs from "../../../../partials/Breadcrumbs";
 import Navigation from "../../../../partials/Navigation";
 import Toast from "../../../../partials/Toast";
 import ModalError from "../../../../partials/modals/ModalError";
-import DepartmentTable from "./ReferralSourceTable";
-import ModalAddDepartment from "./ModalAddReferralSource";
+import DepartmentTable from "./ReferralTypeTable";
+import ModalAddDepartment from "./ModalAddReferralType";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { setIsAdd } from "../../../../../store/StoreAction";
 import ModalValidate from "../../../../partials/modals/ModalValidate";
-import EngageCatTable from "./ReferralSourceTable";
-import ModalAddEngageCat from "./ModalAddReferralSource";
+import EngageCatTable from "./ReferralTypeTable";
+import ModalAddEngageCat from "./ModalAddReferralType";
 import ModalSuccess from "../../../../partials/modals/ModalSuccess";
-import ClientClassTable from "./ReferralSourceTable";
-import ModalAddClientClass from "./ModalAddReferralSource";
-import ReferralSourceTable from "./ReferralSourceTable";
-import ModalAddReferralSource from "./ModalAddReferralSource";
+import ClientClassTable from "./ReferralTypeTable";
+import ModalAddClientClass from "./ModalAddReferralType";
+import ReferralSourceTable from "./ReferralTypeTable";
+import ModalAddReferralSource from "./ModalAddReferralType";
+import ReferralTypeTable from "./ReferralTypeTable";
+import ModalAddReferralType from "./ModalAddReferralType";
 
-const ReferralSource = () => {
+const ReferralType = () => {
 
   const {store, dispatch} = React.useContext(StoreContext);
   
   const [itemEdit, setItemEdit] = useState([]);
 
 
-  const handleAddClientClass = () => {
+  const handleAddReferralType = () => {
     setItemEdit(null)
     dispatch(setIsAdd(true)
  )};
@@ -40,16 +42,16 @@ const ReferralSource = () => {
         <main className="px-4 lg:pr-10 overflow-hidden  ">
           <Breadcrumbs thePageTitle="Department" />
           <div className="flex justify-between items-center my-5">
-            <h1>Refferral Source</h1>
-            <button className="btn btn--acent btn--sm" onClick={handleAddClientClass}>
+            <h1>Referral Type</h1>
+            <button className="btn btn--acent btn--sm" onClick={handleAddReferralType}>
               Add
             </button>
           </div>
-          <ReferralSourceTable setItemEdit={setItemEdit}/>
+          <ReferralTypeTable setItemEdit={setItemEdit}/>
         </main>
       </section>
       {store.isAdd && (
-        <ModalAddReferralSource itemEdit={itemEdit}/>
+        <ModalAddReferralType itemEdit={itemEdit}/>
       )}
       {store.isSuccess && <Toast setSuccess={setSuccess} />}
       {store.success && <ModalSuccess />}
@@ -58,4 +60,4 @@ const ReferralSource = () => {
   );
 };
 
-export default ReferralSource;
+export default ReferralType;
