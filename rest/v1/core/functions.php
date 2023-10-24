@@ -172,7 +172,7 @@ function checkLogin($object)
     }
     return $query;
 }
- 
+
 
 // Read
 function checkReadQuery($query, $total_result, $object_total, $object_start)
