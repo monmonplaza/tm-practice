@@ -41,8 +41,8 @@ export const getUrlParam = () => {
 };
 
 // storage after login
-export function setStorageRoute(jwt) {
-  localStorage.setItem("tmv1token", JSON.stringify({ token: jwt }));
+export function setStorageRoute(jwt, isDev) {
+  localStorage.setItem("tmv1token", JSON.stringify({ token: jwt, isDev }));
 }
 
 // formatting date
